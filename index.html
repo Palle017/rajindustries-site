@@ -159,6 +159,29 @@
   .chat-gate-msg { color:var(--muted); }
   .chat-gate-msg:empty { display:none; }
 
+  /* chat launcher — reopens the existing gated tardbot panel */
+  .chat-launcher {
+    position:fixed; right:1.5rem; bottom:1.5rem;
+    z-index:39; min-height:44px; cursor:pointer;
+    animation:chat-launcher-in .4s ease .3s both;
+  }
+  .chat-launcher:hover, .chat-launcher:focus-visible {
+    border-color:var(--accent); outline:2px solid var(--accent); outline-offset:2px;
+  }
+  @keyframes chat-launcher-in {
+    from { opacity:0; transform:translateY(10px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+  @media (max-width:640px) {
+    .chat-launcher {
+      right:max(1rem, env(safe-area-inset-right));
+      bottom:max(1rem, env(safe-area-inset-bottom));
+    }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    .chat-launcher { animation:none; }
+  }
+
   /* both-hands app overlay */
   .app-overlay {
     position:fixed; inset:0; z-index:60;
@@ -290,6 +313,10 @@
   </div>
 </div>
 
+<button type="button" class="term chat-launcher" id="chatLauncher" aria-label="Open chat with tardbot" aria-haspopup="dialog" aria-controls="chatPanel">
+  <span class="prompt">&gt;</span><span class="cmd">ask tardbot</span><span class="caret"></span>
+</button>
+
 <div class="chat-backdrop" id="chatBackdrop" hidden></div>
 <section class="chat-panel" id="chatPanel" role="dialog" aria-modal="true" aria-label="Chat with tardbot" aria-hidden="true" hidden>
   <div class="chat-head">
@@ -320,6 +347,7 @@
   var panel = document.getElementById('chatPanel');
   var backdrop = document.getElementById('chatBackdrop');
   var closeBtn = document.getElementById('chatClose');
+  var launcher = document.getElementById('chatLauncher');
   var log = document.getElementById('chatLog');
   var form = document.getElementById('chatForm');
   var input = document.getElementById('chatInput');
@@ -536,6 +564,7 @@
   }
 
   closeBtn.addEventListener('click', closeChat);
+  launcher.addEventListener('click', openChat);
 
   inspired.addEventListener('click', openApp);
   appClose.addEventListener('click', closeApp);

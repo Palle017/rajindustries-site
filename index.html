@@ -58,19 +58,93 @@
   @keyframes blink { 50% { opacity:0; } }
   @media (prefers-reduced-motion:reduce) { .caret { animation:none; } }
 
-  .dedication {
-    display:block; max-width:26rem; margin:4.5rem auto 0;
-    padding:1.15rem 1.6rem;
-    font-family:var(--font-body); font-size:.95rem; line-height:1.5;
-    color:var(--muted); text-align:center;
-    background:transparent; border:1px solid var(--border); border-radius:3px;
-    cursor:pointer; transition:border-color .25s, color .25s, background .25s;
+  .product { margin:3.5rem auto 0; max-width:26rem; text-align:center; }
+  .product-name {
+    font-family:var(--font-display); font-weight:400;
+    font-size:clamp(1.4rem,5vw,2rem); letter-spacing:.04em;
+    text-transform:uppercase; color:var(--text);
   }
-  .dedication:hover, .dedication:focus-visible {
-    color:var(--text); border-color:var(--fire);
-    background:rgba(255,106,26,.06); outline:none;
+  .product-tag { margin:.5rem 0 1.15rem; font-size:.95rem; color:var(--muted); }
+
+  .inspired {
+    display:block; margin:3rem auto 0; padding:.5rem 1rem;
+    background:none; border:none;
+    font-family:var(--font-body); font-size:.85rem; color:var(--muted);
+    text-align:center; cursor:pointer; transition:color .2s;
   }
-  .dedication .name { color:var(--fire); }
+  .inspired:hover, .inspired:focus-visible {
+    color:var(--text); outline:1px dashed var(--faint); outline-offset:4px;
+  }
+  .inspired .name { color:var(--fire); }
+
+  .chat-backdrop {
+    position:fixed; inset:0; background:rgba(0,0,0,.45);
+    z-index:40; opacity:0; transition:opacity .2s ease;
+  }
+  .chat-backdrop.is-open { opacity:1; }
+
+  .chat-panel {
+    position:fixed; right:1.5rem; bottom:1.5rem;
+    width:min(420px,92vw); height:60vh; max-height:640px;
+    display:flex; flex-direction:column;
+    background:var(--surface); border:1px solid var(--border); border-radius:6px;
+    font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    font-size:.88rem; color:var(--text);
+    z-index:41; overflow:hidden;
+    opacity:0; transform:translateY(12px);
+    transition:opacity .2s ease, transform .2s ease;
+    box-shadow:0 10px 40px rgba(0,0,0,.5);
+  }
+  .chat-panel.is-open { opacity:1; transform:translateY(0); }
+
+  @media (max-width:640px) {
+    .chat-panel {
+      right:0; left:0; bottom:0; width:100%; height:70vh; max-height:none;
+      border-radius:6px 6px 0 0; border-left:none; border-right:none; border-bottom:none;
+    }
+  }
+
+  @media (prefers-reduced-motion:reduce) {
+    .chat-panel, .chat-backdrop { transition:none; }
+  }
+
+  .chat-head {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:.7rem .9rem; border-bottom:1px solid var(--border);
+    color:var(--accent); font-size:.85rem; flex-shrink:0;
+  }
+  .chat-close {
+    background:none; border:none; color:var(--muted); cursor:pointer;
+    font-family:inherit; font-size:1rem; line-height:1; padding:.2rem .4rem;
+  }
+  .chat-close:hover, .chat-close:focus-visible { color:var(--fire); outline:none; }
+
+  .chat-log { flex:1 1 auto; overflow-y:auto; padding:.8rem .9rem; }
+  .chat-msg { margin:0 0 .65rem; white-space:pre-wrap; word-break:break-word; }
+  .chat-msg .who { margin-right:.5ch; }
+  .chat-msg--user .who { color:var(--fire); }
+  .chat-msg--bot .who { color:var(--accent); }
+  .chat-msg--system { color:var(--muted); }
+  .chat-typing { color:var(--muted); }
+
+  .chat-row {
+    display:flex; align-items:center; gap:.5ch;
+    padding:.7rem .9rem; border-top:1px solid var(--border); flex-shrink:0;
+  }
+  .chat-prompt { color:var(--fire); }
+  .chat-input {
+    flex:1 1 auto; background:transparent; border:none; color:var(--text);
+    font-family:inherit; font-size:inherit; outline:none; min-width:0;
+  }
+  .chat-input::placeholder { color:var(--faint); }
+  .chat-input:disabled { color:var(--faint); }
+  .chat-send {
+    background:none; border:1px solid var(--border); color:var(--muted);
+    font-family:inherit; font-size:.8rem; padding:.3rem .6rem; border-radius:3px;
+    cursor:pointer;
+  }
+  .chat-send:hover, .chat-send:focus-visible { border-color:var(--accent); color:var(--text); outline:none; }
+  .chat-send:disabled { opacity:.5; cursor:not-allowed; }
 </style>
 </head>
 <body>
@@ -82,10 +156,180 @@
     <span class="prompt">&gt;</span><span class="cmd">open</span><span class="host">fixingfortmyers.com</span><span class="caret"></span>
   </a>
 
-  <a class="dedication" href="https://manasa.fixingfortmyers.com">
-    For <span class="name">Manasa</span>, my best friend and greatest inspiration
-  </a>
+  <div class="product">
+    <div class="product-name">Maanster</div>
+    <p class="product-tag">Raj Industries&rsquo; first product &mdash; a place on the map for every photograph you love.</p>
+    <a class="term" href="https://both-hands.prudhvi-tools.workers.dev">
+      <span class="prompt">&gt;</span><span class="cmd">open</span><span class="host">maanster</span><span class="cmd">--demo</span><span class="caret"></span>
+    </a>
+  </div>
+
+  <button class="inspired" id="inspired" aria-haspopup="dialog" aria-expanded="false" aria-controls="chatPanel">
+    inspired by <span class="name">Maanster</span>
+  </button>
 </main>
+
+<div class="chat-backdrop" id="chatBackdrop" hidden></div>
+<section class="chat-panel" id="chatPanel" role="dialog" aria-modal="true" aria-label="Chat with tardbot" aria-hidden="true" hidden>
+  <div class="chat-head">
+    <span>tardbot @ raj.industries<span class="caret"></span></span>
+    <button class="chat-close" id="chatClose" aria-label="Close chat">&#10005;</button>
+  </div>
+  <div class="chat-log" id="chatLog" role="log" aria-live="polite" aria-label="Chat messages"></div>
+  <form class="chat-row" id="chatForm">
+    <span class="chat-prompt" aria-hidden="true">&gt;</span>
+    <input class="chat-input" id="chatInput" type="text" autocomplete="off" aria-label="Message to tardbot" placeholder="say something">
+    <button type="submit" class="chat-send" id="chatSend" aria-label="Send message">send</button>
+  </form>
+</section>
+
+<script>
+(function () {
+  var inspired = document.getElementById('inspired');
+  var panel = document.getElementById('chatPanel');
+  var backdrop = document.getElementById('chatBackdrop');
+  var closeBtn = document.getElementById('chatClose');
+  var log = document.getElementById('chatLog');
+  var form = document.getElementById('chatForm');
+  var input = document.getElementById('chatInput');
+  var sendBtn = document.getElementById('chatSend');
+
+  var CHAT_URL = 'https://maanster-chat.prudhvi-tools.workers.dev/api/chat';
+  var history = [];
+  var offline = false;
+  var busy = false;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function appendMessage(kind, text) {
+    var row = document.createElement('div');
+    row.className = 'chat-msg chat-msg--' + kind;
+    if (kind === 'user' || kind === 'bot') {
+      var who = document.createElement('span');
+      who.className = 'who';
+      who.textContent = kind === 'user' ? 'you>' : 'tardbot>';
+      row.appendChild(who);
+    }
+    var body = document.createElement('span');
+    body.textContent = text;
+    row.appendChild(body);
+    log.appendChild(row);
+    log.scrollTop = log.scrollHeight;
+    return row;
+  }
+
+  function showTyping() {
+    var row = document.createElement('div');
+    row.className = 'chat-typing';
+    row.setAttribute('aria-hidden', 'true');
+    row.appendChild(document.createTextNode('tardbot '));
+    var caret = document.createElement('span');
+    caret.className = 'caret';
+    row.appendChild(caret);
+    log.appendChild(row);
+    log.scrollTop = log.scrollHeight;
+    return row;
+  }
+
+  function goOffline() {
+    if (offline) return;
+    offline = true;
+    appendMessage('system', "tardbot is off the clock — bay's closed. come back soon.");
+    input.disabled = true;
+    input.placeholder = 'offline';
+    sendBtn.disabled = true;
+  }
+
+  function onKeydown(e) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeChat();
+    }
+  }
+
+  function openChat() {
+    if (!panel.hidden) return;
+    backdrop.hidden = false;
+    panel.hidden = false;
+    panel.setAttribute('aria-hidden', 'false');
+    inspired.setAttribute('aria-expanded', 'true');
+    var activate = function () {
+      panel.classList.add('is-open');
+      backdrop.classList.add('is-open');
+    };
+    if (reduceMotion) {
+      activate();
+    } else {
+      requestAnimationFrame(function () { requestAnimationFrame(activate); });
+    }
+    document.addEventListener('keydown', onKeydown);
+    backdrop.addEventListener('click', closeChat);
+    (offline ? closeBtn : input).focus();
+  }
+
+  function closeChat() {
+    if (panel.hidden) return;
+    panel.classList.remove('is-open');
+    backdrop.classList.remove('is-open');
+    panel.setAttribute('aria-hidden', 'true');
+    inspired.setAttribute('aria-expanded', 'false');
+    document.removeEventListener('keydown', onKeydown);
+    backdrop.removeEventListener('click', closeChat);
+    var finish = function () { panel.hidden = true; backdrop.hidden = true; };
+    if (reduceMotion) { finish(); } else { setTimeout(finish, 220); }
+    inspired.focus();
+  }
+
+  inspired.addEventListener('click', openChat);
+  closeBtn.addEventListener('click', closeChat);
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (busy || offline) return;
+    var text = input.value.trim();
+    if (!text) return;
+    appendMessage('user', text);
+    history.push({ role: 'user', content: text });
+    input.value = '';
+    busy = true;
+    input.disabled = true;
+    sendBtn.disabled = true;
+    var typingRow = showTyping();
+
+    var controller = new AbortController();
+    var timeout = setTimeout(function () { controller.abort(); }, 15000);
+
+    fetch(CHAT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: history }),
+      signal: controller.signal
+    }).then(function (res) {
+      return res.json();
+    }).then(function (data) {
+      typingRow.remove();
+      if (data && data.offline) {
+        goOffline();
+      } else if (data && typeof data.reply === 'string') {
+        history.push({ role: 'assistant', content: data.reply });
+        appendMessage('bot', data.reply);
+      } else {
+        goOffline();
+      }
+    }).catch(function () {
+      typingRow.remove();
+      goOffline();
+    }).finally(function () {
+      clearTimeout(timeout);
+      busy = false;
+      if (!offline) {
+        input.disabled = false;
+        sendBtn.disabled = false;
+        input.focus();
+      }
+    });
+  });
+})();
+</script>
 
 </body>
 </html>

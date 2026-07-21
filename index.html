@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- Holding page. Drop this line once there is real content to index. -->
+<meta name="robots" content="noindex">
+<title>Raj Industries</title>
+<!-- same families the auto repair site loads, so the two read as one brand -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0a0a0b; --surface:#111114; --border:#2a2a30;
+    --text:#e8e8ec; --muted:#A9AEB5; --faint:#6E7078;
+    --accent:#3ABEFF; --fire:#ff6a1a;
+    --font-display:'Bebas Neue','Impact',sans-serif;
+    --font-body:'Barlow','Helvetica Neue',sans-serif;
+  }
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  body {
+    min-height:100dvh; display:grid; place-items:center; padding:2rem;
+    background:var(--bg); color:var(--text);
+    font-family:var(--font-body); line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  main { width:min(100%,44rem); text-align:center; }
+  h1 {
+    font-family:var(--font-display); font-weight:400;
+    font-size:clamp(3rem,13vw,7rem); line-height:.92; letter-spacing:.02em;
+    text-transform:uppercase;
+  }
+  h1 .mark { color:var(--fire); }
+  .rule {
+    width:4rem; height:2px; margin:2rem auto;
+    background:linear-gradient(90deg,var(--fire),var(--accent));
+  }
+  p { color:var(--muted); font-size:1.05rem; }
+  .soon { color:var(--faint); font-size:.8rem; letter-spacing:.22em; text-transform:uppercase; }
+  footer { margin-top:3.5rem; font-size:.85rem; color:var(--faint); }
+  a { color:var(--accent); text-decoration:none; }
+  a:hover { text-decoration:underline; }
+</style>
+</head>
+<body>
+
+<main>
+  <h1>Raj<span class="mark">.</span>Industries</h1>
+  <div class="rule"></div>
+  <p class="soon">Site in progress</p>
+  <footer>
+    Also from us — <a href="https://fixingfortmyers.com">Perfect Timing Auto Repair</a>, Fort&nbsp;Myers
+  </footer>
+</main>
+
+</body>
+</html>

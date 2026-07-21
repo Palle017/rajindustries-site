@@ -10,6 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600&display=swap" rel="stylesheet">
+<!-- human-check for the tardbot panel; explicit render so it only mounts on first gate -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 <style>
   :root {
     --bg:#0a0a0b; --surface:#111114; --border:#2a2a30;
@@ -145,6 +147,46 @@
   }
   .chat-send:hover, .chat-send:focus-visible { border-color:var(--accent); color:var(--text); outline:none; }
   .chat-send:disabled { opacity:.5; cursor:not-allowed; }
+
+  /* gate view — same terminal register as the chat body */
+  .chat-gate {
+    flex:1 1 auto; overflow-y:auto;
+    display:flex; flex-direction:column; gap:1rem; padding:.9rem;
+  }
+  .chat-gate-line { color:var(--muted); }
+  .chat-gate-widget { min-height:65px; }
+  .chat-gate-form { display:flex; align-items:center; gap:.5ch; }
+  .chat-gate-msg { color:var(--muted); }
+  .chat-gate-msg:empty { display:none; }
+
+  /* what-we-run module */
+  .systems { margin:3.5rem auto 0; max-width:40rem; text-align:center; }
+  .systems-head {
+    font-family:var(--font-display); font-weight:400;
+    font-size:clamp(1.4rem,5vw,2rem); letter-spacing:.04em;
+    text-transform:uppercase; color:var(--text);
+  }
+  .systems-sub { margin:.5rem auto 0; max-width:34rem; font-size:.95rem; color:var(--muted); }
+  .systems-grid {
+    display:grid; grid-template-columns:repeat(2,1fr); gap:.9rem;
+    margin:1.75rem 0 0; text-align:left;
+  }
+  @media (max-width:640px) { .systems-grid { grid-template-columns:1fr; } }
+  .sys-card {
+    background:var(--surface); border:1px solid var(--border); border-radius:4px;
+    padding:1rem 1.1rem;
+  }
+  .sys-name {
+    font-family:var(--font-body); font-weight:600; text-transform:uppercase;
+    letter-spacing:.03em; font-size:.9rem; color:var(--text);
+  }
+  .sys-name .tick { color:var(--accent); margin-right:.5ch; }
+  .sys-desc { margin:.45rem 0 0; font-size:.85rem; color:var(--muted); line-height:1.5; }
+  .systems-term {
+    display:flex; width:fit-content; max-width:100%;
+    margin:1.75rem auto 0; color:var(--muted); cursor:default; white-space:normal;
+  }
+  .systems-term:hover { border-color:var(--border); }
 </style>
 </head>
 <body>
@@ -164,8 +206,46 @@
     </a>
   </div>
 
+  <section class="systems" id="systems">
+    <h2 class="systems-head">What We Run</h2>
+    <p class="systems-sub">The stack behind the shop &mdash; built in-house, running every day.</p>
+    <div class="systems-grid">
+      <div class="sys-card">
+        <div class="sys-name"><span class="tick" aria-hidden="true">&#9656;</span>Shop-Ops Agent</div>
+        <p class="sys-desc">The conversational agent that answers customer questions and coordinates every tool behind the scenes.</p>
+      </div>
+      <div class="sys-card">
+        <div class="sys-name"><span class="tick" aria-hidden="true">&#9656;</span>Book-Time &amp; Manuals Engine</div>
+        <p class="sys-desc">Deterministic repair-time and service-manual lookups across hundreds of thousands of vehicle records.</p>
+      </div>
+      <div class="sys-card">
+        <div class="sys-name"><span class="tick" aria-hidden="true">&#9656;</span>Estimate &amp; Invoicing Pipeline</div>
+        <p class="sys-desc">Turns a diagnosed job into a priced estimate and syncs it to accounting.</p>
+      </div>
+      <div class="sys-card">
+        <div class="sys-name"><span class="tick" aria-hidden="true">&#9656;</span>Lead &amp; Review Intake</div>
+        <p class="sys-desc">Captures inbound leads and customer feedback from web and messaging channels.</p>
+      </div>
+      <div class="sys-card">
+        <div class="sys-name"><span class="tick" aria-hidden="true">&#9656;</span>Voice Front Door</div>
+        <p class="sys-desc">A voice interface so customers can talk to the shop agent by phone.</p>
+      </div>
+      <div class="sys-card">
+        <div class="sys-name"><span class="tick" aria-hidden="true">&#9656;</span>Knowledge Vault</div>
+        <p class="sys-desc">A knowledge base that indexes shop documents and procedures for retrieval.</p>
+      </div>
+      <div class="sys-card">
+        <div class="sys-name"><span class="tick" aria-hidden="true">&#9656;</span>Multi-Agent Orchestration</div>
+        <p class="sys-desc">Specialized subagents that ingest, link, and audit knowledge to keep the system current.</p>
+      </div>
+    </div>
+    <div class="term systems-term">
+      <span>&gt; 13 services &middot; 25 repos &middot; three drives + one linux vm</span>
+    </div>
+  </section>
+
   <button class="inspired" id="inspired" aria-haspopup="dialog" aria-expanded="false" aria-controls="chatPanel">
-    inspired by <span class="name">Maanster</span>
+    inspired by <span class="name">maanster.inc</span>
   </button>
 </main>
 
@@ -175,8 +255,18 @@
     <span>tardbot @ raj.industries<span class="caret"></span></span>
     <button class="chat-close" id="chatClose" aria-label="Close chat">&#10005;</button>
   </div>
-  <div class="chat-log" id="chatLog" role="log" aria-live="polite" aria-label="Chat messages"></div>
-  <form class="chat-row" id="chatForm">
+  <div class="chat-gate" id="chatGate" hidden>
+    <p class="chat-gate-line">tardbot is gated &mdash; prove you&rsquo;re human</p>
+    <div class="chat-gate-widget" id="chatTurnstile"></div>
+    <form class="chat-gate-form" id="gateForm">
+      <span class="chat-prompt" aria-hidden="true">&gt;</span>
+      <input class="chat-input" id="gateInput" type="password" autocomplete="off" aria-label="Passphrase" placeholder="passphrase">
+      <button type="submit" class="chat-send" id="gateSubmit" aria-label="Submit passphrase">enter</button>
+    </form>
+    <p class="chat-gate-msg" id="gateMsg" role="status" aria-live="polite"></p>
+  </div>
+  <div class="chat-log" id="chatLog" role="log" aria-live="polite" aria-label="Chat messages" hidden></div>
+  <form class="chat-row" id="chatForm" hidden>
     <span class="chat-prompt" aria-hidden="true">&gt;</span>
     <input class="chat-input" id="chatInput" type="text" autocomplete="off" aria-label="Message to tardbot" placeholder="say something">
     <button type="submit" class="chat-send" id="chatSend" aria-label="Send message">send</button>
@@ -194,11 +284,26 @@
   var input = document.getElementById('chatInput');
   var sendBtn = document.getElementById('chatSend');
 
+  var gate = document.getElementById('chatGate');
+  var gateForm = document.getElementById('gateForm');
+  var gateInput = document.getElementById('gateInput');
+  var gateSubmit = document.getElementById('gateSubmit');
+  var gateMsg = document.getElementById('gateMsg');
+
   var CHAT_URL = 'https://maanster-chat.prudhvi-tools.workers.dev/api/chat';
+  var GATE_URL = 'https://maanster-chat.prudhvi-tools.workers.dev/api/gate';
+  var GATE_KEY = 'bh_gate';
+  var SITEKEY = '0x4AAAAAAD6wgQvFGI5gHUwl';
+  var OFFLINE_MSG = "tardbot is off the clock — bay's closed. come back soon.";
+
   var history = [];
   var offline = false;
   var busy = false;
+  var gateBusy = false;
+  var turnstileId = null;
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function token() { return sessionStorage.getItem(GATE_KEY); }
 
   function appendMessage(kind, text) {
     var row = document.createElement('div');
@@ -233,10 +338,59 @@
   function goOffline() {
     if (offline) return;
     offline = true;
-    appendMessage('system', "tardbot is off the clock — bay's closed. come back soon.");
+    appendMessage('system', OFFLINE_MSG);
     input.disabled = true;
     input.placeholder = 'offline';
     sendBtn.disabled = true;
+  }
+
+  function ensureTurnstile() {
+    if (turnstileId !== null) return;
+    if (!window.turnstile || typeof window.turnstile.render !== 'function') {
+      setTimeout(ensureTurnstile, 200);
+      return;
+    }
+    turnstileId = window.turnstile.render('#chatTurnstile', { sitekey: SITEKEY, theme: 'dark' });
+  }
+
+  function turnstileToken() {
+    if (turnstileId !== null && window.turnstile && typeof window.turnstile.getResponse === 'function') {
+      return window.turnstile.getResponse(turnstileId) || '';
+    }
+    return '';
+  }
+
+  function resetTurnstile() {
+    if (turnstileId !== null && window.turnstile && typeof window.turnstile.reset === 'function') {
+      window.turnstile.reset(turnstileId);
+    }
+  }
+
+  function showGateView(msg) {
+    gate.hidden = false;
+    log.hidden = true;
+    form.hidden = true;
+    gateMsg.textContent = msg || '';
+    ensureTurnstile();
+    if (offline) {
+      gateInput.disabled = true;
+      gateSubmit.disabled = true;
+    } else {
+      gateInput.disabled = false;
+      gateSubmit.disabled = false;
+      gateInput.focus();
+    }
+  }
+
+  function showChatView() {
+    gate.hidden = true;
+    log.hidden = false;
+    form.hidden = false;
+    if (!offline) {
+      input.disabled = false;
+      sendBtn.disabled = false;
+    }
+    (offline ? closeBtn : input).focus();
   }
 
   function onKeydown(e) {
@@ -263,7 +417,11 @@
     }
     document.addEventListener('keydown', onKeydown);
     backdrop.addEventListener('click', closeChat);
-    (offline ? closeBtn : input).focus();
+    if (token()) {
+      showChatView();
+    } else {
+      showGateView('');
+    }
   }
 
   function closeChat() {
@@ -282,6 +440,60 @@
   inspired.addEventListener('click', openChat);
   closeBtn.addEventListener('click', closeChat);
 
+  gateForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (gateBusy || offline) return;
+    var pass = gateInput.value;
+    var tok = turnstileToken();
+    if (!tok) {
+      gateMsg.textContent = 'complete the check first.';
+      return;
+    }
+    gateBusy = true;
+    gateInput.disabled = true;
+    gateSubmit.disabled = true;
+    gateMsg.textContent = '';
+
+    var controller = new AbortController();
+    var timeout = setTimeout(function () { controller.abort(); }, 15000);
+
+    fetch(GATE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ turnstileToken: tok, passphrase: pass }),
+      signal: controller.signal
+    }).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (data) {
+        return { status: res.status, data: data };
+      });
+    }).then(function (r) {
+      if (r.status === 200 && r.data && typeof r.data.token === 'string') {
+        sessionStorage.setItem(GATE_KEY, r.data.token);
+        gateInput.value = '';
+        showChatView();
+      } else if (r.status === 503) {
+        goOffline();
+        gateMsg.textContent = OFFLINE_MSG;
+        gateInput.disabled = true;
+        gateSubmit.disabled = true;
+        gateInput.placeholder = 'offline';
+      } else {
+        gateMsg.textContent = "that's not it — try again.";
+        resetTurnstile();
+      }
+    }).catch(function () {
+      gateMsg.textContent = "that's not it — try again.";
+      resetTurnstile();
+    }).finally(function () {
+      clearTimeout(timeout);
+      gateBusy = false;
+      if (!offline) {
+        gateInput.disabled = false;
+        gateSubmit.disabled = false;
+      }
+    });
+  });
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (busy || offline) return;
@@ -298,16 +510,26 @@
     var controller = new AbortController();
     var timeout = setTimeout(function () { controller.abort(); }, 15000);
 
+    var headers = { 'Content-Type': 'application/json' };
+    var t = token();
+    if (t) { headers['Authorization'] = 'Bearer ' + t; }
+
     fetch(CHAT_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: headers,
       body: JSON.stringify({ messages: history }),
       signal: controller.signal
     }).then(function (res) {
+      if (res.status === 401) {
+        sessionStorage.removeItem(GATE_KEY);
+        return { unauth: true };
+      }
       return res.json();
     }).then(function (data) {
       typingRow.remove();
-      if (data && data.offline) {
+      if (data && data.unauth) {
+        showGateView('session expired — prove it again.');
+      } else if (data && data.offline) {
         goOffline();
       } else if (data && typeof data.reply === 'string') {
         history.push({ role: 'assistant', content: data.reply });
@@ -321,7 +543,7 @@
     }).finally(function () {
       clearTimeout(timeout);
       busy = false;
-      if (!offline) {
+      if (!offline && !form.hidden) {
         input.disabled = false;
         sendBtn.disabled = false;
         input.focus();

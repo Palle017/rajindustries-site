@@ -36,11 +36,41 @@
     width:4rem; height:2px; margin:2rem auto;
     background:linear-gradient(90deg,var(--fire),var(--accent));
   }
-  p { color:var(--muted); font-size:1.05rem; }
-  .soon { color:var(--faint); font-size:.8rem; letter-spacing:.22em; text-transform:uppercase; }
-  footer { margin-top:3.5rem; font-size:.85rem; color:var(--faint); }
   a { color:var(--accent); text-decoration:none; }
-  a:hover { text-decoration:underline; }
+
+  .term {
+    display:inline-flex; align-items:baseline; gap:.6ch;
+    padding:.85rem 1.2rem;
+    font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    font-size:clamp(.82rem,2.6vw,1rem);
+    background:var(--surface); border:1px solid var(--border); border-radius:3px;
+    white-space:nowrap;
+  }
+  .term:hover { border-color:var(--accent); }
+  .term .prompt { color:var(--fire); }
+  .term .cmd { color:var(--text); }
+  .term .host { color:var(--accent); }
+  .caret {
+    display:inline-block; width:.55ch; height:1em;
+    background:var(--accent); translate:0 .12em;
+    animation:blink 1.1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity:0; } }
+  @media (prefers-reduced-motion:reduce) { .caret { animation:none; } }
+
+  .dedication {
+    display:block; max-width:26rem; margin:4.5rem auto 0;
+    padding:1.15rem 1.6rem;
+    font-family:var(--font-body); font-size:.95rem; line-height:1.5;
+    color:var(--muted); text-align:center;
+    background:transparent; border:1px solid var(--border); border-radius:3px;
+    cursor:pointer; transition:border-color .25s, color .25s, background .25s;
+  }
+  .dedication:hover, .dedication:focus-visible {
+    color:var(--text); border-color:var(--fire);
+    background:rgba(255,106,26,.06); outline:none;
+  }
+  .dedication .name { color:var(--fire); }
 </style>
 </head>
 <body>
@@ -48,10 +78,13 @@
 <main>
   <h1>Raj<span class="mark">.</span>Industries</h1>
   <div class="rule"></div>
-  <p class="soon">Site in progress</p>
-  <footer>
-    Also from us — <a href="https://fixingfortmyers.com">Perfect Timing Auto Repair</a>, Fort&nbsp;Myers
-  </footer>
+  <a class="term" href="https://fixingfortmyers.com">
+    <span class="prompt">&gt;</span><span class="cmd">open</span><span class="host">fixingfortmyers.com</span><span class="caret"></span>
+  </a>
+
+  <a class="dedication" href="https://manasa.fixingfortmyers.com">
+    For <span class="name">Manasa</span>, my best friend and greatest inspiration
+  </a>
 </main>
 
 </body>

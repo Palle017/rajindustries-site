@@ -46,5 +46,5 @@ it in place keeps a stub out of search results in the meantime.
 ## Related
 
 - `fixingfortmyers-site` — the auto repair site, same domain, separate repo.
-- `Manasa_Polaroid` — private, encrypted, on the `manasa.` subdomain. Unrelated
-  to this site beyond sharing a parent domain.
+- `maanster_archive` — private, on the `manasa.` subdomain. Unrelated to this
+  site beyond sharing a parent domain.

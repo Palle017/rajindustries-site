@@ -159,6 +159,39 @@
   .chat-gate-msg { color:var(--muted); }
   .chat-gate-msg:empty { display:none; }
 
+  /* both-hands app overlay */
+  .app-overlay {
+    position:fixed; inset:0; z-index:60;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .app-overlay[hidden] { display:none; }
+  .app-backdrop {
+    position:absolute; inset:0; background:rgba(0,0,0,.7);
+    opacity:0; transition:opacity .32s ease;
+  }
+  .app-overlay.is-open .app-backdrop { opacity:1; }
+  .app-frame-wrap {
+    position:relative; width:100%; height:100%;
+    opacity:0; transform:scale(.96);
+    transition:opacity .32s cubic-bezier(.2,.8,.2,1), transform .32s cubic-bezier(.2,.8,.2,1);
+  }
+  .app-overlay.is-open .app-frame-wrap { opacity:1; transform:scale(1); }
+  .app-frame {
+    position:absolute; inset:0; width:100%; height:100%; border:0; display:block;
+  }
+  .app-close {
+    position:absolute; top:1.25rem; right:1.25rem; z-index:2;
+    width:2.5rem; height:2.5rem; display:flex; align-items:center; justify-content:center;
+    background:var(--surface); border:1px solid var(--border); border-radius:3px;
+    font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace; font-size:1.1rem;
+    color:var(--muted); cursor:pointer;
+  }
+  .app-close:hover, .app-close:focus-visible { color:var(--fire); border-color:var(--accent); outline:none; }
+
+  @media (prefers-reduced-motion:reduce) {
+    .app-backdrop, .app-frame-wrap { transition:none; }
+  }
+
   /* what-we-run module */
   .systems { margin:3.5rem auto 0; max-width:40rem; text-align:center; }
   .systems-head {
@@ -244,10 +277,18 @@
     </div>
   </section>
 
-  <button class="inspired" id="inspired" aria-haspopup="dialog" aria-expanded="false" aria-controls="chatPanel">
+  <button class="inspired" id="inspired" aria-haspopup="dialog" aria-expanded="false" aria-controls="appOverlay">
     inspired by <span class="name">maanster.inc</span>
   </button>
 </main>
+
+<div class="app-overlay" id="appOverlay" role="dialog" aria-modal="true" aria-label="Both Hands app" aria-hidden="true" hidden>
+  <div class="app-backdrop" id="appBackdrop"></div>
+  <div class="app-frame-wrap">
+    <button class="app-close" id="appClose" aria-label="Close Both Hands">&#10005;</button>
+    <iframe class="app-frame" id="appFrame" src="https://both-hands.prudhvi-tools.workers.dev" title="Both Hands" allow="fullscreen" loading="eager"></iframe>
+  </div>
+</div>
 
 <div class="chat-backdrop" id="chatBackdrop" hidden></div>
 <section class="chat-panel" id="chatPanel" role="dialog" aria-modal="true" aria-label="Chat with tardbot" aria-hidden="true" hidden>
@@ -437,8 +478,67 @@
     inspired.focus();
   }
 
-  inspired.addEventListener('click', openChat);
+  var appOverlay = document.getElementById('appOverlay');
+  var appBackdrop = document.getElementById('appBackdrop');
+  var appFrame = document.getElementById('appFrame');
+  var appClose = document.getElementById('appClose');
+
+  function appFocusable() {
+    return [appClose, appFrame];
+  }
+
+  function onAppKeydown(e) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeApp();
+      return;
+    }
+    if (e.key === 'Tab') {
+      var items = appFocusable();
+      var first = items[0];
+      var last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
+  function openApp() {
+    if (!appOverlay.hidden) return;
+    appOverlay.hidden = false;
+    appOverlay.setAttribute('aria-hidden', 'false');
+    inspired.setAttribute('aria-expanded', 'true');
+    var activate = function () { appOverlay.classList.add('is-open'); };
+    if (reduceMotion) {
+      activate();
+    } else {
+      requestAnimationFrame(function () { requestAnimationFrame(activate); });
+    }
+    document.addEventListener('keydown', onAppKeydown);
+    appBackdrop.addEventListener('click', closeApp);
+    appClose.focus();
+  }
+
+  function closeApp() {
+    if (appOverlay.hidden) return;
+    appOverlay.classList.remove('is-open');
+    appOverlay.setAttribute('aria-hidden', 'true');
+    inspired.setAttribute('aria-expanded', 'false');
+    document.removeEventListener('keydown', onAppKeydown);
+    appBackdrop.removeEventListener('click', closeApp);
+    var finish = function () { appOverlay.hidden = true; };
+    if (reduceMotion) { finish(); } else { setTimeout(finish, 320); }
+    inspired.focus();
+  }
+
   closeBtn.addEventListener('click', closeChat);
+
+  inspired.addEventListener('click', openApp);
+  appClose.addEventListener('click', closeApp);
 
   gateForm.addEventListener('submit', function (e) {
     e.preventDefault();

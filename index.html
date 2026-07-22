@@ -455,6 +455,9 @@
     gate.hidden = true;
     log.hidden = false;
     form.hidden = false;
+    if (!log.childElementCount) {
+      appendMessage('bot', 'tardbot online. fully functional agi — self-certified, license pending. state your query.');
+    }
     if (!offline) {
       input.disabled = false;
       sendBtn.disabled = false;
@@ -565,6 +568,7 @@
 
   closeBtn.addEventListener('click', closeChat);
   launcher.addEventListener('click', openChat);
+  setTimeout(openChat, 900);
 
   inspired.addEventListener('click', openApp);
   appClose.addEventListener('click', closeApp);

@@ -1,12 +1,24 @@
 # rajindustries-site
 
-Company site for Raj Industries, served by GitHub Pages at
+Public portfolio for Raj Industries, served by GitHub Pages at
 `rajindustries.fixingfortmyers.com`.
 
-Currently a holding page. It carries the brand colours from
-`fixingfortmyers.com` — dark ground, fire `#ff6a1a`, cyan `#3ABEFF`, Bebas Neue
-display — so the two sites read as related, and states nothing about the
-business that has not been confirmed.
+The page carries the brand colours from `fixingfortmyers.com` — dark ground,
+fire `#ff6a1a`, cyan `#3ABEFF`, and Bebas Neue display — so the two sites read
+as related. It presents only public, verifiable work and makes no claim about
+the company's legal structure or service offering.
+
+## Featured work
+
+- **SPOTTED** — live at `www.spottedin.co`; canonical source:
+  `Palle017/spottedin-c`.
+- **Maanster Market** — live at `palle017.github.io/maanster-market/`;
+  canonical source: `Palle017/maanster-market`.
+- **Perfect Timing Auto Repair** — live at `fixingfortmyers.com`; canonical
+  source: `Palle017/fixingfortmyers-site`.
+
+The project images in `assets/projects/` are screenshots of those public live
+sites, captured at 1280 × 800 for this portfolio.
 
 ## Deploy
 
@@ -29,19 +41,11 @@ page title and headings, not the URL.
 This repo can be public. It holds no private content, and a company site needs
 to be indexable once it is real.
 
-## Before this replaces the holding page
+## Content boundary
 
-The page deliberately makes no claims about the business, because these are not
-yet decided:
-
-- What Raj Industries is, and its relationship to Perfect Timing Auto Repair —
-  parent company, separate venture, or holding brand.
-- What it sells or offers, and to whom.
-- Contact details, and whether they should differ from the shop's.
-- Whether it needs more than one page.
-
-Remove the `noindex` meta from `index.html` once there is real content. Leaving
-it in place keeps a stub out of search results in the meantime.
+The portfolio does not state what Raj Industries is legally, what it sells, or
+how it relates to Perfect Timing Auto Repair. Add those claims only after they
+are confirmed by the owner.
 
 ## Related
 

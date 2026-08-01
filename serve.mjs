@@ -13,6 +13,7 @@ const PORT = Number(process.argv[2]) || 8791;
 
 const TYPES = {
   ".html": "text/html; charset=utf-8",
+  ".png": "image/png",
   ".enc": "application/octet-stream",
   ".txt": "text/plain; charset=utf-8",
   ".json": "application/json",

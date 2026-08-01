@@ -10,15 +10,15 @@ the company's legal structure or service offering.
 
 ## Featured work
 
-- **SPOTTED** — live at `www.spottedin.co`; canonical source:
+- **SPOTTED (Maanster Market)** — one marketplace project, shown once on the
+  portfolio under SPOTTED. Live at `www.spottedin.co`; canonical source:
   `Palle017/spottedin-c`.
-- **Maanster Market** — live at `palle017.github.io/maanster-market/`;
-  canonical source: `Palle017/maanster-market`.
 - **Perfect Timing Auto Repair** — live at `fixingfortmyers.com`; canonical
   source: `Palle017/fixingfortmyers-site`.
 
-The project images in `assets/projects/` are screenshots of those public live
-sites, captured at 1280 × 800 for this portfolio.
+The project images in `assets/projects/` are screenshots of public live sites,
+captured at 1280 × 800 for this portfolio. `maanster-market.png` is retained as
+a legacy screenshot of the same marketplace project, not a separate entry.
 
 ## Deploy
 

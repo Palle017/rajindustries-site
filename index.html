@@ -98,7 +98,7 @@
   }
   .projects-sub { margin:.6rem 0 0; max-width:38rem; color:var(--muted); }
   .project-grid {
-    display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem;
+    display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem;
     margin:1.75rem 0 0;
   }
   .project-card {
@@ -151,15 +151,12 @@
   .project-link:first-child { border-color:var(--accent); color:var(--accent); }
   .project-link:hover { border-color:var(--fire); color:var(--text); }
 
-  @media (max-width:860px) {
-    .project-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-    .project-card:first-child { grid-column:1/-1; }
+  @media (max-width:760px) {
+    .project-grid { grid-template-columns:1fr; }
   }
   @media (max-width:580px) {
     body { padding:1.25rem; }
     .term { padding:.75rem .85rem; font-size:.78rem; }
-    .project-grid { grid-template-columns:1fr; }
-    .project-card:first-child { grid-column:auto; }
   }
 
   .inspired {
@@ -369,22 +366,6 @@
           <div class="project-actions">
             <a class="project-link" href="https://www.spottedin.co/" aria-label="Open the live SPOTTED project">&gt; view live</a>
             <a class="project-link" href="https://github.com/Palle017/spottedin-c" aria-label="View the SPOTTED source on GitHub">source</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <img class="project-shot" src="assets/projects/maanster-market.png" alt="Maanster Market product feed showing pre-loved clothing listings" width="1280" height="800" loading="lazy" decoding="async">
-        <div class="project-body">
-          <span class="project-status">V1 live</span>
-          <h3 class="project-name">Maanster Market</h3>
-          <p class="project-desc">A pre-loved resale marketplace for India with profiles, listings, favorites, and messaging.</p>
-          <ul class="project-tech" aria-label="Maanster Market technologies">
-            <li>React</li><li>TypeScript</li><li>PWA</li><li>Supabase</li>
-          </ul>
-          <div class="project-actions">
-            <a class="project-link" href="https://palle017.github.io/maanster-market/" aria-label="Open the live Maanster Market project">&gt; view live</a>
-            <a class="project-link" href="https://github.com/Palle017/maanster-market" aria-label="View the Maanster Market source on GitHub">source</a>
           </div>
         </div>
       </article>

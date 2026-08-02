@@ -15,10 +15,15 @@ the company's legal structure or service offering.
   `Palle017/spottedin-c`.
 - **Perfect Timing Auto Repair** — live at `fixingfortmyers.com`; canonical
   source: `Palle017/fixingfortmyers-site`.
+- **Manasa Globe** — a private, passphrase-protected interactive photo archive.
+  Its gated launcher is rolled into the portfolio card; the repository and
+  photographs remain private.
 
-The project images in `assets/projects/` are screenshots of public live sites,
-captured at 1280 × 800 for this portfolio. `maanster-market.png` is retained as
-a legacy screenshot of the same marketplace project, not a separate entry.
+The project images in `assets/projects/` are captured at 1280 × 800 for this
+portfolio. Public projects use live-site screenshots. `manasa-globe.png` uses
+the globe app's safe sample data and contains no private photographs.
+`maanster-market.png` is retained as a legacy screenshot of the same marketplace
+project, not a separate entry.
 
 ## Deploy
 
@@ -50,5 +55,4 @@ are confirmed by the owner.
 ## Related
 
 - `fixingfortmyers-site` — the auto repair site, same domain, separate repo.
-- `maanster_archive` — private, on the `manasa.` subdomain. Unrelated to this
-  site beyond sharing a parent domain.
+- `maanster_archive` — private source for the encrypted Manasa Globe archive.

@@ -70,20 +70,6 @@
   @keyframes blink { 50% { opacity:0; } }
   @media (prefers-reduced-motion:reduce) { .caret { animation:none; } }
 
-  .product { margin:3.5rem auto 0; max-width:26rem; text-align:center; }
-  .product-name {
-    font-family:var(--font-display); font-weight:400;
-    font-size:clamp(1.4rem,5vw,2rem); letter-spacing:.04em;
-    text-transform:uppercase; color:var(--text);
-  }
-  .product-tag { margin:.5rem 0 1.15rem; font-size:.95rem; color:var(--muted); }
-  .product-badge {
-    display:inline-block; margin:0 0 .75rem; padding:.15rem .6rem;
-    border:1px solid var(--accent); border-radius:999px;
-    font-family:var(--font-body); font-size:.7rem; letter-spacing:.05em;
-    text-transform:uppercase; color:var(--accent);
-  }
-
   .projects { margin:4.5rem auto 0; text-align:left; }
   .section-kicker {
     display:block; margin:0 0 .35rem;
@@ -100,6 +86,9 @@
   .project-grid {
     display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem;
     margin:1.75rem 0 0;
+  }
+  .project-grid--single {
+    grid-template-columns:minmax(0,32rem); justify-content:center;
   }
   .project-card {
     min-width:0; display:flex; flex-direction:column; overflow:hidden;
@@ -146,7 +135,7 @@
     min-height:42px; display:inline-flex; align-items:center; justify-content:center;
     padding:.45rem .7rem; border:1px solid var(--border); border-radius:3px;
     font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
-    font-size:.75rem; color:var(--muted);
+    font-size:.75rem; color:var(--muted); background:transparent; cursor:pointer;
   }
   .project-link:first-child { border-color:var(--accent); color:var(--accent); }
   .project-link:hover { border-color:var(--fire); color:var(--text); }
@@ -158,17 +147,6 @@
     body { padding:1.25rem; }
     .term { padding:.75rem .85rem; font-size:.78rem; }
   }
-
-  .inspired {
-    display:block; margin:3rem auto 0; padding:.5rem 1rem;
-    background:none; border:none;
-    font-family:var(--font-body); font-size:.85rem; color:var(--muted);
-    text-align:center; cursor:pointer; transition:color .2s;
-  }
-  .inspired:hover, .inspired:focus-visible {
-    color:var(--text); outline:1px dashed var(--faint); outline-offset:4px;
-  }
-  .inspired .name { color:var(--fire); }
 
   .chat-backdrop {
     position:fixed; inset:0; background:rgba(0,0,0,.45);
@@ -331,9 +309,10 @@
   .sys-name .tick { color:var(--accent); margin-right:.5ch; }
   .sys-desc { margin:.45rem 0 0; font-size:.85rem; color:var(--muted); line-height:1.5; }
   .systems-term {
-    display:flex; width:fit-content; max-width:100%;
+    display:block; width:fit-content; max-width:100%;
     margin:1.75rem auto 0; color:var(--muted); cursor:default; white-space:normal;
   }
+  .systems-term span { display:block; overflow-wrap:normal; }
   .systems-term:hover { border-color:var(--border); }
 </style>
 </head>
@@ -386,20 +365,10 @@
         </div>
       </article>
     </div>
-  </section>
-
-  <div class="product">
-    <div class="product-name">Maanster</div>
-    <p class="product-tag">Raj Industries&rsquo; first product &mdash; a place on the map for every photograph you love.</p>
-    <a class="term" href="https://both-hands.prudhvi-tools.workers.dev">
-      <span class="prompt">&gt;</span><span class="cmd">open</span><span class="host">maanster</span><span class="cmd">--demo</span><span class="caret"></span>
-    </a>
-  </div>
-
-  <section class="systems" id="systems">
-    <h2 class="systems-head">What We Run</h2>
-    <p class="systems-sub">The stack behind the shop &mdash; built in-house, running every day.</p>
-    <div class="systems-grid">
+    <section class="systems" id="systems" aria-labelledby="systemsTitle">
+      <h2 class="systems-head" id="systemsTitle">What We Run</h2>
+      <p class="systems-sub">The stack behind the shop &mdash; built in-house, running every day.</p>
+      <div class="systems-grid">
       <div class="sys-card">
         <div class="sys-name"><span class="tick" aria-hidden="true">&#9656;</span>Shop-Ops Agent</div>
         <p class="sys-desc">The conversational agent that answers customer questions and coordinates every tool behind the scenes.</p>
@@ -428,22 +397,37 @@
         <div class="sys-name"><span class="tick" aria-hidden="true">&#9656;</span>Multi-Agent Orchestration</div>
         <p class="sys-desc">Specialized subagents that ingest, link, and audit knowledge to keep the system current.</p>
       </div>
-    </div>
-    <div class="term systems-term">
-      <span>&gt; 13 services &middot; 25 repos &middot; three drives + one linux vm</span>
+      </div>
+      <div class="term systems-term">
+        <span>&gt; 13 services &middot; 25 repos &middot; three drives + one linux vm</span>
+      </div>
+    </section>
+
+    <div class="project-grid project-grid--single">
+      <article class="project-card">
+        <img class="project-shot" src="assets/projects/manasa-globe.png" alt="Manasa Globe sample-data interface with a dark interactive globe and Polaroid cards" width="1280" height="800" loading="lazy" decoding="async">
+        <div class="project-body">
+          <span class="project-status">Private Project</span>
+          <h3 class="project-name">Manasa Globe</h3>
+          <p class="project-desc">An encrypted interactive photo archive that pins memories to a spinning globe and moves through them across place and time.</p>
+          <ul class="project-tech" aria-label="Manasa Globe technologies">
+            <li>WebGL</li><li>JavaScript</li><li>AES-256-GCM</li>
+          </ul>
+          <div class="project-actions">
+            <button class="project-link" id="manasaGlobeLauncher" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="appOverlay">&gt; open archive</button>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
-  <button class="inspired" id="inspired" aria-haspopup="dialog" aria-expanded="false" aria-controls="appOverlay">
-    inspired by <span class="name">maanster.inc</span>
-  </button>
 </main>
 
-<div class="app-overlay" id="appOverlay" role="dialog" aria-modal="true" aria-label="Both Hands app" aria-hidden="true" hidden>
+<div class="app-overlay" id="appOverlay" role="dialog" aria-modal="true" aria-label="Manasa Globe archive" aria-hidden="true" hidden>
   <div class="app-backdrop" id="appBackdrop"></div>
   <div class="app-frame-wrap">
-    <button class="app-close" id="appClose" aria-label="Close Both Hands">&#10005;</button>
-    <iframe class="app-frame" id="appFrame" src="https://both-hands.prudhvi-tools.workers.dev" title="Both Hands" allow="fullscreen" loading="eager"></iframe>
+    <button class="app-close" id="appClose" aria-label="Close Manasa Globe">&#10005;</button>
+    <iframe class="app-frame" id="appFrame" src="https://both-hands.prudhvi-tools.workers.dev" title="Manasa Globe archive" allow="fullscreen" loading="eager"></iframe>
   </div>
 </div>
 
@@ -477,7 +461,6 @@
 
 <script>
 (function () {
-  var inspired = document.getElementById('inspired');
   var panel = document.getElementById('chatPanel');
   var backdrop = document.getElementById('chatBackdrop');
   var closeBtn = document.getElementById('chatClose');
@@ -611,7 +594,6 @@
     backdrop.hidden = false;
     panel.hidden = false;
     panel.setAttribute('aria-hidden', 'false');
-    inspired.setAttribute('aria-expanded', 'true');
     var activate = function () {
       panel.classList.add('is-open');
       backdrop.classList.add('is-open');
@@ -635,14 +617,14 @@
     panel.classList.remove('is-open');
     backdrop.classList.remove('is-open');
     panel.setAttribute('aria-hidden', 'true');
-    inspired.setAttribute('aria-expanded', 'false');
     document.removeEventListener('keydown', onKeydown);
     backdrop.removeEventListener('click', closeChat);
     var finish = function () { panel.hidden = true; backdrop.hidden = true; };
     if (reduceMotion) { finish(); } else { setTimeout(finish, 220); }
-    inspired.focus();
+    launcher.focus();
   }
 
+  var globeLauncher = document.getElementById('manasaGlobeLauncher');
   var appOverlay = document.getElementById('appOverlay');
   var appBackdrop = document.getElementById('appBackdrop');
   var appFrame = document.getElementById('appFrame');
@@ -676,7 +658,7 @@
     if (!appOverlay.hidden) return;
     appOverlay.hidden = false;
     appOverlay.setAttribute('aria-hidden', 'false');
-    inspired.setAttribute('aria-expanded', 'true');
+    globeLauncher.setAttribute('aria-expanded', 'true');
     var activate = function () { appOverlay.classList.add('is-open'); };
     if (reduceMotion) {
       activate();
@@ -692,19 +674,19 @@
     if (appOverlay.hidden) return;
     appOverlay.classList.remove('is-open');
     appOverlay.setAttribute('aria-hidden', 'true');
-    inspired.setAttribute('aria-expanded', 'false');
+    globeLauncher.setAttribute('aria-expanded', 'false');
     document.removeEventListener('keydown', onAppKeydown);
     appBackdrop.removeEventListener('click', closeApp);
     var finish = function () { appOverlay.hidden = true; };
     if (reduceMotion) { finish(); } else { setTimeout(finish, 320); }
-    inspired.focus();
+    globeLauncher.focus();
   }
 
   closeBtn.addEventListener('click', closeChat);
   launcher.addEventListener('click', openChat);
   setTimeout(openChat, 900);
 
-  inspired.addEventListener('click', openApp);
+  globeLauncher.addEventListener('click', openApp);
   appClose.addEventListener('click', closeApp);
 
   gateForm.addEventListener('submit', function (e) {

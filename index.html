@@ -20,16 +20,6 @@
     --font-display:'Bebas Neue','Impact',sans-serif;
     --font-body:'Barlow','Helvetica Neue',sans-serif;
   }
-  .command-center-launch {
-    display:inline-flex; align-items:center; gap:1rem; margin:2rem auto .5rem;
-    padding:.9rem 1.4rem; min-height:48px; border:1px solid #ff6767; border-radius:5px;
-    background:#c51e31; color:#fff; font-weight:600; font-size:1rem;
-    box-shadow:0 0 18px #f43f5e66,0 0 48px #ef233c33;
-    animation:command-glow 3s ease-in-out infinite;
-  }
-  .command-center-launch:hover { background:#e3293e; color:#fff; }
-  @keyframes command-glow { 50% { box-shadow:0 0 26px #f43f5e99,0 0 60px #ef233c55; } }
-  @media(prefers-reduced-motion:reduce) { .command-center-launch { animation:none; } }
   *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
   body {
     min-height:100dvh; padding:2rem;
@@ -332,7 +322,6 @@
 
 <main>
   <h1>Raj<span class="mark">.</span>Industries</h1>
-  <a class="command-center-launch" href="command-center.html">Command Center <span aria-hidden="true">↗</span></a>
   <div class="rule"></div>
   <a class="term" href="https://fixingfortmyers.com">
     <span class="prompt">&gt;</span><span class="cmd">open</span><span class="host">fixingfortmyers.com</span><span class="caret"></span>

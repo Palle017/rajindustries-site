@@ -4,7 +4,8 @@ const el=(tag,text,cls)=>{const x=document.createElement(tag);if(text!==undefine
 let state={tasks:[],brief:'',ask:'',commitment:'',boundary:''};
 try{Object.assign(state,JSON.parse(localStorage.getItem(key)||'{}'));if(!Array.isArray(state.tasks))state.tasks=[];}catch{}
 const notice=t=>$('#notice').textContent=t;
-function save(){try{localStorage.setItem(key,JSON.stringify(state));}catch{notice('Browser storage is unavailable. Save a backup before closing.');}}
+let syncTimer;
+function save(){try{localStorage.setItem(key,JSON.stringify(state));}catch{notice('Browser storage is unavailable. Save a backup before closing.');}if(local){clearTimeout(syncTimer);syncTimer=setTimeout(()=>fetch('/api/tasks',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tasks:state.tasks})}).then(r=>{if(!r.ok)throw Error();$('#task-storage').textContent='Saved locally. Tardbot can read this punch list.';}).catch(()=>notice('Saved in this browser; local task sync is unavailable.')),300);}}
 function tab(name){for(const s of document.querySelectorAll('.panel'))s.hidden=s.id!==name;for(const b of document.querySelectorAll('[data-tab]'))b.setAttribute('aria-pressed',String(b.dataset.tab===name));if(name==='evidence')coverage();}
 for(const b of document.querySelectorAll('[data-tab]'))b.onclick=()=>tab(b.dataset.tab);
 async function api(route){const r=await fetch(route,{cache:'no-store'});if(!r.ok)throw Error('Private workspace unavailable');return r.json();}
@@ -20,5 +21,5 @@ async function coverage(){if(!local)return;try{const d=await api('/api/coverage'
 $('#refresh').onclick=coverage;
 $('#search-form').onsubmit=async e=>{e.preventDefault();try{const d=await api('/api/search?q='+encodeURIComponent($('#query').value)+'&source='+encodeURIComponent($('#source').value));$('#results').replaceChildren();for(const r of d.results){const a=el('article',undefined,'result');a.append(el('small',[r.source,r.timestamp,r.sender].filter(Boolean).join(' · ')),el('h3',r.title||'Conversation'),el('p',r.snippet));const more=el('button','Read source');more.onclick=async()=>{try{const m=(await api('/api/message?id='+encodeURIComponent(r.id))).message;more.replaceWith(el('pre',m.text));}catch{notice('Could not load that message.');}};a.append(more);$('#results').append(a);}notice(d.results.length+' results'+(d.results.length===50?' (first 50)':''));}catch{notice('Search could not load. Check that the private server is running.');}};
 tasks();
-if(local){$('#private-link').textContent='Private workspace · this computer';$('#private-link').removeAttribute('href');api('/api/context').then(d=>{for(const k of ['brief','ask','commitment','boundary'])if(!state[k]&&d[k]){state[k]=d[k];$('#'+k).value=d[k];}if(!state.tasks.length&&Array.isArray(d.tasks)){state.tasks=d.tasks;tasks();}save();}).catch(()=>{});}
+if(local){$('#private-link').textContent='Talk to Tardbot ↗';$('#private-link').href='http://127.0.0.1:18799/tardbot';api('/api/context').then(d=>{for(const k of ['brief','ask','commitment','boundary'])if(!state[k]&&d[k]){state[k]=d[k];$('#'+k).value=d[k];}if(Array.isArray(d.tasks)){state.tasks=d.tasks;tasks();}save();}).catch(()=>{});}
 if(location.hash==='#evidence')tab('evidence');

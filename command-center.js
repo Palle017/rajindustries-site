@@ -23,3 +23,4 @@ $('#search-form').onsubmit=async e=>{e.preventDefault();try{const d=await api('/
 tasks();
 if(local){$('#private-link').textContent='Talk to Tardbot ↗';$('#private-link').href='http://127.0.0.1:18799/tardbot';api('/api/context').then(d=>{for(const k of ['brief','ask','commitment','boundary'])if(!state[k]&&d[k]){state[k]=d[k];$('#'+k).value=d[k];}if(Array.isArray(d.tasks)){state.tasks=d.tasks;tasks();}save();}).catch(()=>{});}
 if(location.hash==='#evidence')tab('evidence');
+if(local){$('#unlock-key').hidden=false;$('#unlock-key').onclick=async()=>{try{const d=await api('/api/tardbot-key');await navigator.clipboard.writeText(d.key);notice('Owner key copied. Open Talk to Tardbot and paste it once to unlock.');}catch{notice('The key is in tardbot-owner-key.txt in your private revival folder.');}};}

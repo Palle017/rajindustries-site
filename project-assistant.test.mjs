@@ -63,8 +63,8 @@ test('FAQ detours answer pricing, appointments, privacy and services without adv
     ['What services are offered?', /websites and workflow automation/],
     ['What does it cost?', /cannot issue a quote or take a payment/],
     ['Can I book an appointment?', /cannot book appointments/],
-    ['Is this private?', /does not transmit/],
-    ['Does it use AI tokens?', /uses no AI model/],
+    ['Is this private?', /until Send project brief/],
+    ['Does it use AI tokens?', /no AI model/],
   ]) {
     const result = advanceConversation(state, question);
     assert.equal(result.accepted, true);
@@ -110,12 +110,12 @@ test('natural privacy, appointment and price FAQs still work at every step', () 
     ['How do I schedule a visit?', /cannot book appointments/],
     ['What is your availability?', /cannot book appointments/],
     ['How much does a website cost?', /cannot issue a quote/],
-    ['Do you store my data?', /does not transmit/],
-    ['Where are my answers stored?', /does not transmit/],
-    ['Is this sent to Raj?', /Nothing is sent to Raj/],
-    ['Does this use AI tokens?', /uses no AI model/],
-    ['Is this AI?', /uses no AI model/],
-    ['Do I need to give an email?', /No email or contact details are required/],
+    ['Do you store my data?', /until Send project brief/],
+    ['Where are my answers stored?', /until Send project brief/],
+    ['Is this sent to Raj?', /until Send project brief/],
+    ['Does this use AI tokens?', /no AI model/],
+    ['Is this AI?', /no AI model/],
+    ['Do I need to give an email?', /No email is required/],
   ];
   for (const input of ['Not sure yet', 'Help organize a small office network.', 'Location undecided', 'Flexible', null]) {
     for (const [question, expected] of questions) {
@@ -173,9 +173,10 @@ test('markup is retained literally in the brief and renderer uses text nodes', a
   assert.match(source, /row\.textContent = item\.text/);
 });
 
-test('assistant has no remote transport, persistence, email or model calls', async () => {
+test('assistant delegates transport and has no direct network, persistent cross-session storage, email or model calls', async () => {
   const source = await readFile(new URL('./project-assistant.mjs', import.meta.url), 'utf8');
-  assert.doesNotMatch(source, /\bfetch\s*\(|XMLHttpRequest|WebSocket|EventSource|sendBeacon|localStorage|sessionStorage|indexedDB|mailto:|https?:\/\//);
+  assert.doesNotMatch(source, /\bfetch\s*\(|XMLHttpRequest|WebSocket|EventSource|sendBeacon|localStorage|indexedDB|mailto:|https?:\/\//);
+  assert.match(source, /sessionStorage/);
   assert.doesNotMatch(source, /apiKey|openai|anthropic|generativelanguage/i);
 });
 
@@ -185,7 +186,7 @@ test('review does not accept a fifth answer as a submission or silently change t
   const result = advanceConversation(state, 'Can you send this now?');
   assert.equal(result.accepted, true);
   assert.equal(result.faq, true);
-  assert.match(result.state.messages.at(-1).text, /Nothing is sent to Raj/);
+  assert.match(result.state.messages.at(-1).text, /until Send project brief/);
   assert.equal(buildProjectBrief(result.state), brief);
   const edit = advanceConversation(state, 'Actually make it urgent');
   assert.equal(edit.accepted, false);
@@ -200,4 +201,15 @@ test('repeated FAQ use has bounded in-memory transcript without losing the brief
   assert.equal(buildProjectBrief(state), brief);
   assert.ok(state.messages.some((item) => item.role === 'brief' && item.text === brief));
   assert.equal(state.step, 'review');
+});
+
+test('local backups reflect a confirmed saved receipt without falsely saying unsent', () => {
+  const state = completeBrief();
+  assert.match(buildProjectBrief(state), /has not been sent/);
+  const saved = buildProjectBrief(state, { saved: true });
+  assert.match(saved, /Saved to the Raj Industries website inbox/);
+  assert.doesNotMatch(saved, /has not been sent/);
+  const pending = buildProjectBrief(state, { pending: true });
+  assert.match(pending, /Receipt is not confirmed/);
+  assert.doesNotMatch(pending, /has not been sent/);
 });

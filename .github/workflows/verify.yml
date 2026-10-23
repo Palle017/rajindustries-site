@@ -13,6 +13,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
       - name: Verify page boundaries and conversation behavior
-        run: node --test site.test.mjs public-status.test.mjs project-assistant.test.mjs
+        run: node --test site.test.mjs public-status.test.mjs project-assistant.test.mjs inbox-client.test.mjs inbox-service/backend.test.mjs
+      - name: Build and validate inbox artifact
+        working-directory: inbox-service
+        run: |
+          node scripts/build.mjs
+          node scripts/validate-artifact.mjs

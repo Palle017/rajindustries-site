@@ -1,7 +1,9 @@
+import { checkpointSubmission, clearCheckpoint, createPendingSubmission, inboxError, makeReturnLink, restoreCheckpoint, submitBrief } from './inbox-client.mjs';
+
 export const INPUT_LIMIT = 1000;
 const SHORT_LIMIT = 200;
 const HISTORY_LIMIT = 32;
-export const READY_MESSAGE = 'Your brief is ready. It has not been sent. Copy or save it for now.';
+export const READY_MESSAGE = 'Your brief is ready. It has not been sent. Choose Send project brief when you are ready.';
 
 const CATEGORIES = [
   'Website or workflow automation',
@@ -38,7 +40,7 @@ export function createConversation() {
     step: 'category',
     answers: {},
     messages: [
-      message('guide', 'Choose a service and we’ll shape a short project brief. Your answers stay in this page; nothing is sent to Raj. Leave out passwords and private details.'),
+      message('guide', 'Choose a service and we’ll shape a short project brief. Your draft stays on this page until you choose Send project brief. Leave out passwords and private details.'),
       message('guide', PROMPTS.category),
     ],
   };
@@ -70,7 +72,7 @@ function faqAnswer(input, step) {
     || /\b(?:need|require|required|give)\b.{0,20}\b(?:email|contact details)\b/.test(text)
   ));
   if (privacyQuestion) {
-    return 'This guide runs in your browser with fixed responses and uses no AI model. Your answers stay in this page\'s memory; the guide does not transmit them or keep them after a page reload. Copy writes only when you choose Copy. Save downloads a text file to your device. No email or contact details are required. Nothing is sent to Raj.';
+    return 'This guide uses fixed responses and no AI model. Drafts stay on this page until Send project brief. After Send, a recovery copy stays in this tab so interrupted requests can be retried after a reload. Sent briefs and replies stay in the website inbox for 90 days from creation. Save your private return link; anyone with it can read and reply, and a lost link cannot be recovered. No email is required. Copy and Save brief create local backups.';
   }
   return null;
 }
@@ -101,12 +103,12 @@ export function getConversationView(state) {
     ready: state.step === 'review',
     maxLength: state.step === 'location' || state.step === 'timing' ? SHORT_LIMIT : INPUT_LIMIT,
     hint: state.step === 'review'
-      ? 'The brief is only on this page. Copy or save it before reloading. Nothing is sent to Raj.'
+      ? 'Review your brief, then choose Send project brief to save it to the website inbox. Copy or Save brief only makes a local backup.'
       : `Step ${STEPS.indexOf(state.step) + 1} of 4. Your answers stay on this page. Do not include sensitive information.`,
   };
 }
 
-export function buildProjectBrief(state) {
+export function buildProjectBrief(state, { saved = false, pending = false } = {}) {
   if (state.step !== 'review') return '';
   return [
     'RAJ INDUSTRIES — PROJECT BRIEF',
@@ -119,7 +121,7 @@ export function buildProjectBrief(state) {
     `Location / work mode: ${state.answers.location}`,
     `Preferred timing: ${state.answers.timing}`,
     '',
-    'Prepared on this page. This brief has not been sent.',
+    saved ? 'Saved to the Raj Industries website inbox.' : pending ? 'Submitted for saving. Receipt is not confirmed; retry the same request to check.' : 'Prepared on this page. This brief has not been sent.',
     'No quote, availability, or appointment has been confirmed.',
   ].join('\n');
 }
@@ -168,6 +170,29 @@ export function mountProjectAssistant(doc) {
   let opener = null;
   let renderedMessages = [];
   let renderedStep = null;
+  let pendingSubmission = null;
+  let savedReceipt = null;
+  let submitting = false;
+  const submitButton = doc.getElementById('assistantSubmit');
+  const returnLink = doc.getElementById('assistantReturn');
+  const returnCopy = doc.getElementById('assistantReturnCopy');
+  let checkpointStore = null;
+  try { checkpointStore = doc.defaultView.sessionStorage; } catch { /* Storage may be disabled. */ }
+  const restored = restoreCheckpoint(checkpointStore);
+  if (restored) {
+    pendingSubmission = restored.pending;
+    conversation = { step: 'review', answers: { ...pendingSubmission.brief }, messages: [message('brief', '')] };
+    conversation.messages[0].text = buildProjectBrief(conversation, { saved: restored.saved, pending: !restored.saved });
+    if (restored.saved) savedReceipt = { thread: { id: pendingSubmission.id, expires_at: restored.expires_at } };
+    if (returnLink) {
+      returnLink.href = makeReturnLink(pendingSubmission.id, pendingSubmission.token);
+      returnLink.textContent = restored.saved ? 'Open saved conversation' : 'Open conversation - receipt not confirmed';
+      returnLink.hidden = false;
+    }
+    if (returnCopy) returnCopy.hidden = false;
+    nodes.assistantRestart.disabled = !restored.saved;
+    nodes.assistantNotice.textContent = restored.saved ? 'Your saved conversation is restored. Save its private return link before starting over.' : 'An interrupted submission was restored. Receipt is not confirmed. Use Send project brief to retry the same request.';
+  }
 
   function render() {
     const view = getConversationView(conversation);
@@ -214,6 +239,11 @@ export function mountProjectAssistant(doc) {
     nodes.assistantHint.textContent = view.hint;
     nodes.assistantCopy.hidden = !view.ready;
     nodes.assistantDownload.hidden = !view.ready;
+    if (submitButton) {
+      submitButton.hidden = !view.ready;
+      submitButton.disabled = submitting || Boolean(savedReceipt);
+      submitButton.textContent = submitting ? 'Saving your brief…' : savedReceipt ? 'Brief saved' : 'Send project brief';
+    }
     nodes.assistantLog.scrollTop = nodes.assistantLog.scrollHeight;
   }
 
@@ -256,7 +286,13 @@ export function mountProjectAssistant(doc) {
     apply(nodes.assistantInput.value);
   });
   nodes.assistantRestart.addEventListener('click', () => {
+    if (submitting || (pendingSubmission && !savedReceipt)) return;
     conversation = createConversation();
+    pendingSubmission = null;
+    savedReceipt = null;
+    clearCheckpoint(checkpointStore);
+    if (returnLink) { returnLink.hidden = true; returnLink.removeAttribute('href'); }
+    if (returnCopy) returnCopy.hidden = true;
     nodes.assistantInput.value = '';
     nodes.assistantInput.removeAttribute('aria-invalid');
     nodes.assistantNotice.textContent = 'Started over. The previous brief has been cleared from this guide.';
@@ -269,16 +305,16 @@ export function mountProjectAssistant(doc) {
     try {
       const clipboard = doc.defaultView.navigator.clipboard;
       if (!clipboard?.writeText) throw new Error('Clipboard unavailable');
-      await clipboard.writeText(buildProjectBrief(conversation));
-      nodes.assistantNotice.textContent = 'Brief copied to your clipboard. It has not been sent.';
+      await clipboard.writeText(buildProjectBrief(conversation, { saved: Boolean(savedReceipt), pending: Boolean(pendingSubmission) }));
+      nodes.assistantNotice.textContent = savedReceipt ? 'Saved brief copied to your clipboard.' : pendingSubmission ? 'Brief copied. Receipt is not confirmed; retry the same request before leaving.' : 'Brief copied to your clipboard. It has not been sent.';
     } catch {
-      nodes.assistantNotice.textContent = 'Copy is unavailable here. Select the brief above or choose Save brief. Nothing has been sent.';
+      nodes.assistantNotice.textContent = 'Copy is unavailable here. Select the brief above or choose Save brief.';
     }
   });
   nodes.assistantDownload.addEventListener('click', () => {
     if (conversation.step !== 'review') return;
     const browser = doc.defaultView;
-    const file = new browser.Blob([buildProjectBrief(conversation)], { type: 'text/plain;charset=utf-8' });
+    const file = new browser.Blob([buildProjectBrief(conversation, { saved: Boolean(savedReceipt), pending: Boolean(pendingSubmission) })], { type: 'text/plain;charset=utf-8' });
     const url = browser.URL.createObjectURL(file);
     const link = doc.createElement('a');
     link.href = url;
@@ -287,7 +323,42 @@ export function mountProjectAssistant(doc) {
     link.click();
     link.remove();
     browser.setTimeout(() => browser.URL.revokeObjectURL(url), 1000);
-    nodes.assistantNotice.textContent = 'A text download was requested. Check your device for the file. Nothing has been sent.';
+    nodes.assistantNotice.textContent = 'A text download was requested. Check your device for the file. Downloading does not send the brief.';
+  });
+  submitButton?.addEventListener('click', async () => {
+    if (submitting || savedReceipt || conversation.step !== 'review') return;
+    pendingSubmission ||= createPendingSubmission(conversation.answers);
+    const checkpointed = checkpointSubmission(checkpointStore, pendingSubmission);
+    if (returnLink) {
+      returnLink.href = makeReturnLink(pendingSubmission.id, pendingSubmission.token);
+      returnLink.textContent = 'Open conversation - receipt not confirmed';
+      returnLink.hidden = false;
+    }
+    if (returnCopy) returnCopy.hidden = false;
+    submitting = true;
+    nodes.assistantRestart.disabled = true;
+    nodes.assistantNotice.textContent = checkpointed ? 'Saving your brief to the website inbox...' : 'Saving your brief... Tab recovery is unavailable. Keep this page open and copy the private return link before leaving.';
+    render();
+    try {
+      savedReceipt = await submitBrief(pendingSubmission);
+      const savedCheckpoint = checkpointSubmission(checkpointStore, pendingSubmission, { saved: true, expires_at: savedReceipt.thread.expires_at });
+      const link = makeReturnLink(pendingSubmission.id, pendingSubmission.token);
+      if (returnLink) { returnLink.href = link; returnLink.textContent = 'Open saved conversation'; returnLink.hidden = false; }
+      if (returnCopy) returnCopy.hidden = false;
+      conversation = withMessages(conversation, [message('guide', 'Your project brief is saved in the website inbox. Save your private return link before leaving to check for Raj’s reply. Anyone with the link can read and reply. If you lose it, this anonymous conversation cannot be recovered.')]);
+      conversation = { ...conversation, messages: conversation.messages.map((item) => item.role === 'brief' ? message('brief', buildProjectBrief(conversation, { saved: true })) : item) };
+      nodes.assistantNotice.textContent = savedCheckpoint ? 'Brief saved. Save your private return link before leaving or starting over.' : 'Brief saved. Tab recovery is unavailable: copy your private return link before leaving or starting over.';
+      nodes.assistantRestart.disabled = false;
+    } catch (error) {
+      nodes.assistantNotice.textContent = `${inboxError(error)} Receipt is not confirmed. Keep this page open and use Send project brief again; your request and private key will be reused.${checkpointed ? '' : ' Tab recovery is unavailable, so copy the private return link before leaving.'}`;
+    } finally { submitting = false; render(); }
+  });
+  returnCopy?.addEventListener('click', async () => {
+    if (!returnLink?.href) return;
+    try {
+      await doc.defaultView.navigator.clipboard.writeText(returnLink.href);
+      nodes.assistantNotice.textContent = 'Private return link copied. Keep it privately; anyone with it can read and reply.';
+    } catch { nodes.assistantNotice.textContent = 'Copy is unavailable. Open the saved conversation and bookmark it, or copy its complete address.'; }
   });
   render();
   return { getState: () => conversation };

@@ -1,14 +1,16 @@
 # On-site project assistant: proposed rollout
 
-Status: design preview only. This document does not authorize deployment or
-activation of an inquiry service. Raj requested no email route and a
-self-contained website chatbot.
+Status: Raj authorized website inbox implementation and deployment through PRs
+on October 23, 2026, superseding the earlier design-only hold. No email route
+is required. See INBOX.md for the implemented protocol and release evidence
+for verified deployment status.
 
 ## Recommended first release
 
 Keep common service answers and the four-step brief deterministic: zero AI
-model tokens. The preview implements this browser experience, including local
-copy/download and honest unsent status.
+model tokens. The implementation includes this guide, local copy/download,
+explicit durable submission, private return conversations, and owner replies.
+Saved status requires a storage receipt; drafts remain clearly unsent.
 
 Before accepting inquiries, connect an explicit Send brief action to a small
 same-origin intake endpoint backed by durable private storage. Return a receipt

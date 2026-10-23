@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
+<meta name="robots" content="index,follow">
 <meta name="description" content="Raj Industries builds websites, business automations, connected homes, networks, and private AI systems. Explore the work and shape your project with the on-page assistant.">
 <meta name="theme-color" content="#0b1015">
-<title>Raj Industries — Websites, Automation &amp; Connected Systems (Preview)</title>
+<title>Raj Industries — Websites, Automation &amp; Connected Systems</title>
 <link rel="stylesheet" href="preview.css">
 <style>
 /* Preserve existing archive and gated chat without carrying over the previous grid layout. */
@@ -141,7 +141,7 @@
 
 <div class="wrap">
   <header class="topbar">
-    <div class="brand-group"><a class="brand" href="#top" aria-label="Raj Industries home">RAJ<em>.</em>INDUSTRIES</a><span class="preview-label">Design preview</span></div>
+    <div class="brand-group"><a class="brand" href="#top" aria-label="Raj Industries home">RAJ<em>.</em>INDUSTRIES</a></div>
     <nav aria-label="Main navigation"><a href="#projects">Work</a><a class="nav-services" href="#services">Services</a><a class="nav-lab" href="#infrastructure">Lab</a><button class="nav-cta" type="button" data-project-assistant aria-haspopup="dialog" aria-controls="projectAssistant">Let’s talk <span aria-hidden="true">↗</span></button></nav>
   </header>
   <main id="top" tabindex="-1">
@@ -206,16 +206,16 @@
 
     <section class="contact" id="contact" aria-labelledby="contact-title"><div><div class="overline">innovate</div><h2 id="contact-title">What are you working on?</h2><p>A new website. A system that needs connecting. A problem that needs a practical fix. Start with the outcome you want.</p><p class="owner">Built by Raj Pallempati · Based in Fort Myers, Florida.</p></div><div class="contact-action"><button class="button" type="button" data-project-assistant aria-haspopup="dialog" aria-controls="projectAssistant">Discuss your project <span aria-hidden="true">↗</span></button><p>A short conversation to shape the idea. No account needed.</p></div></section>
   </main>
-  <footer class="footer"><div><b>Raj Industries</b> · Software &amp; systems</div><div class="footer-right"><a href="https://github.com/Palle017">GitHub <span aria-hidden="true">↗</span></a><button class="chat-launcher" id="chatLauncher" type="button" aria-label="Open private chat with tardbot" aria-haspopup="dialog" aria-controls="chatPanel">Private workspace <span aria-hidden="true">↗</span></button></div></footer>
+  <footer class="footer"><div><b>Raj Industries</b> · Software &amp; systems</div><div class="footer-right"><a href="https://github.com/Palle017">GitHub <span aria-hidden="true">↗</span></a><a href="https://raj-industries-inbox.prudhvi-pallempati.chatgpt.site/owner">Owner inbox <span aria-hidden="true">↗</span></a><button class="chat-launcher" id="chatLauncher" type="button" aria-label="Open private chat with tardbot" aria-haspopup="dialog" aria-controls="chatPanel">Private workspace <span aria-hidden="true">↗</span></button></div></footer>
 </div>
 
 <dialog class="assistant-dialog" id="projectAssistant" aria-labelledby="assistantTitle" aria-describedby="assistantPrivacy">
   <div class="assistant-head"><div><div class="overline">Raj Industries / Project assistant</div><h2 id="assistantTitle">Let’s work through the idea.</h2></div><button class="assistant-close" id="assistantClose" type="button" aria-label="Close project assistant">×</button></div>
-  <p class="assistant-privacy" id="assistantPrivacy">Preview · Your answers stay in this page. Nothing is sent.</p>
+  <p class="assistant-privacy" id="assistantPrivacy">Drafts stay here until you send. Private return links expire after 90 days. Save your link; no email needed.</p>
   <div class="assistant-log" id="assistantLog" role="log" aria-live="polite" aria-relevant="additions text" aria-label="Project conversation"></div>
   <div class="assistant-choices" id="assistantChoices" aria-label="Suggested replies"></div>
   <form class="assistant-form" id="assistantForm"><label for="assistantInput" id="assistantInputLabel">Your message</label><div class="assistant-input-row"><textarea id="assistantInput" name="message" maxlength="1000" rows="2" required aria-describedby="assistantHint" placeholder="Tell us what you have in mind…"></textarea><button class="button" id="assistantSend" type="submit">Continue <span aria-hidden="true">↗</span></button></div><p class="assistant-hint" id="assistantHint">Ask about services, or build a project brief. Please leave out passwords and private details.</p></form>
-  <div class="assistant-tools"><button id="assistantRestart" type="button">Start over</button><button id="assistantCopy" type="button" hidden>Copy project brief</button><button id="assistantDownload" type="button" hidden>Save brief</button></div><p class="assistant-notice" id="assistantNotice" role="status"></p>
+  <div class="assistant-tools"><button class="button" id="assistantSubmit" type="button" hidden>Send project brief</button><button id="assistantRestart" type="button">Start over</button><button id="assistantCopy" type="button" hidden>Copy project brief</button><button id="assistantDownload" type="button" hidden>Save brief</button><a id="assistantReturn" href="#" hidden>Open your private conversation <span aria-hidden="true">↗</span></a><button id="assistantReturnCopy" type="button" hidden>Copy private return link</button></div><p class="assistant-notice" id="assistantNotice" role="status"></p>
 </dialog>
 
 

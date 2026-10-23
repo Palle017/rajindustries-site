@@ -1,87 +1,53 @@
-# Raj Industries — design preview
+# Raj Industries
 
-**Deployment hold: this branch is for Raj's design review. Do not merge,
-enable auto-merge, or deploy without his next explicit release instruction.**
-GitHub Pages serves main at the repository root; merging would publish it.
+Websites, automation, connected homes, networks, private AI and selected work.
+The public website is static GitHub Pages at rajindustries.fixingfortmyers.com.
 
-The proposed page leads with websites, automation, and connected systems, then
-selected work, four focused capability cards, an optional lab panel, and an
-on-page project assistant. It remains static HTML/CSS/JavaScript with no build,
-external font dependency, new runtime dependency, or paid service.
+Raj authorized website-inbox implementation and deployment through PRs on
+October 23, 2026, superseding the prior design-only hold. Keep PR #1 current
+during development; release tested revisions through the required review
+workflow. GitHub Pages publishes main at the repository root.
 
-## Local review
+## Public project conversation
 
-Run node serve.mjs 8792 and open http://127.0.0.1:8792.
-The development server binds only to loopback. The page has noindex,nofollow
-and a discreet design-preview label. Remove those preview-only markers in a
-separately approved release commit, not during this design review.
+Discuss your project opens the fixed on-page guide. Four steps collect the
+category, goal, general location/work mode and timing. No email is required;
+the guide uses zero AI model tokens. Only explicit Send project brief writes
+to the website inbox, with saved status only after a durable receipt.
+Post-Send tab-session recovery preserves retry identity after reload.
+Visitors save a private return link to read and reply later.
 
-Run node --test site.test.mjs public-status.test.mjs project-assistant.test.mjs.
-GitHub's Verify preview workflow runs these checks on the design branch and
-pull requests, with read-only permissions and no deployment job.
+The conversation page has no analytics or private-workspace code. Credentials
+stay in the URL fragment and API authorization header. Anyone with the private
+link can read and reply; losing it prevents anonymous recovery. Links expire
+90 days after creation.
 
-## Project assistant: zero model tokens
+Owner inbox:
+https://raj-industries-inbox.prudhvi-pallempati.chatgpt.site/owner
 
-The public Discuss your project buttons open a native dialog. Fixed answers
-cover services, pricing, appointments, and privacy. Four steps collect project
-category, desired outcome, general location/work mode, and timing.
+It requires owner sign-in and server authorization. No customer email, SMS,
+or third-party notification is sent. See INBOX.md for architecture and release
+evidence. Backend source is in inbox-service/.
 
-This preview has **no submission backend**. Answers stay in page memory. Copy
-and Save brief are explicit local actions. Closing/reopening keeps the draft
-for the same page session; reloading clears it. No email or contact details are
-required. It does not send inquiries, confirm bookings, quote prices, call an
-AI model, or create persistent browser records. Review explicitly states that
-the brief has not been sent.
+## Development and checks
 
-The existing gated tardbot workspace remains separate in the footer. Its gate,
-authentication, remote endpoints, and controller are preserved; it is not the
-new public intake route. No gate was bypassed or backend activated.
-See [ROLLOUT.md](ROLLOUT.md) for the proposed production path without email.
+Run node serve.mjs 8792 for the loopback website.
+Follow inbox-service/README.md for the loopback backend on port8793.
+Local API mapping applies only on localhost/127.0.0.1.
 
-## Selected work and evidence
+Run node --test site.test.mjs public-status.test.mjs project-assistant.test.mjs
+inbox-client.test.mjs inbox-service/backend.test.mjs as one command.
 
-- **Perfect Timing:** public repair website and customer request flow at
-  https://fixingfortmyers.com/, source Palle017/fixingfortmyers-site.
-  The new assets/projects/perfect-timing-current.jpg was captured from the
-  public site on October 23, 2026, with no form filled or submitted. Copy
-  describes repair/appointment requests, not confirmed bookings or measured
-  business uplift.
-- **SPOTTED:** marketplace prototype, public source Palle017/spottedin-c.
-  Its existing image is retained and labeled as a project interface. The
-  website link is retained; current commerce, customer numbers, and
-  transaction handling are not claimed.
-- **Home Assistant:** personal home-automation implementation. The former
-  source link was unavailable to public inspection, so it is not presented
-  as an inspectable public case study or open-source repository.
-- **Manasa Globe:** protected interactive archive. Its existing on-demand
-  launcher, authentication boundary, iframe target, and controller remain.
-  No private photographs or archive contents were opened or copied.
+GitHub verification runs tests plus backend build/artifact validation.
+Existing gated tardbot and protected archive markup/controller remain
+separate; no private content is published.
 
-Automotive requests route to Perfect Timing. The unresolved firearms service
-placeholder is omitted from the proposed public service lineup.
+## Portfolio and lab
 
-## Optional public status panel
+Perfect Timing uses a real public screenshot and request-flow copy.
+SPOTTED is labeled as a marketplace prototype. Home Assistant is personal;
+Manasa Globe remains protected. Automotive requests route to Perfect Timing.
 
-The collapsed lab disclosure requests only proxmox-public.json from the same
-origin, without credentials or redirects. It refreshes on opening and every
-60 seconds while open and visible. Closing or hiding the page stops polling
-and cancels in-flight work. A ten-second timeout bounds failed requests.
-
-No public summary file exists in this branch. **Public telemetry not connected**
-and blank metrics are intentional. Stale, invalid, or failed reads clear old
-numbers, bars, guest counts, and timestamp. No example metrics are displayed
-as live data.
-
-The allowlisted schema is updated_at, cpu_percent, memory_percent,
-storage_percent, uptime_seconds, guests_running, and guests_total.
-Published values must be real, validated, sanitized, and no older than fifteen
-minutes. Private API addresses, tokens, hostnames, VM names, and camera feeds
-stay out of the page. Publishing a feed or connecting a private collector
-requires a separate authorized change.
-
-## Release boundary
-
-No main-branch edits, merges, DNS changes, public exposure, account changes,
-customer messages, or production backend changes are part of this preview.
-Canonical source: Palle017/rajindustries-site.
-Production domain: rajindustries.fixingfortmyers.com.
+The optional lab remains disconnected without an approved sanitized public
+summary. It polls only while expanded and visible, clears stale/failed values,
+and never contacts private infrastructure directly.

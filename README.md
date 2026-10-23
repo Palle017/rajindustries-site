@@ -1,90 +1,87 @@
-# rajindustries-site
+# Raj Industries — design preview
 
-Services and project portfolio for Raj Industries, served by GitHub Pages at
-`rajindustries.fixingfortmyers.com`.
+**Deployment hold: this branch is for Raj's design review. Do not merge,
+enable auto-merge, or deploy without his next explicit release instruction.**
+GitHub Pages serves main at the repository root; merging would publish it.
 
-A minimal, responsive dark layout with six direct service sections, a read-only server status panel, and the existing project links.
-The site favors short technical descriptions instead of sales copy.
+The proposed page leads with websites, automation, and connected systems, then
+selected work, four focused capability cards, an optional lab panel, and an
+on-page project assistant. It remains static HTML/CSS/JavaScript with no build,
+external font dependency, new runtime dependency, or paid service.
 
-## Services
+## Local review
 
-- Website design and development, business apps, SEO, APIs, portals, and automation.
-- Home Assistant, smart home automation, cameras, sensing, and security-system integrations.
-- Networking, Wi-Fi, managed IT, Microsoft 365, firewalls, VPNs, backups, virtualization, and cloud migrations.
-- Private AI infrastructure, local LLMs, GPU servers, Proxmox, storage, and small compute clusters.
-- Automotive diagnostics, mechanical and electrical repair, and module programming (see Perfect Timing for auto repair).
-- Firearms technical specialty; no specific regulated services claimed pending verified scope/licensing.
+Run node serve.mjs 8792 and open http://127.0.0.1:8792.
+The development server binds only to loopback. The page has noindex,nofollow
+and a discreet design-preview label. Remove those preview-only markers in a
+separately approved release commit, not during this design review.
 
-## Public server stats
+Run node --test site.test.mjs public-status.test.mjs project-assistant.test.mjs.
+GitHub's Verify preview workflow runs these checks on the design branch and
+pull requests, with read-only permissions and no deployment job.
 
-The Proxmox panel is display-only. It requests `proxmox-public.json` from the site origin every 60 seconds.
-Until an approved data feed exists, it accurately shows **Public telemetry not connected** and blank metrics.
+## Project assistant: zero model tokens
 
-Any published JSON must have **only** these allowlisted fields:
+The public Discuss your project buttons open a native dialog. Fixed answers
+cover services, pricing, appointments, and privacy. Four steps collect project
+category, desired outcome, general location/work mode, and timing.
 
-```json
-{
-  "updated_at": "2026-10-23T12:00:00Z",
-  "cpu_percent": 12,
-  "memory_percent": 35,
-  "storage_percent": 48,
-  "uptime_seconds": 123456,
-  "guests_running": 4,
-  "guests_total": 5
-}
-```
+This preview has **no submission backend**. Answers stay in page memory. Copy
+and Save brief are explicit local actions. Closing/reopening keeps the draft
+for the same page session; reloading clears it. No email or contact details are
+required. It does not send inquiries, confirm bookings, quote prices, call an
+AI model, or create persistent browser records. Review explicitly states that
+the brief has not been sent.
 
-The numbers above illustrate the schema only; they are not live measurements. Do **not** publish this sample as the real feed.
-Values older than 15 minutes are shown as stale.
-Never expose a Proxmox or Home Assistant token, private IP address, device identifier, host/VM names, security-camera feed, private system details, or a management endpoint.
-A static GitHub Pages site cannot poll the private network on its own; connect this later through an authorized read-only server-side collector with sanitized output and explicit approval for public telemetry.
+The existing gated tardbot workspace remains separate in the footer. Its gate,
+authentication, remote endpoints, and controller are preserved; it is not the
+new public intake route. No gate was bypassed or backend activated.
+See [ROLLOUT.md](ROLLOUT.md) for the proposed production path without email.
 
-## Projects
+## Selected work and evidence
 
-- **Perfect Timing** — auto repair, online booking, and shop operations at `fixingfortmyers.com`.
-- **Home Assistant** — smart home controls, cameras, energy, and automations; links to `Palle017/Homeassistant` on GitHub. Repository access follows its existing permissions.
-- **SPOTTED** — a marketplace for pre-owned Indian clothing at `www.spottedin.co`.
-- **Manasa Globe** — a private photo archive; its existing protected launcher opens on demand.
+- **Perfect Timing:** public repair website and customer request flow at
+  https://fixingfortmyers.com/, source Palle017/fixingfortmyers-site.
+  The new assets/projects/perfect-timing-current.jpg was captured from the
+  public site on October 23, 2026, with no form filled or submitted. Copy
+  describes repair/appointment requests, not confirmed bookings or measured
+  business uplift.
+- **SPOTTED:** marketplace prototype, public source Palle017/spottedin-c.
+  Its existing image is retained and labeled as a project interface. The
+  website link is retained; current commerce, customer numbers, and
+  transaction handling are not claimed.
+- **Home Assistant:** personal home-automation implementation. The former
+  source link was unavailable to public inspection, so it is not presented
+  as an inspectable public case study or open-source repository.
+- **Manasa Globe:** protected interactive archive. Its existing on-demand
+  launcher, authentication boundary, iframe target, and controller remain.
+  No private photographs or archive contents were opened or copied.
 
-The gated tardbot chat remains available from the footer and opens only on request. The Manasa Globe protected archive launcher is preserved.
-Project screenshots remain in `assets/projects/` for reuse but are not loaded on the page.
+Automotive requests route to Perfect Timing. The unresolved firearms service
+placeholder is omitted from the proposed public service lineup.
 
-## UI verification
+## Optional public status panel
 
-Preview: `node serve.mjs 8791`, then open `http://localhost:8791`.
+The collapsed lab disclosure requests only proxmox-public.json from the same
+origin, without credentials or redirects. It refreshes on opening and every
+60 seconds while open and visible. Closing or hiding the page stops polling
+and cancels in-flight work. A ten-second timeout bounds failed requests.
 
-- Project discovery: `#projects` still contains four entries; `#services` contains six service cards and `#infrastructure` contains the status panel. Current changes require a fresh desktop/mobile visual check.
-- Archive: `#manasaGlobeLauncher` opens `#appOverlay` and loads the protected archive on demand; Escape closes it and restores launcher focus. Launch and Escape checked.
-- Chat: footer `#chatLauncher` opens `#chatPanel`; Escape closes it. The gate is retained and chat never opens automatically. Opening and closing checked; authenticated chat and private archive contents were not exercised.
-- Home Assistant links to the existing GitHub project; repository visibility and access are unchanged.
+No public summary file exists in this branch. **Public telemetry not connected**
+and blank metrics are intentional. Stale, invalid, or failed reads clear old
+numbers, bars, guest counts, and timestamp. No example metrics are displayed
+as live data.
 
-## Deploy
+The allowlisted schema is updated_at, cpu_percent, memory_percent,
+storage_percent, uptime_seconds, guests_running, and guests_total.
+Published values must be real, validated, sanitized, and no older than fifteen
+minutes. Private API addresses, tokens, hostnames, VM names, and camera feeds
+stay out of the page. Publishing a feed or connecting a private collector
+requires a separate authorized change.
 
-Static, no build step. Commit and push; Pages serves `main` at `/`.
+## Release boundary
 
-- Source: `main`, folder `/` (root)
-- Custom domain: `rajindustries.fixingfortmyers.com` (already in `CNAME`)
-- Enforce HTTPS: on
-
-DNS, at whoever hosts `fixingfortmyers.com`:
-
-```
-CNAME   rajindustries   palle017.github.io.
-```
-
-Hostnames are case-insensitive — this answers to `rajindustries` no matter how
-it is typed. If the brand is styled *RajIndustries*, that has to live in the
-page title and headings, not the URL.
-
-This repo can be public. It holds no private content, and a company site needs
-to be indexable once it is real.
-
-## Content boundary
-
-The site lists owner-confirmed areas of specialization, not a legal entity type or warranty.
-Actual regulated physical wiring, alarm installations, and firearms services must be scoped against applicable licensing before accepting those jobs.
-
-## Related
-
-- `fixingfortmyers-site` — the auto repair site, same domain, separate repo.
-- `maanster_archive` — private source for the encrypted Manasa Globe archive.
+No main-branch edits, merges, DNS changes, public exposure, account changes,
+customer messages, or production backend changes are part of this preview.
+Canonical source: Palle017/rajindustries-site.
+Production domain: rajindustries.fixingfortmyers.com.

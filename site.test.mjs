@@ -5,8 +5,8 @@ import { Script } from "node:vm";
 
 const html = readFileSync(new URL("./index.html", import.meta.url), "utf8");
 
-test("preview stays non-indexable, with work before capabilities and optional lab", () => {
-  assert.match(html, /content="noindex,nofollow"/);
+test("approved release stays indexable, with work before capabilities and optional lab", () => {
+  assert.match(html, /content="index,follow"/);
   assert.ok(html.indexOf('id="projects"') < html.indexOf('id="services"'));
   assert.ok(html.indexOf('id="services"') < html.indexOf('id="infrastructure"'));
   assert.match(html, /<details[^>]+id="labDetails">/);
@@ -18,7 +18,8 @@ test("preview stays non-indexable, with work before capabilities and optional la
 test("project conversation is accessible without email or a private-chat passphrase", () => {
   assert.match(html, /<dialog[^>]+id="projectAssistant"[^>]+aria-labelledby="assistantTitle"/);
   assert.equal((html.match(/data-project-assistant/g) || []).length, 3);
-  assert.match(html, /Your answers stay in this page\. Nothing is sent\./);
+  assert.match(html, /Drafts stay here until you send/);
+  assert.match(html, /id="assistantSubmit"/);
   assert.doesNotMatch(html, /mailto:|type="email"/);
 });
 

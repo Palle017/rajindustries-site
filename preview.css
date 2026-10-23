@@ -97,7 +97,7 @@ section{scroll-margin-top:24px}
 .footer-right a{display:inline-flex;align-items:center;min-height:44px}
 .assistant-dialog{position:fixed;inset:0;margin:auto;width:min(640px,calc(100% - 32px));max-height:min(860px,calc(100dvh - 40px));padding:0;background:var(--surface);color:var(--ink);border:1px solid #536a70;border-radius:12px;box-shadow:0 24px 90px #0009;overflow:auto}
 .assistant-dialog::backdrop{background:#03090ec9}
-.assistant-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:25px 25px 17px;border-bottom:1px solid var(--line)}
+.assistant-head{position:sticky;top:0;z-index:2;background:var(--surface);display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:25px 25px 17px;border-bottom:1px solid var(--line)}
 .assistant-head h2{font-size:23px;letter-spacing:-.035em;font-weight:600;margin:8px 0 0;line-height:1.25}
 .assistant-close{flex:0 0 44px;width:44px;height:44px;background:transparent;border:1px solid var(--line);border-radius:6px;color:var(--ink);font-size:25px;line-height:1}
 .assistant-privacy{font-size:12px;color:var(--muted);padding:14px 25px;margin:0;background:#17232b}

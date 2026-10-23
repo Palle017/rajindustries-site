@@ -38,7 +38,7 @@ export function createConversation() {
     step: 'category',
     answers: {},
     messages: [
-      message('guide', 'I can help you choose a service and prepare a project brief. This is an on-page guide, not a live chat. Nothing is sent to Raj. No email is needed. Please leave out passwords, account details, and exact addresses.'),
+      message('guide', 'Choose a service and we’ll shape a short project brief. Your answers stay in this page; nothing is sent to Raj. Leave out passwords and private details.'),
       message('guide', PROMPTS.category),
     ],
   };
@@ -233,13 +233,19 @@ export function mountProjectAssistant(doc) {
     if (!preserveDraft) nodes.assistantInput.focus();
   }
 
+  function focusOpeningStep() {
+    const firstService = conversation.step === 'category' ? nodes.assistantChoices.querySelector('button') : null;
+    (firstService || nodes.assistantInput).focus({ preventScroll: true });
+    dialog.scrollTop = 0;
+  }
+
   const launchers = doc.querySelectorAll('[data-project-assistant]');
   launchers.forEach((button) => button.addEventListener('click', () => {
     if (dialog.open) return;
     opener = button;
     render();
     dialog.showModal();
-    nodes.assistantInput.focus();
+    focusOpeningStep();
   }));
   nodes.assistantClose.addEventListener('click', () => dialog.close());
   dialog.addEventListener('close', () => {
@@ -256,7 +262,7 @@ export function mountProjectAssistant(doc) {
     nodes.assistantNotice.textContent = 'Started over. The previous brief has been cleared from this guide.';
     renderedStep = null;
     render();
-    nodes.assistantInput.focus();
+    focusOpeningStep();
   });
   nodes.assistantCopy.addEventListener('click', async () => {
     if (conversation.step !== 'review') return;

@@ -2,52 +2,82 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow">
-<meta name="description" content="Explore Raj Industries projects: Perfect Timing, Home Assistant, SPOTTED, and Manasa Globe.">
-<meta name="theme-color" content="#0d0e10">
-<title>Raj Industries — Projects</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+<meta name="description" content="Raj Industries — web development, home automation, network setup, IT support, private AI infrastructure, automotive, and firearms technical specialties.">
+<meta name="theme-color" content="#0b1015">
+<title>Raj Industries — Engineering & Technical Services</title>
 <style>
-  :root { color-scheme:dark; --bg:#0d0e10; --surface:#15171a; --border:#2c2f34; --text:#f2f2f0; --muted:#a5a8ae; --faint:#7e828a; --accent:#3abeff; --fire:#ff6a1a; }
-  *,*::before,*::after { box-sizing:border-box; }
-  [hidden] { display:none !important; }
-  body { margin:0; min-height:100dvh; background:var(--bg); color:var(--text); font-family:'Barlow',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
-  a { color:inherit; text-decoration:none; }
-  button { font:inherit; }
-  a:focus-visible,button:focus-visible { outline:2px solid var(--accent); outline-offset:5px; }
-  .skip-link { position:fixed; left:1rem; top:1rem; z-index:100; padding:.7rem 1rem; background:var(--accent); color:var(--bg); transform:translateY(-200%); }
-  .skip-link:focus { transform:none; }
-  main { width:min(100% - 3rem,960px); margin:auto; padding:76px 0 0; }
-  header { margin-bottom:38px; }
-  .eyebrow { margin:0 0 14px; color:var(--muted); font-size:.75rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; }
-  h1 { margin:0; font-size:clamp(2.5rem,7vw,4rem); line-height:1.1; font-weight:600; letter-spacing:-.045em; }
-  .mark { color:var(--fire); }
-  .project-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
-  .project-card { position:relative; display:flex; flex-direction:column; min-width:0; min-height:240px; padding:28px; border:1px solid var(--border); border-radius:16px; background:var(--surface); transition:transform .18s,border-color .18s,background .18s; }
-  .project-card:hover { transform:translateY(-3px); border-color:#62666f; background:#1a1d21; }
-  .project-card:focus-within { border-color:var(--accent); }
-  .card-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:25px; }
-  .icon { display:grid; place-items:center; width:42px; height:42px; border-radius:12px; background:var(--icon-bg); color:var(--icon); }
-  .icon svg { width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
-  .arrow { color:var(--faint); font-size:1.3rem; transition:color .18s; }
-  .project-card:hover .arrow { color:var(--text); }
-  h2 { margin:0 0 9px; font-size:1.4rem; line-height:1.2; font-weight:600; letter-spacing:-.02em; }
-  .project-desc { margin:0; max-width:36ch; color:var(--muted); font-size:1rem; line-height:1.55; }
-  .card-action { align-self:flex-start; margin-top:auto; padding:18px 0 0; border:0; background:none; color:var(--muted); font-size:.8rem; font-weight:500; cursor:pointer; }
-  .card-action::after { content:''; position:absolute; inset:0; border-radius:16px; }
-  .card-action:focus-visible { outline:none; }
-  .project-card:has(.card-action:focus-visible) { outline:2px solid var(--accent); outline-offset:4px; }
-  footer { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:28px 0 32px; color:var(--faint); font-size:.8rem; }
-  footer p { margin:0; }
-  .chat-launcher { border:0; background:none; color:var(--muted); padding:10px 0 10px 14px; cursor:pointer; }
-  .chat-launcher:hover { color:var(--text); }
-  .caret { display:inline-block; width:.55ch; height:1em; background:var(--accent); translate:0 .12em; }
-  @media(max-width:600px) { main { width:calc(100% - 2rem); padding-top:40px; } header { margin-bottom:28px; } .project-grid { grid-template-columns:1fr; gap:14px; } .project-card { min-height:220px; padding:24px; } .card-top { margin-bottom:22px; } }
-  @media(prefers-reduced-motion:reduce) { .project-card,.arrow { transition:none; } .project-card:hover { transform:none; } }
+
+:root{color-scheme:dark;--bg:#0b1015;--surface:#121a20;--surface2:#162129;--line:#2b3740;--ink:#f1f4f3;--muted:#9fadb4;--subtle:#677980;--accent:#8bddc4;--warm:#f3a66d}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:5px}
+.wrap{width:min(1140px,calc(100% - 48px));margin-inline:auto}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:25px 0;border-bottom:1px solid var(--line)}
+.brand{font-weight:820;letter-spacing:-.035em;font-size:19px;white-space:nowrap}.brand em{color:var(--warm);font-style:normal}
+.topbar nav{display:flex;align-items:center;gap:30px;font-size:13px;color:#abb8be}.topbar nav a:hover{color:var(--ink)}
+.topbar .tag{font:600 10px/1.4 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--accent);border:1px solid #3d625b;border-radius:5px;padding:8px 11px;letter-spacing:.04em}
+.hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:60px;align-items:end;padding:96px 0 76px;border-bottom:1px solid var(--line)}
+.eyebrow,.overline{font:650 11px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+h1{max-width:790px;font-weight:730;letter-spacing:-.065em;font-size:clamp(43px,6.5vw,85px);line-height:1.03;margin:22px 0 25px}
+.hero .desc{font-size:16px;color:#abb9c0;max-width:470px;margin:0;line-height:1.7}
+.hero-aside{border-left:1px solid var(--line);padding-left:25px;color:var(--muted);display:grid;gap:12px;font-size:13px}
+.hero-aside b{font-weight:600;color:#eef4f3;font-size:14px}
+.tiny{font:550 11px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--subtle)}
+section{scroll-margin-top:30px}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin:70px 0 24px}
+.section-head h2{font-size:clamp(26px,3vw,37px);line-height:1.1;letter-spacing:-.045em;font-weight:650;margin:0}
+.section-head p{max-width:360px;margin:0;color:var(--muted);font-size:13px;text-align:right}
+.services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.service{min-height:300px;border:1px solid var(--line);border-radius:11px;padding:24px;background:var(--surface);display:flex;flex-direction:column;gap:0;transition:background .2s,border-color .2s}
+.service:hover{border-color:#53656b;background:#162229}
+.service .serial{font:600 11px ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--accent);margin-bottom:39px}
+.service h3{font-size:22px;font-weight:650;letter-spacing:-.04em;line-height:1.2;margin:0 0 11px}
+.service p{color:var(--muted);font-size:13px;line-height:1.6;margin:0 0 17px}
+.capabilities{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:auto 0 0;padding:0}
+.capabilities li{border:1px solid #334249;border-radius:4px;padding:4px 7px;font:550 10px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;color:#aebfc6}
+.detail{color:var(--muted);font-size:12px;margin:45px 0 0;max-width:760px}
+.infra{display:grid;grid-template-columns:.62fr 1.38fr;gap:35px;padding:30px 30px 26px;border-radius:11px;border:1px solid #36534c;background:linear-gradient(130deg,#17262a 0%,#101b22 66%)}
+.infra-text h3{font-size:26px;line-height:1.15;letter-spacing:-.045em;margin:10px 0 16px;font-weight:650}
+.infra-text p{color:var(--muted);font-size:13px;margin:0 0 23px}
+.feed{display:inline-flex;gap:8px;align-items:center;font:600 11px ui-monospace,SFMono-Regular,Consolas,monospace;color:#b2bbc1}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#64767d}
+.dot.connected{background:#78dcc0;box-shadow:0 0 9px #6edbc055}
+.dot.stale{background:#daa86a}
+.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.metric{background:#0b171e;border:1px solid #34464e;border-radius:8px;padding:17px}
+.metric .label{display:block;font:600 10px ui-monospace,SFMono-Regular,Consolas,monospace;color:#99adb7;letter-spacing:.065em;text-transform:uppercase;margin-bottom:9px}
+.metric .value{font:650 31px/1.25 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:-.07em;display:block}
+.track{height:3px;background:#2d4248;border-radius:3px;overflow:hidden;margin-top:11px}.fill{height:100%;width:0;background:var(--accent);transition:width .3s}
+.metric .meta{font-size:11px;color:var(--muted);margin-top:7px}
+.infra-foot{border-top:1px solid #34484e;margin-top:16px;padding-top:13px;display:flex;justify-content:space-between;gap:10px;color:var(--muted);font:550 11px/1.4 ui-monospace,SFMono-Regular,Consolas,monospace}
+.projects{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.project{border:1px solid var(--line);border-radius:10px;padding:19px;background:var(--surface);min-height:152px;display:flex;flex-direction:column;justify-content:space-between;gap:18px}
+.project:hover{border-color:#64777e}
+.project .num{font:600 11px ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--accent)}
+.project strong{display:block;font-size:15px;font-weight:650;letter-spacing:-.02em;margin-bottom:5px}
+.project small{display:block;font-size:12px;color:var(--muted);line-height:1.5}
+.footer{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;border-top:1px solid var(--line);margin:65px 0 0;padding:22px 0 45px;font-size:12px;color:var(--muted)}
+.footer b{font-weight:600;color:var(--ink)}
+.notice{color:#889aa2;font-size:11px;max-width:540px}
+@media(max-width:930px){.hero{grid-template-columns:1fr;gap:35px;padding:66px 0 55px}.hero-aside{border-left:none;border-top:1px solid var(--line);padding:20px 0 0;display:flex;flex-wrap:wrap;gap:25px}.services{grid-template-columns:repeat(2,minmax(0,1fr))}.infra{grid-template-columns:1fr}.projects{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:590px){.wrap{width:min(100% - 28px,1140px)}.topbar{padding:18px 0}.brand{font-size:17px}.topbar nav{gap:14px;font-size:12px}.topbar nav a:nth-child(2){display:none}.topbar .tag{display:none}.hero{padding:57px 0 50px}.hero h1{font-size:50px}.hero-aside{gap:14px}.section-head{margin:46px 0 19px;display:block}.section-head p{text-align:left;margin:9px 0 0}.services,.projects{grid-template-columns:1fr}.service{min-height:245px;padding:21px}.service .serial{margin-bottom:26px}.infra{padding:21px;gap:20px}.metric{padding:14px}.metric .value{font-size:25px}.infra-foot{flex-direction:column}.projects{gap:9px}.project{min-height:110px}.footer{flex-direction:column}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+
+/* Preserve existing archive and gated chat without carrying over the previous grid layout. */
+:root{--border:var(--line);--text:var(--ink);--fire:var(--warm);--faint:var(--subtle)}
+.skip-link{position:absolute;left:12px;top:10px;transform:translateY(-180%);padding:10px 14px;background:var(--accent);color:var(--bg);z-index:80}
+.skip-link:focus{transform:translateY(0)}
+.caret{display:inline-block;width:.55ch;height:1em;background:var(--accent);vertical-align:middle}
+.chat-launcher{border:0;background:transparent;color:var(--accent);font:600 12px/1.5 ui-monospace,Consolas,monospace;cursor:pointer;padding:5px}
+.chat-launcher:hover{color:var(--ink)}
+.archive-button{display:block;border:0;background:transparent;text-align:left;color:var(--accent);font:600 12px/1.5 ui-monospace,Consolas,monospace;cursor:pointer;margin-top:12px;padding:3px 0}
+.archive-button:hover{color:var(--ink)}
+
   .chat-backdrop {
     position:fixed; inset:0; background:rgba(0,0,0,.45);
     z-index:40; opacity:0; transition:opacity .2s ease;
@@ -165,43 +195,59 @@
 </style>
 </head>
 <body>
-<a class="skip-link" href="#projects">Skip to projects</a>
-<main>
-  <header>
-    <p class="eyebrow" id="projectsTitle">Projects</p>
-    <h1>Raj<span class="mark">.</span>Industries</h1>
+<a class="skip-link" href="#services">Skip to services</a>
+
+<div class="wrap">
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Raj Industries home">RAJ<em>.</em>INDUSTRIES</a>
+    <nav aria-label="Main navigation"><a href="#services">Services</a><a href="#infrastructure">Infrastructure</a><a href="#projects">Projects</a></nav>
+    <span class="tag">FORT MYERS / FL</span>
   </header>
-  <section class="project-grid" id="projects" aria-labelledby="projectsTitle">
-    <article class="project-card" style="--icon:#ff945b;--icon-bg:#33241d">
-      <div class="card-top"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 11 1.5-5h11L19 11M5 11h14a2 2 0 0 1 2 2v5H3v-5a2 2 0 0 1 2-2Z"/><path d="M5 18v2m14-2v2M6 14h2m8 0h2"/></svg></span><span class="arrow" aria-hidden="true">↗</span></div>
-      <h2>Perfect Timing</h2>
-      <p class="project-desc">Auto repair, online booking, and shop operations.</p>
-      <a class="card-action" href="https://fixingfortmyers.com/" aria-label="Open Perfect Timing Auto Repair">Visit website</a>
-    </article>
-    <article class="project-card" style="--icon:#66caff;--icon-bg:#1b2b36">
-      <div class="card-top"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 11 9-8 9 8M5 10v11h14V10M9 21v-7h6v7"/></svg></span><span class="arrow" aria-hidden="true">↗</span></div>
-      <h2>Home Assistant</h2>
-      <p class="project-desc">Smart home controls, cameras, energy, and automations.</p>
-      <a class="card-action" href="https://github.com/Palle017/Homeassistant" aria-label="View the Home Assistant project on GitHub">View project</a>
-    </article>
-    <article class="project-card" style="--icon:#eea1bc;--icon-bg:#33212b">
-      <div class="card-top"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m8 4-5 3 2 5 3-1v10h8V11l3 1 2-5-5-3a4 4 0 0 1-8 0Z"/></svg></span><span class="arrow" aria-hidden="true">↗</span></div>
-      <h2>SPOTTED</h2>
-      <p class="project-desc">A marketplace for pre-owned Indian clothing.</p>
-      <a class="card-action" href="https://www.spottedin.co/" aria-label="Open the SPOTTED marketplace">Visit website</a>
-    </article>
-    <article class="project-card" style="--icon:#c3acf6;--icon-bg:#292336">
-      <div class="card-top"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6.5h14M5 17.5h14"/></svg></span><span class="arrow" aria-hidden="true">↗</span></div>
-      <h2>Manasa Globe</h2>
-      <p class="project-desc">A private photo archive, mapped around the world.</p>
-      <button class="card-action" id="manasaGlobeLauncher" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="appOverlay">Open archive</button>
-    </article>
-  </section>
-  <footer>
-    <p>Raj Industries</p>
-    <button class="chat-launcher" id="chatLauncher" type="button" aria-label="Open chat with tardbot" aria-haspopup="dialog" aria-controls="chatPanel">Ask tardbot ↗</button>
-  </footer>
-</main>
+  <main id="top">
+    <div class="hero">
+      <div><div class="eyebrow">Engineering · Software · Systems</div><h1>Engineering &amp;<br>technical services<span style="color:var(--warm)">.</span></h1><p class="desc">Web development, home automation, networking, private AI infrastructure, automotive, and firearms specialties.</p></div>
+      <div class="hero-aside"><div><div class="tiny">FOCUS</div><b>Design · Build · Integrate · Repair</b></div><div><div class="tiny">PLATFORMS</div><b>Linux · Proxmox · Home Assistant · Azure</b></div><div><div class="tiny">WORK</div><b>Homes · Business · Custom projects</b></div></div>
+    </div>
+    <section id="services" aria-labelledby="services-title">
+      <div class="section-head"><h2 id="services-title">Services</h2><p>Capabilities, tools, and systems. No packages or pricing claims.</p></div>
+      <div class="services">
+        <article class="service"><div class="serial">01 / SOFTWARE</div><h3>Web Design &amp; Development</h3><p>Websites, custom software, integrations, and workflow automation.</p><ul class="capabilities"><li>Business websites</li><li>Web applications</li><li>Local SEO</li><li>APIs</li><li>Customer portals</li><li>Automation</li></ul></article>
+        <article class="service"><div class="serial">02 / AUTOMATION</div><h3>Home Automation &amp; Security</h3><p>Connected properties, local device control, and monitoring.</p><ul class="capabilities"><li>Home Assistant</li><li>Security cameras</li><li>Smart sensors</li><li>Energy monitoring</li><li>Access control</li><li>Local automations</li></ul></article>
+        <article class="service"><div class="serial">03 / NETWORKS</div><h3>Network &amp; IT Support</h3><p>Home and business networks, servers, troubleshooting, and ongoing IT.</p><ul class="capabilities"><li>Wi-Fi setup</li><li>Managed IT</li><li>Computer repair</li><li>Network installation</li><li>Cybersecurity</li><li>VPNs / VLANs</li><li>Firewalls</li><li>Backups</li><li>Microsoft 365</li><li>Virtualization</li><li>Cloud migrations</li><li>Structured cabling design</li></ul></article>
+        <article class="service"><div class="serial">04 / COMPUTE</div><h3>Private AI &amp; Datacenters</h3><p>Local AI and self-hosted systems built around available hardware.</p><ul class="capabilities"><li>Local LLMs</li><li>GPU servers</li><li>Proxmox</li><li>AI agents</li><li>NAS / storage</li><li>Linux</li><li>Compute clusters</li></ul></article>
+        <article class="service"><div class="serial">05 / AUTOMOTIVE</div><h3>Automotive</h3><p>Diagnostics, electrical work, module programming, and mechanical systems. See Perfect Timing for repair services.</p><ul class="capabilities"><li>Vehicle diagnostics</li><li>ECU / TCM programming</li><li>Electrical diagnosis</li><li>Engine repair</li><li>Walnut blasting</li><li>Detailing</li></ul></article>
+        <article class="service"><div class="serial">06 / SPECIALTY</div><h3>Firearms</h3><p>Technical specialty. Specific services and regulated activities will be listed after scope and licensing are verified.</p><ul class="capabilities"><li>Scope by inquiry</li></ul></article>
+      </div>
+      <p class="detail">Physical wiring, security/alarm installations, and regulated firearms work are subject to applicable licensing and scope requirements.</p>
+    </section>
+    <section id="infrastructure" aria-labelledby="infrastructure-title">
+      <div class="section-head"><h2 id="infrastructure-title">Infrastructure</h2><p>Read-only status panel. No remote management access.</p></div>
+      <div class="infra">
+        <div class="infra-text"><div class="overline">Lab / Proxmox VE</div><h3>Server statistics</h3><p>CPU, memory, storage, uptime, and guest status from an approved public summary. No IP addresses, hostnames, tokens, or VM names are published.</p><div class="feed" role="status" aria-live="polite"><span class="dot" id="feedDot"></span><span id="feedState">Public telemetry not connected</span></div></div>
+        <div>
+          <div class="metrics">
+            <div class="metric"><span class="label">CPU usage</span><span class="value" id="cpu">—</span><div class="track"><div class="fill" id="cpuBar"></div></div></div>
+            <div class="metric"><span class="label">Memory usage</span><span class="value" id="memory">—</span><div class="track"><div class="fill" id="memoryBar"></div></div></div>
+            <div class="metric"><span class="label">Storage usage</span><span class="value" id="storage">—</span><div class="track"><div class="fill" id="storageBar"></div></div></div>
+            <div class="metric"><span class="label">Host uptime</span><span class="value" id="uptime">—</span><div class="meta">Days since last boot</div></div>
+          </div>
+          <div class="infra-foot"><span id="guests">Running guests: —</span><span id="updated">Updated: —</span></div>
+        </div>
+      </div>
+    </section>
+    <section id="projects" aria-labelledby="projects-title">
+      <div class="section-head"><h2 id="projects-title">Selected work</h2><p>Existing project portfolio, retained as supporting work.</p></div>
+      <div class="projects">
+        <a class="project" href="https://fixingfortmyers.com/"><div class="num">01 ↗</div><div><strong>Perfect Timing</strong><small>Automotive repair, booking and business systems</small></div></a>
+        <a class="project" href="https://github.com/Palle017/Homeassistant"><div class="num">02 ↗</div><div><strong>Home Assistant</strong><small>Property automation and device monitoring</small></div></a>
+        <a class="project" href="https://www.spottedin.co/"><div class="num">03 ↗</div><div><strong>SPOTTED</strong><small>Clothing marketplace</small></div></a>
+        <div class="project"><div class="num">04 / PRIVATE</div><div><strong>Manasa Globe</strong><small>Protected private photo archive</small><button class="archive-button" id="manasaGlobeLauncher" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="appOverlay">Open archive ↗</button></div></div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div><b>Raj Industries</b> · Fort Myers, Florida</div><button class="chat-launcher" id="chatLauncher" type="button" aria-label="Open chat with tardbot" aria-haspopup="dialog" aria-controls="chatPanel">Ask tardbot ↗</button></footer>
+</div>
+
 
 <div class="app-overlay" id="appOverlay" role="dialog" aria-modal="true" aria-label="Manasa Globe archive" aria-hidden="true" hidden>
   <div class="app-backdrop" id="appBackdrop"></div>
@@ -235,6 +281,39 @@
   </form>
 </section>
 
+<script>
+// The public website must never call Proxmox or the private Home Assistant API directly.
+// Approved read-only schema: {updated_at, cpu_percent, memory_percent, storage_percent,
+// uptime_seconds, guests_running, guests_total}. This preview has no data file.
+(function(){
+  const $=id=>document.getElementById(id);
+  const MAX_AGE_MS=15*60*1000;
+  const pct=v=>typeof v==='number'&&Number.isFinite(v)&&v>=0&&v<=100?Math.round(v):null;
+  const validCount=v=>Number.isInteger(v)&&v>=0&&v<=500?v:null;
+  const show=(state,kind)=>{$('feedState').textContent=state;$('feedDot').className='dot'+(kind?' '+kind:'')};
+  async function refresh(){
+    try{
+      const response=await fetch('proxmox-public.json',{cache:'no-store'});
+      if(!response.ok)throw Error('feed not available');
+      const data=await response.json();
+      const updated=Date.parse(data.updated_at);
+      if(!Number.isFinite(updated)||Math.abs(Date.now()-updated)>MAX_AGE_MS){show('Status data unavailable or stale','stale');return}
+      for(const [field,id] of [['cpu_percent','cpu'],['memory_percent','memory'],['storage_percent','storage']]){
+        const value=pct(data[field]);
+        $(id).textContent=value===null?'—':value+'%';
+        $(id+'Bar').style.width=(value===null?0:value)+'%';
+      }
+      const seconds=Number.isFinite(data.uptime_seconds)&&data.uptime_seconds>=0?data.uptime_seconds:null;
+      $('uptime').textContent=seconds===null?'—':(seconds/86400).toFixed(1)+' d';
+      const running=validCount(data.guests_running),total=validCount(data.guests_total);
+      $('guests').textContent=running!==null&&total!==null&&running<=total?'Running guests: '+running+' / '+total:'Running guests: —';
+      $('updated').textContent='Updated: '+new Date(updated).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+      show('Read-only public telemetry','connected');
+    }catch{show('Public telemetry not connected','')}
+  }
+  refresh();setInterval(refresh,60*1000);
+})();
+</script>
 <script>
 (function () {
   var panel = document.getElementById('chatPanel');
@@ -577,6 +656,5 @@
   });
 })();
 </script>
-
 </body>
 </html>

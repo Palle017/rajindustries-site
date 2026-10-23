@@ -4,150 +4,50 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="index,follow">
-<meta name="description" content="Raj Industries projects, products, and the systems behind Perfect Timing Auto Repair.">
-<title>Raj Industries — Projects &amp; Systems</title>
-<!-- same families the auto repair site loads, so the two read as one brand -->
+<meta name="description" content="Explore Raj Industries projects: Perfect Timing, Home Assistant, SPOTTED, and Manasa Globe.">
+<meta name="theme-color" content="#0d0e10">
+<title>Raj Industries — Projects</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600&display=swap" rel="stylesheet">
-<!-- human-check for the tardbot panel; explicit render so it only mounts on first gate -->
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 <style>
-  :root {
-    --bg:#0a0a0b; --surface:#111114; --border:#2a2a30;
-    --text:#e8e8ec; --muted:#A9AEB5; --faint:#6E7078;
-    --accent:#3ABEFF; --fire:#ff6a1a;
-    --font-display:'Bebas Neue','Impact',sans-serif;
-    --font-body:'Barlow','Helvetica Neue',sans-serif;
-  }
-  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
-  body {
-    min-height:100dvh; padding:2rem;
-    background:var(--bg); color:var(--text);
-    font-family:var(--font-body); line-height:1.6;
-    -webkit-font-smoothing:antialiased; overflow-x:hidden;
-  }
-  main { width:100%; max-width:64rem; min-width:0; margin:0 auto; text-align:center; }
-  h1 {
-    font-family:var(--font-display); font-weight:400;
-    font-size:clamp(2.35rem,11.5vw,7rem); line-height:.92; letter-spacing:.02em;
-    text-transform:uppercase;
-  }
-  h1 .mark { color:var(--fire); }
-  .rule {
-    width:4rem; height:2px; margin:2rem auto;
-    background:linear-gradient(90deg,var(--fire),var(--accent));
-  }
-  a { color:var(--accent); text-decoration:none; }
-  a:focus-visible, button:focus-visible {
-    outline:2px solid var(--accent); outline-offset:3px;
-  }
-
-  .skip-link {
-    position:fixed; top:1rem; left:1rem; z-index:100;
-    padding:.55rem .8rem; color:var(--bg); background:var(--accent);
-    font-weight:600; transform:translateY(-200%);
-  }
-  .skip-link:focus { transform:translateY(0); }
-
-  .term {
-    display:inline-flex; align-items:baseline; gap:.6ch;
-    padding:.85rem 1.2rem;
-    font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
-    font-size:clamp(.82rem,2.6vw,1rem);
-    background:var(--surface); border:1px solid var(--border); border-radius:3px;
-    white-space:nowrap;
-  }
-  .term:hover { border-color:var(--accent); }
-  .term .prompt { color:var(--fire); }
-  .term .cmd { color:var(--text); }
-  .term .host { color:var(--accent); }
-  .caret {
-    display:inline-block; width:.55ch; height:1em;
-    background:var(--accent); translate:0 .12em;
-    animation:blink 1.1s steps(1) infinite;
-  }
-  @keyframes blink { 50% { opacity:0; } }
-  @media (prefers-reduced-motion:reduce) { .caret { animation:none; } }
-
-  .projects { margin:4.5rem auto 0; text-align:left; }
-  .section-kicker {
-    display:block; margin:0 0 .35rem;
-    font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
-    font-size:.78rem; letter-spacing:.08em; text-transform:uppercase;
-    color:var(--accent);
-  }
-  .projects-head {
-    font-family:var(--font-display); font-weight:400;
-    font-size:clamp(2rem,7vw,3.4rem); line-height:1; letter-spacing:.04em;
-    text-transform:uppercase; color:var(--text);
-  }
-  .projects-sub { margin:.6rem 0 0; max-width:38rem; color:var(--muted); }
-  .project-grid {
-    display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem;
-    margin:1.75rem 0 0;
-  }
-  .project-grid--single {
-    grid-template-columns:minmax(0,32rem); justify-content:center;
-  }
-  .project-card {
-    min-width:0; display:flex; flex-direction:column; overflow:hidden;
-    background:var(--surface); border:1px solid var(--border); border-radius:5px;
-    transition:border-color .2s ease, transform .2s ease;
-  }
-  .project-card:hover { border-color:var(--accent); transform:translateY(-2px); }
-  .project-shot {
-    width:100%; height:auto; aspect-ratio:16/10; display:block; object-fit:cover;
-    object-position:top center; background:#050506;
-    border-bottom:1px solid var(--border);
-  }
-  .project-body {
-    flex:1; display:flex; flex-direction:column; align-items:flex-start;
-    padding:1.1rem;
-  }
-  .project-status {
-    display:inline-block; margin:0 0 .65rem; padding:.13rem .5rem;
-    border:1px solid var(--accent); border-radius:999px;
-    font-size:.68rem; line-height:1.4; letter-spacing:.07em;
-    text-transform:uppercase; color:var(--accent);
-  }
-  .project-status--latest { border-color:var(--fire); color:var(--fire); }
-  .project-name {
-    font-family:var(--font-display); font-weight:400;
-    font-size:1.65rem; line-height:1; letter-spacing:.04em;
-    text-transform:uppercase; color:var(--text);
-  }
-  .project-desc { margin:.65rem 0 0; font-size:.9rem; line-height:1.5; color:var(--muted); }
-  .project-tech {
-    display:flex; flex-wrap:wrap; gap:.4rem; margin:1rem 0 0;
-    list-style:none;
-  }
-  .project-tech li {
-    padding:.16rem .45rem; border:1px solid var(--border); border-radius:2px;
-    font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
-    font-size:.67rem; color:var(--muted);
-  }
-  .project-actions {
-    display:flex; flex-wrap:wrap; gap:.55rem; width:100%; margin:auto 0 0;
-    padding:1.2rem 0 0;
-  }
-  .project-link {
-    min-height:42px; display:inline-flex; align-items:center; justify-content:center;
-    padding:.45rem .7rem; border:1px solid var(--border); border-radius:3px;
-    font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
-    font-size:.75rem; color:var(--muted); background:transparent; cursor:pointer;
-  }
-  .project-link:first-child { border-color:var(--accent); color:var(--accent); }
-  .project-link:hover { border-color:var(--fire); color:var(--text); }
-
-  @media (max-width:760px) {
-    .project-grid { grid-template-columns:1fr; }
-  }
-  @media (max-width:580px) {
-    body { padding:1.25rem; }
-    .term { padding:.75rem .85rem; font-size:.78rem; }
-  }
-
+  :root { color-scheme:dark; --bg:#0d0e10; --surface:#15171a; --border:#2c2f34; --text:#f2f2f0; --muted:#a5a8ae; --faint:#7e828a; --accent:#3abeff; --fire:#ff6a1a; }
+  *,*::before,*::after { box-sizing:border-box; }
+  [hidden] { display:none !important; }
+  body { margin:0; min-height:100dvh; background:var(--bg); color:var(--text); font-family:'Barlow',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  a { color:inherit; text-decoration:none; }
+  button { font:inherit; }
+  a:focus-visible,button:focus-visible { outline:2px solid var(--accent); outline-offset:5px; }
+  .skip-link { position:fixed; left:1rem; top:1rem; z-index:100; padding:.7rem 1rem; background:var(--accent); color:var(--bg); transform:translateY(-200%); }
+  .skip-link:focus { transform:none; }
+  main { width:min(100% - 3rem,960px); margin:auto; padding:76px 0 0; }
+  header { margin-bottom:38px; }
+  .eyebrow { margin:0 0 14px; color:var(--muted); font-size:.75rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; }
+  h1 { margin:0; font-size:clamp(2.5rem,7vw,4rem); line-height:1.1; font-weight:600; letter-spacing:-.045em; }
+  .mark { color:var(--fire); }
+  .project-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+  .project-card { position:relative; display:flex; flex-direction:column; min-width:0; min-height:240px; padding:28px; border:1px solid var(--border); border-radius:16px; background:var(--surface); transition:transform .18s,border-color .18s,background .18s; }
+  .project-card:hover { transform:translateY(-3px); border-color:#62666f; background:#1a1d21; }
+  .project-card:focus-within { border-color:var(--accent); }
+  .card-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:25px; }
+  .icon { display:grid; place-items:center; width:42px; height:42px; border-radius:12px; background:var(--icon-bg); color:var(--icon); }
+  .icon svg { width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+  .arrow { color:var(--faint); font-size:1.3rem; transition:color .18s; }
+  .project-card:hover .arrow { color:var(--text); }
+  h2 { margin:0 0 9px; font-size:1.4rem; line-height:1.2; font-weight:600; letter-spacing:-.02em; }
+  .project-desc { margin:0; max-width:36ch; color:var(--muted); font-size:1rem; line-height:1.55; }
+  .card-action { align-self:flex-start; margin-top:auto; padding:18px 0 0; border:0; background:none; color:var(--muted); font-size:.8rem; font-weight:500; cursor:pointer; }
+  .card-action::after { content:''; position:absolute; inset:0; border-radius:16px; }
+  .card-action:focus-visible { outline:none; }
+  .project-card:has(.card-action:focus-visible) { outline:2px solid var(--accent); outline-offset:4px; }
+  footer { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:28px 0 32px; color:var(--faint); font-size:.8rem; }
+  footer p { margin:0; }
+  .chat-launcher { border:0; background:none; color:var(--muted); padding:10px 0 10px 14px; cursor:pointer; }
+  .chat-launcher:hover { color:var(--text); }
+  .caret { display:inline-block; width:.55ch; height:1em; background:var(--accent); translate:0 .12em; }
+  @media(max-width:600px) { main { width:calc(100% - 2rem); padding-top:40px; } header { margin-bottom:28px; } .project-grid { grid-template-columns:1fr; gap:14px; } .project-card { min-height:220px; padding:24px; } .card-top { margin-bottom:22px; } }
+  @media(prefers-reduced-motion:reduce) { .project-card,.arrow { transition:none; } .project-card:hover { transform:none; } }
   .chat-backdrop {
     position:fixed; inset:0; background:rgba(0,0,0,.45);
     z-index:40; opacity:0; transition:opacity .2s ease;
@@ -229,29 +129,6 @@
   .chat-gate-msg { color:var(--muted); }
   .chat-gate-msg:empty { display:none; }
 
-  /* chat launcher — reopens the existing gated tardbot panel */
-  .chat-launcher {
-    position:fixed; right:1.5rem; bottom:1.5rem;
-    z-index:39; min-height:44px; cursor:pointer;
-    animation:chat-launcher-in .4s ease .3s both;
-  }
-  .chat-launcher:hover, .chat-launcher:focus-visible {
-    border-color:var(--accent); outline:2px solid var(--accent); outline-offset:2px;
-  }
-  @keyframes chat-launcher-in {
-    from { opacity:0; transform:translateY(10px); }
-    to { opacity:1; transform:translateY(0); }
-  }
-  @media (max-width:640px) {
-    .chat-launcher {
-      right:max(1rem, env(safe-area-inset-right));
-      bottom:max(1rem, env(safe-area-inset-bottom));
-    }
-  }
-  @media (prefers-reduced-motion:reduce) {
-    .chat-launcher { animation:none; }
-  }
-
   /* both-hands app overlay */
   .app-overlay {
     position:fixed; inset:0; z-index:60;
@@ -285,155 +162,54 @@
     .app-backdrop, .app-frame-wrap { transition:none; }
   }
 
-  /* what-we-run module */
-  .systems { margin:3.5rem auto 0; max-width:40rem; text-align:center; }
-  .systems-head {
-    font-family:var(--font-display); font-weight:400;
-    font-size:clamp(1.4rem,5vw,2rem); letter-spacing:.04em;
-    text-transform:uppercase; color:var(--text);
-  }
-  .systems-sub { margin:.5rem auto 0; max-width:34rem; font-size:.95rem; color:var(--muted); }
-  .systems-grid {
-    display:grid; grid-template-columns:repeat(2,1fr); gap:.9rem;
-    margin:1.75rem 0 0; text-align:left;
-  }
-  @media (max-width:640px) { .systems-grid { grid-template-columns:1fr; } }
-  .sys-card {
-    background:var(--surface); border:1px solid var(--border); border-radius:4px;
-    padding:1rem 1.1rem;
-  }
-  .sys-name {
-    font-family:var(--font-body); font-weight:600; text-transform:uppercase;
-    letter-spacing:.03em; font-size:.9rem; color:var(--text);
-  }
-  .sys-name .tick { color:var(--accent); margin-right:.5ch; }
-  .sys-desc { margin:.45rem 0 0; font-size:.85rem; color:var(--muted); line-height:1.5; }
-  .systems-term {
-    display:block; width:fit-content; max-width:100%;
-    margin:1.75rem auto 0; color:var(--muted); cursor:default; white-space:normal;
-  }
-  .systems-term span { display:block; overflow-wrap:normal; }
-  .systems-term:hover { border-color:var(--border); }
 </style>
 </head>
 <body>
-
 <a class="skip-link" href="#projects">Skip to projects</a>
-
 <main>
-  <h1>Raj<span class="mark">.</span>Industries</h1>
-  <div class="rule"></div>
-  <a class="term" href="https://fixingfortmyers.com">
-    <span class="prompt">&gt;</span><span class="cmd">open</span><span class="host">fixingfortmyers.com</span><span class="caret"></span>
-  </a>
-
-  <section class="projects" id="projects" aria-labelledby="projectsTitle">
-    <span class="section-kicker">Selected work / live builds</span>
-    <h2 class="projects-head" id="projectsTitle">Latest Projects</h2>
-    <p class="projects-sub">Recent public work, built for the web and available to explore.</p>
-
-    <div class="project-grid">
-      <article class="project-card">
-        <img class="project-shot" src="assets/projects/spotted.png" alt="SPOTTED sign-in screen with a vivid red background" width="1280" height="800">
-        <div class="project-body">
-          <span class="project-status project-status--latest">Latest &middot; Live</span>
-          <h3 class="project-name">SPOTTED</h3>
-          <p class="project-desc">A mobile-first marketplace to buy and sell pre-owned Indian clothing across the United States and India.</p>
-          <ul class="project-tech" aria-label="SPOTTED technologies">
-            <li>React</li><li>TypeScript</li><li>Supabase</li>
-          </ul>
-          <div class="project-actions">
-            <a class="project-link" href="https://www.spottedin.co/" aria-label="Open the live SPOTTED project">&gt; view live</a>
-            <a class="project-link" href="https://github.com/Palle017/spottedin-c" aria-label="View the SPOTTED source on GitHub">source</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <img class="project-shot" src="assets/projects/perfect-timing.png" alt="Perfect Timing Auto Repair website hero with the shop logo and a black performance car" width="1280" height="800" loading="lazy" decoding="async">
-        <div class="project-body">
-          <span class="project-status">Live</span>
-          <h3 class="project-name">Perfect Timing</h3>
-          <p class="project-desc">The public website for Perfect Timing Auto Repair in Fort Myers.</p>
-          <ul class="project-tech" aria-label="Perfect Timing website technologies">
-            <li>HTML</li><li>CSS</li><li>GitHub Pages</li>
-          </ul>
-          <div class="project-actions">
-            <a class="project-link" href="https://fixingfortmyers.com/" aria-label="Open the live Perfect Timing Auto Repair website">&gt; view live</a>
-            <a class="project-link" href="https://github.com/Palle017/fixingfortmyers-site" aria-label="View the Perfect Timing website source on GitHub">source</a>
-          </div>
-        </div>
-      </article>
-    </div>
-    <section class="systems" id="systems" aria-labelledby="systemsTitle">
-      <h2 class="systems-head" id="systemsTitle">What We Run</h2>
-      <p class="systems-sub">The stack behind the shop &mdash; built in-house, running every day.</p>
-      <div class="systems-grid">
-      <div class="sys-card">
-        <div class="sys-name"><span class="tick" aria-hidden="true">&#9656;</span>Shop-Ops Agent</div>
-        <p class="sys-desc">The conversational agent that answers customer questions and coordinates every tool behind the scenes.</p>
-      </div>
-      <div class="sys-card">
-        <div class="sys-name"><span class="tick" aria-hidden="true">&#9656;</span>Book-Time &amp; Manuals Engine</div>
-        <p class="sys-desc">Deterministic repair-time and service-manual lookups across hundreds of thousands of vehicle records.</p>
-      </div>
-      <div class="sys-card">
-        <div class="sys-name"><span class="tick" aria-hidden="true">&#9656;</span>Estimate &amp; Invoicing Pipeline</div>
-        <p class="sys-desc">Turns a diagnosed job into a priced estimate and syncs it to accounting.</p>
-      </div>
-      <div class="sys-card">
-        <div class="sys-name"><span class="tick" aria-hidden="true">&#9656;</span>Lead &amp; Review Intake</div>
-        <p class="sys-desc">Captures inbound leads and customer feedback from web and messaging channels.</p>
-      </div>
-      <div class="sys-card">
-        <div class="sys-name"><span class="tick" aria-hidden="true">&#9656;</span>Voice Front Door</div>
-        <p class="sys-desc">A voice interface so customers can talk to the shop agent by phone.</p>
-      </div>
-      <div class="sys-card">
-        <div class="sys-name"><span class="tick" aria-hidden="true">&#9656;</span>Knowledge Vault</div>
-        <p class="sys-desc">A knowledge base that indexes shop documents and procedures for retrieval.</p>
-      </div>
-      <div class="sys-card">
-        <div class="sys-name"><span class="tick" aria-hidden="true">&#9656;</span>Multi-Agent Orchestration</div>
-        <p class="sys-desc">Specialized subagents that ingest, link, and audit knowledge to keep the system current.</p>
-      </div>
-      </div>
-      <div class="term systems-term">
-        <span>&gt; 13 services &middot; 25 repos &middot; three drives + one linux vm</span>
-      </div>
-    </section>
-
-    <div class="project-grid project-grid--single">
-      <article class="project-card">
-        <img class="project-shot" src="assets/projects/manasa-globe.png" alt="Manasa Globe sample-data interface with a dark interactive globe and Polaroid cards" width="1280" height="800" loading="lazy" decoding="async">
-        <div class="project-body">
-          <span class="project-status">Private Project</span>
-          <h3 class="project-name">Manasa Globe</h3>
-          <p class="project-desc">An encrypted interactive photo archive that pins memories to a spinning globe and moves through them across place and time.</p>
-          <ul class="project-tech" aria-label="Manasa Globe technologies">
-            <li>WebGL</li><li>JavaScript</li><li>AES-256-GCM</li>
-          </ul>
-          <div class="project-actions">
-            <button class="project-link" id="manasaGlobeLauncher" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="appOverlay">&gt; open archive</button>
-          </div>
-        </div>
-      </article>
-    </div>
+  <header>
+    <p class="eyebrow" id="projectsTitle">Projects</p>
+    <h1>Raj<span class="mark">.</span>Industries</h1>
+  </header>
+  <section class="project-grid" id="projects" aria-labelledby="projectsTitle">
+    <article class="project-card" style="--icon:#ff945b;--icon-bg:#33241d">
+      <div class="card-top"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 11 1.5-5h11L19 11M5 11h14a2 2 0 0 1 2 2v5H3v-5a2 2 0 0 1 2-2Z"/><path d="M5 18v2m14-2v2M6 14h2m8 0h2"/></svg></span><span class="arrow" aria-hidden="true">↗</span></div>
+      <h2>Perfect Timing</h2>
+      <p class="project-desc">Auto repair, online booking, and shop operations.</p>
+      <a class="card-action" href="https://fixingfortmyers.com/" aria-label="Open Perfect Timing Auto Repair">Visit website</a>
+    </article>
+    <article class="project-card" style="--icon:#66caff;--icon-bg:#1b2b36">
+      <div class="card-top"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 11 9-8 9 8M5 10v11h14V10M9 21v-7h6v7"/></svg></span><span class="arrow" aria-hidden="true">↗</span></div>
+      <h2>Home Assistant</h2>
+      <p class="project-desc">Smart home controls, cameras, energy, and automations.</p>
+      <a class="card-action" href="https://github.com/Palle017/Homeassistant" aria-label="View the Home Assistant project on GitHub">View project</a>
+    </article>
+    <article class="project-card" style="--icon:#eea1bc;--icon-bg:#33212b">
+      <div class="card-top"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m8 4-5 3 2 5 3-1v10h8V11l3 1 2-5-5-3a4 4 0 0 1-8 0Z"/></svg></span><span class="arrow" aria-hidden="true">↗</span></div>
+      <h2>SPOTTED</h2>
+      <p class="project-desc">A marketplace for pre-owned Indian clothing.</p>
+      <a class="card-action" href="https://www.spottedin.co/" aria-label="Open the SPOTTED marketplace">Visit website</a>
+    </article>
+    <article class="project-card" style="--icon:#c3acf6;--icon-bg:#292336">
+      <div class="card-top"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6.5h14M5 17.5h14"/></svg></span><span class="arrow" aria-hidden="true">↗</span></div>
+      <h2>Manasa Globe</h2>
+      <p class="project-desc">A private photo archive, mapped around the world.</p>
+      <button class="card-action" id="manasaGlobeLauncher" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="appOverlay">Open archive</button>
+    </article>
   </section>
-
+  <footer>
+    <p>Raj Industries</p>
+    <button class="chat-launcher" id="chatLauncher" type="button" aria-label="Open chat with tardbot" aria-haspopup="dialog" aria-controls="chatPanel">Ask tardbot ↗</button>
+  </footer>
 </main>
 
 <div class="app-overlay" id="appOverlay" role="dialog" aria-modal="true" aria-label="Manasa Globe archive" aria-hidden="true" hidden>
   <div class="app-backdrop" id="appBackdrop"></div>
   <div class="app-frame-wrap">
     <button class="app-close" id="appClose" aria-label="Close Manasa Globe">&#10005;</button>
-    <iframe class="app-frame" id="appFrame" src="https://both-hands.prudhvi-tools.workers.dev" title="Manasa Globe archive" allow="fullscreen" loading="eager"></iframe>
+    <iframe class="app-frame" id="appFrame" data-src="https://both-hands.prudhvi-tools.workers.dev" title="Manasa Globe archive" allow="fullscreen" loading="eager"></iframe>
   </div>
 </div>
-
-<button type="button" class="term chat-launcher" id="chatLauncher" aria-label="Open chat with tardbot" aria-haspopup="dialog" aria-controls="chatPanel">
-  <span class="prompt">&gt;</span><span class="cmd">ask tardbot</span><span class="caret"></span>
-</button>
 
 <div class="chat-backdrop" id="chatBackdrop" hidden></div>
 <section class="chat-panel" id="chatPanel" role="dialog" aria-modal="true" aria-label="Chat with tardbot" aria-hidden="true" hidden>
@@ -656,6 +432,7 @@
 
   function openApp() {
     if (!appOverlay.hidden) return;
+    if (!appFrame.src) appFrame.src = appFrame.dataset.src;
     appOverlay.hidden = false;
     appOverlay.setAttribute('aria-hidden', 'false');
     globeLauncher.setAttribute('aria-expanded', 'true');
@@ -684,7 +461,6 @@
 
   closeBtn.addEventListener('click', closeChat);
   launcher.addEventListener('click', openChat);
-  setTimeout(openChat, 900);
 
   globeLauncher.addEventListener('click', openApp);
   appClose.addEventListener('click', closeApp);

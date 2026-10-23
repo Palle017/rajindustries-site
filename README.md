@@ -3,27 +3,27 @@
 Public portfolio for Raj Industries, served by GitHub Pages at
 `rajindustries.fixingfortmyers.com`.
 
-The page carries the brand colours from `fixingfortmyers.com` — dark ground,
-fire `#ff6a1a`, cyan `#3ABEFF`, and Bebas Neue display — so the two sites read
-as related. It presents only public, verifiable work and makes no claim about
-the company's legal structure or service offering.
+A minimal, responsive grid with one short description and one destination per project.
+The dark palette retains the orange and cyan accents from `fixingfortmyers.com`.
 
-## Featured work
+## Projects
 
-- **SPOTTED (Maanster Market)** — one marketplace project, shown once on the
-  portfolio under SPOTTED. Live at `www.spottedin.co`; canonical source:
-  `Palle017/spottedin-c`.
-- **Perfect Timing Auto Repair** — live at `fixingfortmyers.com`; canonical
-  source: `Palle017/fixingfortmyers-site`.
-- **Manasa Globe** — a private, passphrase-protected interactive photo archive.
-  Its gated launcher is rolled into the portfolio card; the repository and
-  photographs remain private.
+- **Perfect Timing** — auto repair, online booking, and shop operations at `fixingfortmyers.com`.
+- **Home Assistant** — smart home controls, cameras, energy, and automations; links to `Palle017/Homeassistant` on GitHub. Repository access follows its existing permissions.
+- **SPOTTED** — a marketplace for pre-owned Indian clothing at `www.spottedin.co`.
+- **Manasa Globe** — a private photo archive; its existing protected launcher opens on demand.
 
-The project images in `assets/projects/` are captured at 1280 × 800 for this
-portfolio. Public projects use live-site screenshots. `manasa-globe.png` uses
-the globe app's safe sample data and contains no private photographs.
-`maanster-market.png` is retained as a legacy screenshot of the same marketplace
-project, not a separate entry.
+The gated tardbot chat remains available from the footer and opens only on request.
+Project screenshots remain in `assets/projects/` for reuse but are not loaded on the page.
+
+## UI verification
+
+Preview: `node serve.mjs 8791`, then open `http://localhost:8791`.
+
+- Project discovery: `#projects` contains four cards, each with a short description and one destination. Checked in-browser at desktop and a 390px frame; no horizontal overflow.
+- Archive: `#manasaGlobeLauncher` opens `#appOverlay` and loads the protected archive on demand; Escape closes it and restores launcher focus. Launch and Escape checked.
+- Chat: footer `#chatLauncher` opens `#chatPanel`; Escape closes it. The gate is retained and chat never opens automatically. Opening and closing checked; authenticated chat and private archive contents were not exercised.
+- Home Assistant links to the existing GitHub project; repository visibility and access are unchanged.
 
 ## Deploy
 

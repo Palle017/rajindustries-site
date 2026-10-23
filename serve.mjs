@@ -7,8 +7,9 @@
 import { readFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const ROOT = path.join(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1")));
+const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.argv[2]) || 8791;
 
 const TYPES = {
@@ -17,14 +18,21 @@ const TYPES = {
   ".enc": "application/octet-stream",
   ".txt": "text/plain; charset=utf-8",
   ".json": "application/json",
+  ".css": "text/css; charset=utf-8",
+  ".mjs": "text/javascript; charset=utf-8",
+  ".js": "text/javascript; charset=utf-8",
+  ".jpg": "image/jpeg",
 };
 
 createServer(async (req, res) => {
-  const rel = decodeURIComponent(req.url.split("?")[0]);
-  const file = path.join(ROOT, rel === "/" ? "index.html" : rel);
+  let rel;
+  try { rel = decodeURIComponent(req.url.split("?")[0]); }
+  catch { res.writeHead(400).end("bad request"); return; }
+  const file = path.resolve(ROOT, "." + (rel === "/" ? "/index.html" : rel));
+  const relative = path.relative(ROOT, file);
 
   /* keep traversal above the repo root out */
-  if (!file.startsWith(ROOT)) {
+  if (relative.startsWith("..") || path.isAbsolute(relative) || relative.split(path.sep).some(part => part.startsWith("."))) {
     res.writeHead(403).end("forbidden");
     return;
   }
@@ -42,4 +50,4 @@ createServer(async (req, res) => {
     res.writeHead(404).end("not found");
     console.log(`404 ${rel}`);
   }
-}).listen(PORT, () => console.log(`site on http://localhost:${PORT}`));
+}).listen(PORT, "127.0.0.1", () => console.log(`site on http://127.0.0.1:${PORT}`));

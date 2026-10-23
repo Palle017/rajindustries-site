@@ -91,7 +91,7 @@ byId('replyForm').addEventListener('submit', async (event) => {
     const receipt = await sendMessage(credentials, pending);
     // Refresh in cursor order rather than advancing past messages received concurrently.
     pending = null;
-    byId('reply').value = '';
+    byId('replyForm').reset();
     byId('replyStatus').textContent = 'Your message is saved in this conversation. Raj can read it in the website inbox.';
     await refresh();
   } catch (error) { byId('replyStatus').textContent = inboxError(error); }

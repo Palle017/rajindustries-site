@@ -209,7 +209,7 @@ $('ownerReplyForm').addEventListener('submit', async (event) => {
     const receipt = await api(`/api/owner/threads/${encodeURIComponent(id)}/messages`, { method: 'POST', body: pending });
     if (receipt?.ok !== true || receipt.received !== true || receipt.thread_id !== id || receipt.message?.role !== 'owner' || receipt.message.body !== pending.body) throw new Error('No saved receipt.');
     drafts.delete(id);
-    $('ownerReply').value = '';
+    $('ownerReplyForm').reset();
     $('ownerReplyStatus').textContent = 'Reply saved. The visitor can read it using their private link.';
     await refresh();
   } catch (error) { if (!accessError(error)) $('ownerReplyStatus').textContent = errorText(error); }

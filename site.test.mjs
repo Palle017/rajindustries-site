@@ -5,16 +5,30 @@ import { Script } from "node:vm";
 
 const html = readFileSync(new URL("./index.html", import.meta.url), "utf8");
 
-test("indexing, site sections, and public content boundaries", () => {
+test("approved release stays indexable, with work before capabilities and optional lab", () => {
   assert.match(html, /content="index,follow"/);
-  assert.equal((html.match(/class="service"/g) || []).length, 6);
-  for (const label of ["Web Design &amp; Development", "Home Automation &amp; Security", "Network &amp; IT Support", "Private AI &amp; Datacenters", "Automotive", "Firearms"]) {
-    assert.ok(html.includes(label), label + " missing");
-  }
-  assert.ok(html.includes('id="projects"'));
-  assert.ok(html.includes('id="infrastructure"'));
+  assert.ok(html.indexOf('id="projects"') < html.indexOf('id="services"'));
+  assert.ok(html.indexOf('id="services"') < html.indexOf('id="infrastructure"'));
+  assert.match(html, /<details[^>]+id="labDetails"[^>]*\bhidden\b/);
+  assert.doesNotMatch(html, /<details[^>]+id="labDetails"[^>]*\bopen\b/);
   assert.ok(!html.includes("13037 Second St"));
-  assert.ok(!html.includes("DESIGN PREVIEW ONLY"));
+  assert.ok(!html.includes("Scope by inquiry"));
+});
+
+test("project conversation is accessible without email or a private-chat passphrase", () => {
+  assert.match(html, /<dialog[^>]+id="projectAssistant"[^>]+aria-labelledby="assistantTitle"/);
+  assert.equal((html.match(/data-project-assistant/g) || []).length, 3);
+  assert.match(html, /Drafts stay here until you send/);
+  assert.match(html, /id="assistantSubmit"/);
+  assert.doesNotMatch(html, /mailto:|type="email"/);
+});
+
+test("all local script, stylesheet and image resources exist", () => {
+  const references = [...html.matchAll(/(?:src|href)="([^"#]+)"/g)]
+    .map(match => match[1]).filter(value => !/^(?:https?:|data:)/.test(value));
+  for (const reference of references) {
+    assert.doesNotThrow(() => readFileSync(new URL(reference, import.meta.url)), reference);
+  }
 });
 
 test("preserves gated chat and protected archive launchers", () => {
@@ -26,7 +40,8 @@ test("preserves gated chat and protected archive launchers", () => {
 });
 
 test("public Proxmox panel has no direct private API access or synthetic figures", () => {
-  assert.ok(html.includes("fetch('proxmox-public.json'"));
+  const status = readFileSync(new URL("./public-status.mjs", import.meta.url), "utf8");
+  assert.ok(status.includes("fetchSummary('proxmox-public.json'"));
   assert.ok(html.includes("Public telemetry not connected"));
   assert.ok(!html.includes("api2/json"));
   assert.ok(!html.includes("8123/api/"));
@@ -41,5 +56,5 @@ test("inline scripts compile", () => {
     assert.doesNotThrow(() => new Script(m[1]));
     n++;
   }
-  assert.equal(n, 2);
+  assert.equal(n, 1);
 });

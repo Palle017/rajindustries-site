@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import path from 'node:path';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const manifest=JSON.parse(await readFile(path.join(root,'dist/.openai/hosting.json'),'utf8'));
+assert.equal(manifest.d1,'DB');
+assert.equal(manifest.project_id,'appgprj_6adbd7a7ac7081919f194b4f5ff016ba');
+const worker=await import(pathToFileURL(path.join(root,'dist/server/index.js')));
+assert.equal(typeof worker.default.fetch,'function');
+const sql=await readFile(path.join(root,'drizzle/0000_inbox.sql'),'utf8');
+assert.match(sql,/CREATE TABLE/);
+const config=JSON.parse(await readFile(path.join(root,'dist/server/wrangler.json'),'utf8'));
+assert.equal(config.d1_databases[0].binding,'DB');
+console.log('Worker artifact, embedded assets, and new DB migration validated.');

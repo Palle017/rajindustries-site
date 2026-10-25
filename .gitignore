@@ -1,0 +1,11 @@
+inbox-service/dist/
+inbox-service/site.tar.gz
+**/.local/
+**/*.sqlite
+**/*.sqlite-wal
+**/*.sqlite-shm
+**/.env
+**/.env.*
+**/node_modules/
+/.openai/
+/proof/

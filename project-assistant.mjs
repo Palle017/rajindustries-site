@@ -42,7 +42,7 @@ export function createConversation() {
     step: 'category',
     answers: {},
     messages: [
-      message('guide', 'Choose a service and we’ll shape a short project brief. Your draft stays on this page until you choose Send project brief. Leave out passwords and private details.'),
+      message('guide', 'Choose a service to prepare a short project brief. Your draft stays on this page until you choose Send project brief. Leave out passwords and private details.'),
       message('guide', PROMPTS.category),
     ],
   };

@@ -35,7 +35,7 @@ export function createPublicStatus({
   const ids = ['feedDot', 'feedState', 'cpu', 'cpuBar', 'memory', 'memoryBar',
     'storage', 'storageBar', 'uptime', 'guests', 'updated'];
   const elements = Object.fromEntries(ids.map(id => [id, doc?.getElementById(id)]));
-  if (!details || ids.some(id => !elements[id])) return null;
+  if (!details || details.hidden || ids.some(id => !elements[id])) return null;
 
   let destroyed = false;
   let generation = 0;

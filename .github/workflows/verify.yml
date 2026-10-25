@@ -1,9 +1,9 @@
-name: Verify preview
+name: Verify website
 on:
   pull_request:
     branches: [main]
   push:
-    branches: ["design/**"]
+    branches: [main, "feat/**", "release/**", "design/**"]
 permissions:
   contents: read
 jobs:

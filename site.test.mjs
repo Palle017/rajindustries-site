@@ -9,7 +9,7 @@ test("approved release stays indexable, with work before capabilities and option
   assert.match(html, /content="index,follow"/);
   assert.ok(html.indexOf('id="projects"') < html.indexOf('id="services"'));
   assert.ok(html.indexOf('id="services"') < html.indexOf('id="infrastructure"'));
-  assert.match(html, /<details[^>]+id="labDetails">/);
+  assert.match(html, /<details[^>]+id="labDetails"[^>]*\bhidden\b/);
   assert.doesNotMatch(html, /<details[^>]+id="labDetails"[^>]*\bopen\b/);
   assert.ok(!html.includes("13037 Second St"));
   assert.ok(!html.includes("Scope by inquiry"));

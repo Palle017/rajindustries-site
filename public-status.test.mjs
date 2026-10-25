@@ -21,12 +21,12 @@ function emitter(properties = {}) {
   };
 }
 
-function fixture(fetch, { open = true, visible = true } = {}) {
+function fixture(fetch, { open = true, visible = true, hidden = false } = {}) {
   const elements = Object.fromEntries(['feedDot', 'feedState', 'cpu', 'cpuBar', 'memory',
     'memoryBar', 'storage', 'storageBar', 'uptime', 'guests', 'updated'].map(id => [id, {
     textContent: '', className: '', style: {},
   }]));
-  elements.labDetails = emitter({ open });
+  elements.labDetails = emitter({ open, hidden });
   const doc = emitter({ visibilityState: visible ? 'visible' : 'hidden', getElementById: id => elements[id] });
   const timers = new Map();
   let nextTimer = 0;
@@ -176,4 +176,15 @@ test('a timed-out request clears previous readings and continues later polling',
   assertCleared(f.elements);
   assert.deepEqual([...f.timers.values()].map(timer => timer.delay), [POLL_MS]);
   f.api.destroy();
+});
+
+
+test('unconfigured hidden telemetry never mounts, requests, or schedules work', async () => {
+  const f = fixture(async () => response(summary()), { hidden: true });
+  assert.equal(f.api, null);
+  f.toggle(true);
+  f.visibility(true);
+  await settle();
+  assert.equal(f.calls.length, 0);
+  assert.equal(f.timers.size, 0);
 });

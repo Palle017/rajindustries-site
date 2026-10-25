@@ -15,6 +15,23 @@ function completeBrief(goal = 'Build a useful repair request website.') {
   return state;
 }
 
+test('agentic and specialty inquiries can complete a brief without being rejected or misclassified', () => {
+  for (const [input, expected] of [
+    ['agentic AI', 'AI agents and automation'],
+    ['AI agent for a workflow', 'AI agents and automation'],
+    ['document search', 'AI agents and automation'],
+    ['GPU server', 'Private AI or self-hosted systems'],
+    ['firearms', 'Firearms technical inquiry'],
+  ]) {
+    let state = answer(createConversation(), input);
+    assert.equal(state.answers.category, expected);
+    for (const value of ['Discuss a custom technical project.', 'Remote', 'Flexible']) state = answer(state, value);
+    assert.equal(state.step, 'review');
+    assert.ok(buildProjectBrief(state).includes('Service: ' + expected));
+    assert.ok(buildProjectBrief(state).includes('has not been sent'));
+  }
+});
+
 test('four answers produce a useful unsent brief without collecting contact details', () => {
   const state = completeBrief();
   assert.equal(state.step, 'review');
@@ -212,4 +229,19 @@ test('local backups reflect a confirmed saved receipt without falsely saying uns
   const pending = buildProjectBrief(state, { pending: true });
   assert.match(pending, /Receipt is not confirmed/);
   assert.doesNotMatch(pending, /has not been sent/);
+});
+
+
+test('service entry skips category without replacing an existing or completed draft', async () => {
+  const { preselectService } = await import('./project-assistant.mjs');
+  const fresh = createConversation();
+  const selected = preselectService(fresh, 'AI agents and automation');
+  assert.equal(selected.step, 'goal');
+  assert.equal(selected.answers.category, 'AI agents and automation');
+  assert.equal(fresh.step, 'category');
+  assert.equal(preselectService(fresh, null), fresh);
+  assert.equal(preselectService(fresh, 'Unknown category'), fresh);
+  assert.equal(preselectService(selected, 'Networks or IT support'), selected);
+  const finished = completeBrief();
+  assert.equal(preselectService(finished, 'AI agents and automation'), finished);
 });

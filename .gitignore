@@ -7,3 +7,5 @@ inbox-service/site.tar.gz
 **/.env
 **/.env.*
 **/node_modules/
+/.openai/
+/proof/

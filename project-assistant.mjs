@@ -6,11 +6,13 @@ const HISTORY_LIMIT = 32;
 export const READY_MESSAGE = 'Your brief is ready. It has not been sent. Choose Send project brief when you are ready.';
 
 const CATEGORIES = [
+  'AI agents and automation',
   'Website or workflow automation',
   'Home automation',
   'Networks or IT support',
   'Private AI or self-hosted systems',
   'Automotive',
+  'Firearms technical inquiry',
   'Not sure yet',
 ];
 const STEPS = ['category', 'goal', 'location', 'timing', 'review'];
@@ -46,12 +48,18 @@ export function createConversation() {
   };
 }
 
+// Service links skip only the unanswered category step; existing drafts stay intact.
+export function preselectService(state, category) {
+  if (state.step !== 'category' || !CATEGORIES.includes(category)) return state;
+  return advanceConversation(state, category).state;
+}
+
 function faqAnswer(input, step) {
   const text = input.toLowerCase().replace(/[’]/g, "'");
   // A question can describe the project itself. Keep those answers in the brief.
   if (step === 'goal' && /\b(?:build|create|develop|design|redesign|add|integrate|automate|connect|repair|fix|install|configure|set up|troubleshoot|migrate|upgrade|implement|improve|replace)\b|\bhelp(?: me)? with\s+\w/.test(text)) return null;
   if (/^(?:what services|which services|what can you|services[?!.]*$)/.test(text)) {
-    return 'Raj Industries lists websites and workflow automation, home automation, networks and IT support, private AI and self-hosted systems, and automotive technical work. Repair service inquiries belong with Perfect Timing at fixingfortmyers.com. Suitability and scope need individual review; this guide cannot confirm availability.';
+    return 'Raj Industries builds AI agents, custom software, websites and workflow automation, networks, and private AI infrastructure. Other specialties include home automation, automotive, and firearms technical work. Repair service inquiries go to Perfect Timing at fixingfortmyers.com. Specific services, scope, and availability are confirmed individually.';
   }
   if (/^(?:how much[?!.]*$|how much\b.*\b(?:cost|charge|price|pricing|rate|quote)|what (?:does|will|would|is|are|price|pricing|cost)\b.*\b(?:cost|price|pricing|rate|quote)|(?:prices?|pricing|costs?|rates?)[?!.]*$|can (?:you|i)\b.*\bquote)/.test(text)) {
     return 'There are no published packages or fixed prices here. Cost depends on the problem, scope, equipment, and work involved. This guide can prepare your brief; it cannot issue a quote or take a payment.';
@@ -81,11 +89,13 @@ function categoryFor(input) {
   const exact = CATEGORIES.find((category) => category.toLowerCase() === input.toLowerCase());
   if (exact) return exact;
   const patterns = [
+    /\b(?:agentic|ai agents?|agents? and automation|tool.use|document search|rag)\b/i,
     /\b(?:website|web\s?site|software|workflow|business automation|portal|api)\b/i,
     /\b(?:home automation|smart home|home assistant|sensor|camera)\b/i,
     /\b(?:network|networks|wi-?fi|computer|it support|firewall|vpn|backup)\b/i,
     /\b(?:private ai|local ai|llm|proxmox|self.hosted|server|gpu|nas)\b/i,
     /\b(?:automotive|car|vehicle|engine|transmission|auto repair)\b/i,
+    /\b(?:firearms?|gunsmith|guns?)\b/i,
     /^(?:other|not sure|unsure|something else|not sure yet)[?!.]*$/i,
   ];
   const index = patterns.findIndex((pattern) => pattern.test(input));
@@ -269,10 +279,11 @@ export function mountProjectAssistant(doc) {
     dialog.scrollTop = 0;
   }
 
-  const launchers = doc.querySelectorAll('[data-project-assistant]');
+  const launchers = doc.querySelectorAll('[data-project-assistant], [data-inquiry-category]');
   launchers.forEach((button) => button.addEventListener('click', () => {
     if (dialog.open) return;
     opener = button;
+    conversation = preselectService(conversation, button.getAttribute('data-inquiry-category'));
     render();
     dialog.showModal();
     focusOpeningStep();

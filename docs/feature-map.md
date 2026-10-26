@@ -20,3 +20,15 @@ They test responsive layout, not physical mobile device performance.
 Use associated labels and actual IDs. Escape closes the project dialog and
 returns focus to its opener. There are no custom global keyboard shortcuts.
 The inquiry guide uses fixed responses; it is not a newly deployed AI agent.
+
+October 26, 2026: `projects.explore` now includes Everything Screen and Gutters,
+a website and homeowner-education card with the native link accessible name
+`Everything Screen and Gutters website`. Chrome navigation through Work and
+clicking the link reached wisdomscreen.pro with HTTP 200. At 320, 390, 768 and
+1280 CSS pixels the card fits without horizontal overflow; page/card backgrounds
+remain black and all original anchors are preserved. All 65 Node tests and inbox
+build/artifact validation pass in both the private source and public mirror.
+Local browser evidence: `proof/wisdomscreen-20261026/result.json` and layout PNGs
+(ignored). These are viewport checks, not physical-device tests. The existing
+Home Assistant source destination returns 404 to unauthenticated visitors;
+its links are preserved. No new custom keyboard shortcuts or backend behavior.

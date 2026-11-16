@@ -79,3 +79,15 @@ test("OpenClaw copy has no private network details, vendor names, or numeric cla
   assert.doesNotMatch(section, /GPU|benchmark|token/i);
   assert.doesNotMatch(section, /openclaw-gw|serv2/i);
 });
+
+test("Home Assistant is a featured Work project with a local visual and source link", () => {
+  const projects = html.match(/<section id="projects"[^>]*>([\s\S]*?)<\/section>/)[1];
+  assert.match(projects, /project-featured/);
+  assert.match(projects, /<h3>Home Assistant<\/h3>/);
+  assert.match(projects, /Local cameras, sensors, and automations/);
+  assert.match(projects, /src="assets\/projects\/home-assistant-dashboard.svg"/);
+  assert.match(projects, /href="https:\/\/github.com\/Palle017\/Homeassistant"/);
+  assert.doesNotMatch(projects, /personal-work|personal-project/);
+  assert.ok(!html.includes("13037 Second St"));
+  assert.doesNotMatch(html, /North Fort Myers/i);
+});

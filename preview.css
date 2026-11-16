@@ -108,3 +108,8 @@ section{scroll-margin-top:20px}
 .openclaw-timeline li{font-size:14px;color:var(--muted);padding:8px 0;border-top:1px solid var(--line)}
 .openclaw-timeline li:first-child{border-top:0;padding-top:0}
 .openclaw-timeline time{display:block;font-size:12px;color:var(--subtle);margin-bottom:2px}
+
+.project-featured{grid-column:1 / -1}
+.project-visual{order:0;margin:0 0 8px}
+.project-visual img{display:block;width:100%;max-width:640px;height:auto;border:1px solid var(--line)}
+.project-featured .overline{margin-bottom:5px}

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360" role="img" aria-labelledby="haTitle haDesc">
+  <title id="haTitle">Home Assistant dashboard</title>
+  <desc id="haDesc">A local home dashboard with cameras, sensors, climate, and automations.</desc>
+  <style>
+    .panel { fill:#000; stroke:#292929; stroke-width:1; }
+    .tile { fill:#000; stroke:#292929; stroke-width:1; }
+    .title { fill:#eee; font:500 14px ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; }
+    .label { fill:#eee; font:500 14px ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; }
+    .sub { fill:#aaa; font:400 11px ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; }
+    .ico { fill:none; stroke:#eee; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+  </style>
+
+  <rect class="panel" x="8" y="8" width="624" height="344"/>
+  <text class="title" x="28" y="40">Home</text>
+  <text class="sub" x="28" y="58">Local controls</text>
+
+  <rect class="tile" x="24" y="80" width="288" height="116"/>
+  <rect class="ico" x="44" y="112" width="28" height="20"/>
+  <circle class="ico" cx="58" cy="122" r="5"/>
+  <path class="ico" d="M72 118 l10 -4 v16 l-10 -4 z"/>
+  <text class="label" x="96" y="124">Cameras</text>
+  <text class="sub" x="96" y="142">Live views</text>
+
+  <rect class="tile" x="328" y="80" width="288" height="116"/>
+  <path class="ico" d="M348 114 v24"/>
+  <circle class="ico" cx="348" cy="110" r="4"/>
+  <path class="ico" d="M360 118 v16 M372 114 v24 M384 118 v16"/>
+  <text class="label" x="400" y="124">Sensors</text>
+  <text class="sub" x="400" y="142">Rooms and devices</text>
+
+  <rect class="tile" x="24" y="212" width="288" height="116"/>
+  <circle class="ico" cx="58" cy="254" r="10"/>
+  <path class="ico" d="M58 238 v-8"/>
+  <text class="label" x="96" y="256">Climate</text>
+  <text class="sub" x="96" y="274">Heating and cooling</text>
+
+  <rect class="tile" x="328" y="212" width="288" height="116"/>
+  <path class="ico" d="M344 246 h12 l6 8 10 -20 6 12 h12"/>
+  <text class="label" x="400" y="256">Automations</text>
+  <text class="sub" x="400" y="274">Routines and access</text>
+</svg>

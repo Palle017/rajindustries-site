@@ -5,7 +5,7 @@
   "type": "module",
   "engines": { "node": ">=24" },
   "scripts": {
-    "test": "node --test site.test.mjs public-status.test.mjs project-assistant.test.mjs inbox-client.test.mjs inbox-service/backend.test.mjs",
+    "test": "node --test site.test.mjs public-status.test.mjs project-assistant.test.mjs inbox-client.test.mjs inbox-service/backend.test.mjs infra/tools/infra.test.mjs",
     "verify:inbox": "cd inbox-service && node scripts/build.mjs && node scripts/validate-artifact.mjs"
   }
 }

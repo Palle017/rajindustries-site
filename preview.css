@@ -97,3 +97,14 @@ section{scroll-margin-top:20px}
 .service-start{display:inline-flex;align-items:center;min-height:44px;margin:8px 0 0;padding:0;border:0;border-radius:0;background:#000;color:var(--ink);font-size:13px;text-decoration:underline;text-underline-offset:4px}
 .personal-work{grid-template-columns:1fr}
 @media(max-width:380px){.topbar nav{gap:10px;font-size:12px}.nav-cta{font-size:12px;padding-inline:6px}.assistant-head,.assistant-privacy,.assistant-log,.assistant-choices,.assistant-form,.assistant-tools{padding-inline:14px}.assistant-head h2{font-size:16px}}
+
+.openclaw-copy{font-size:14px;color:var(--muted);max-width:600px;margin:0 0 20px}
+.openclaw-diagram{margin:0 0 24px}
+.openclaw-diagram img,.openclaw-diagram svg{display:block;width:100%;max-width:400px;height:auto}
+.openclaw-diagram figcaption{font-size:11px;color:var(--subtle);margin-top:8px}
+.openclaw-timeline{border-top:1px solid var(--line);padding:20px 0 8px;margin-bottom:8px}
+.openclaw-timeline h3{font-size:15px;font-weight:500;margin:0 0 10px}
+.openclaw-timeline ol{margin:0;padding:0;list-style:none}
+.openclaw-timeline li{font-size:14px;color:var(--muted);padding:8px 0;border-top:1px solid var(--line)}
+.openclaw-timeline li:first-child{border-top:0;padding-top:0}
+.openclaw-timeline time{display:block;font-size:12px;color:var(--subtle);margin-bottom:2px}

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 420" width="400" height="420" role="img" aria-labelledby="ocTitle ocDesc">
+  <title id="ocTitle">OpenClaw inference flow</title>
+  <desc id="ocDesc">Orchestrator to router, then local models and cloud frontier models, then agents and tools.</desc>
+  <style>
+    .box { fill:#000; stroke:#eee; stroke-width:1; }
+    .label { fill:#eee; font:500 13px ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; text-anchor:middle; }
+    .sub { fill:#eee; font:500 13px ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; text-anchor:middle; }
+    .line { stroke:#aaa; stroke-width:1; fill:none; }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L6,4 L1,7" fill="none" stroke="#aaa" stroke-width="1"/>
+    </marker>
+  </defs>
+
+  <rect class="box" x="80" y="8" width="240" height="52"/>
+  <text class="label" x="200" y="39">Orchestrator</text>
+
+  <line class="line" x1="200" y1="60" x2="200" y2="96" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="80" y="100" width="240" height="52"/>
+  <text class="label" x="200" y="131">Router</text>
+
+  <line class="line" x1="200" y1="152" x2="200" y2="172"/>
+  <line class="line" x1="104" y1="172" x2="296" y2="172"/>
+  <line class="line" x1="104" y1="172" x2="104" y2="208" marker-end="url(#arrow)"/>
+  <line class="line" x1="296" y1="172" x2="296" y2="208" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="16" y="212" width="176" height="64"/>
+  <text class="label" x="104" y="249">Local models</text>
+
+  <rect class="box" x="208" y="212" width="176" height="64"/>
+  <text class="label" x="296" y="241">Cloud frontier</text>
+  <text class="sub" x="296" y="259">models</text>
+
+  <line class="line" x1="104" y1="276" x2="104" y2="312"/>
+  <line class="line" x1="296" y1="276" x2="296" y2="312"/>
+  <line class="line" x1="104" y1="312" x2="296" y2="312"/>
+  <line class="line" x1="200" y1="312" x2="200" y2="348" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="80" y="352" width="240" height="52"/>
+  <text class="label" x="200" y="383">Agents and tools</text>
+</svg>

@@ -58,3 +58,23 @@ test("inline scripts compile", () => {
   }
   assert.equal(n, 1);
 });
+
+test("OpenClaw is a flagship section with a local diagram and a Built by Raj timeline", () => {
+  assert.match(html, /id="openclaw"/);
+  assert.match(html, /id="openclaw-title"/);
+  assert.ok(html.indexOf('id="openclaw"') < html.indexOf('id="projects"'));
+  assert.ok(html.indexOf('id="projects"') < html.indexOf('id="services"'));
+  assert.match(html, /Provider-agnostic AI infrastructure/);
+  assert.match(html, /<h3>Built by Raj<\/h3>/);
+  assert.match(html, /src="assets\/openclaw-infra.svg"/);
+  assert.match(html, /id="infrastructure"[\s\S]*OpenClaw/);
+  assert.match(html, /href="#openclaw"/);
+});
+
+test("OpenClaw copy has no private network details, vendor names, or numeric claims", () => {
+  const section = html.match(/<section id="openclaw"[^>]*>([\s\S]*?)<\/section>/)[1];
+  assert.doesNotMatch(section, /\b\d{1,3}(?:\.\d{1,3}){3}\b/);
+  assert.doesNotMatch(section, /ts\.net|:18789|:8006|:8123/i);
+  assert.doesNotMatch(section, /OpenAI|Anthropic|Claude|GPT-|Llama|Ollama|Gemini|Mistral|xAI|Grok|Codex/i);
+  assert.doesNotMatch(section, /GPU|benchmark|token/i);
+});

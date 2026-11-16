@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow">
+<meta name="description" content="Raj Industries operations deck: infrastructure, bot fleet, projects and the house, from the Nov 16, 2026 audit.">
+<meta name="theme-color" content="#000000">
+<title>Ops Deck — Raj Industries</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="infra.css">
+<script type="importmap">{"imports":{"three":"./vendor/three.module.min.js","three/addons/":"./vendor/jsm/"}}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="hud-top">
+  <div class="brand"><a href="../" class="back" aria-label="Raj Industries home">RAJ INDUSTRIES</a><span class="sep">//</span><span class="deck">OPS DECK</span></div>
+  <div class="hud-meta"><span id="hq"></span><span class="pulse" aria-hidden="true"></span><span id="updated"></span></div>
+</header>
+<nav class="tabs" role="tablist" aria-label="Screens">
+  <button role="tab" data-tab="mission" id="tab-mission">01 Mission Control</button>
+  <button role="tab" data-tab="infra" id="tab-infra">02 Infrastructure</button>
+  <button role="tab" data-tab="house" id="tab-house">03 House</button>
+  <button role="tab" data-tab="bots" id="tab-bots">04 Bot fleet</button>
+  <button role="tab" data-tab="issues" id="tab-issues">05 Projects &amp; issues</button>
+  <button role="tab" data-tab="home" id="tab-home">06 Home Assistant</button>
+</nav>
+<main id="main">
+  <section class="screen" id="mission" role="tabpanel" aria-labelledby="tab-mission">
+    <div class="kpis" id="kpis"></div>
+    <div class="grid2">
+      <div class="panel"><h2>System status <small id="statusCount"></small></h2><ul class="status" id="statusBoard"></ul></div>
+      <div class="panel"><h2>Issues by type <small id="issueTotal"></small></h2><div id="typeChart" class="bars"></div></div>
+    </div>
+    <div class="panel"><h2>Top 3 fixes</h2><ol class="fixes" id="topFixes"></ol></div>
+    <div class="panel amber"><h2>Waiting on Raj</h2><ul class="checks" id="waiting"></ul></div>
+  </section>
+
+  <section class="screen" id="infra" role="tabpanel" aria-labelledby="tab-infra" hidden>
+    <div class="grid-map">
+      <div class="panel map-panel"><h2>Network map <small>click a node</small></h2><svg id="map" viewBox="0 0 940 620" role="img" aria-label="Infrastructure node graph"></svg>
+        <div class="legend"><span class="lg up">up</span><span class="lg down">down</span><span class="lg unknown">unknown</span></div></div>
+      <aside class="panel" id="nodeDetail" aria-live="polite"></aside>
+    </div>
+  </section>
+
+  <section class="screen" id="house" role="tabpanel" aria-labelledby="tab-house" hidden>
+    <div class="grid-map">
+      <div class="panel house-panel"><h2>House <small id="houseSub"></small></h2>
+        <div class="house-tools" id="floorButtons"></div>
+        <div id="house3d" class="house3d"><div class="house-loading" id="houseLoading">Loading scan…</div></div>
+        <p class="hint">Drag to orbit · scroll to zoom · right-drag to pan</p></div>
+      <aside class="panel" id="houseInfo"></aside>
+    </div>
+  </section>
+
+  <section class="screen" id="bots" role="tabpanel" aria-labelledby="tab-bots" hidden>
+    <div class="panel"><h2>Bot fleet <small id="botCount"></small></h2>
+      <div class="filters"><input id="botSearch" type="search" placeholder="Search bots…" aria-label="Search bots"><div id="botStates" class="chips"></div></div>
+      <div class="table-wrap"><table class="tbl sortable" id="botTable"><thead><tr><th data-k="name">Bot</th><th data-k="area">Area</th><th data-k="owner">Owner</th><th data-k="last">Last activity</th><th data-k="state">Status</th><th data-k="note">Note</th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <section class="screen" id="issues" role="tabpanel" aria-labelledby="tab-issues" hidden>
+    <div class="panel"><h2>Projects <small id="projCount"></small></h2>
+      <div class="table-wrap"><table class="tbl" id="projTable"><thead><tr><th>Project</th><th>Repo / host</th><th>Owner</th><th>Status</th><th>Blocker</th><th>Next</th></tr></thead><tbody></tbody></table></div></div>
+    <div class="panel"><h2>Issues <small id="issueShown"></small></h2>
+      <div class="filters"><div id="typeChips" class="chips"></div>
+        <label>Owner <select id="ownerSel"><option value="">All</option></select></label>
+        <label>Status <select id="statusSel"><option value="">All</option><option>Open</option><option>Resolved</option></select></label></div>
+      <div class="table-wrap"><table class="tbl sortable" id="issueTable"><thead><tr><th data-k="issue">Issue</th><th data-k="type">Type</th><th data-k="owner">Owner</th><th data-k="impact">Impact</th><th data-k="last">Last movement</th><th data-k="status">Status</th></tr></thead><tbody></tbody></table></div></div>
+    <div class="panel"><h2>PR tracker <small id="prChecked"></small></h2>
+      <div class="table-wrap"><table class="tbl" id="prTable"><thead><tr><th>Repo</th><th>PR</th><th>Title</th><th>Owner</th><th>State</th></tr></thead><tbody></tbody></table></div></div>
+  </section>
+
+  <section class="screen" id="home" role="tabpanel" aria-labelledby="tab-home" hidden>
+    <div class="kpis" id="haStats"></div>
+    <p class="srcnote" id="haSource"></p>
+    <div class="grid2">
+      <div class="panel red"><h2>Vacuum logic findings</h2><div id="haFindings"></div></div>
+      <div class="panel"><h2>Fixes handed to HomeBot</h2><ol class="fixlist" id="haFixes"></ol></div>
+    </div>
+    <div class="grid2">
+      <div class="panel"><h2>Target layout</h2><div class="chips static" id="haLayout"></div></div>
+      <div class="panel"><h2>HomeBot PRs</h2><p id="haPrs"></p></div>
+    </div>
+  </section>
+</main>
+<footer class="hud-foot"><span id="source"></span><span id="note"></span></footer>
+<script type="module" src="infra.mjs"></script>
+</body>
+</html>

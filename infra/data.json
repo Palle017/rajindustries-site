@@ -1,0 +1,2590 @@
+{
+ "meta": {
+  "title": "Raj Industries — Infrastructure & Projects",
+  "owner": "Raj Pallempati",
+  "location": "Fort Myers, Florida",
+  "address": null,
+  "updated": "2026-11-16T09:09:00-05:00",
+  "updated_label": "Nov 16, 2026, 9:09 AM ET",
+  "source": "Master Audit sweep of all 21 bots' recent chats plus shared memory (Nov 16, 2026)",
+  "note": "Snapshot, not live telemetry. Edit data.json to update."
+ },
+ "kpis": [
+  {
+   "id": "bots",
+   "value": "8",
+   "of": "21",
+   "label": "Bots active (7 days)",
+   "detail": "13 idle or stalled",
+   "tone": "ok"
+  },
+  {
+   "id": "projects",
+   "value": "12",
+   "label": "Projects tracked",
+   "detail": "5 down or stalled",
+   "tone": "warn"
+  },
+  {
+   "id": "issues",
+   "value": "34",
+   "label": "Issues found",
+   "detail": "33 open · 1 resolved",
+   "tone": "warn"
+  },
+  {
+   "id": "security",
+   "value": "6",
+   "label": "Security risks",
+   "detail": "need action",
+   "tone": "bad"
+  },
+  {
+   "id": "beside",
+   "value": "14 days",
+   "label": "Beside scanner outage",
+   "detail": "since Nov 2",
+   "tone": "bad"
+  }
+ ],
+ "status_board": [
+  {
+   "name": "Proxmox host pve",
+   "state": "down",
+   "since": "~Nov 14",
+   "detail": "Answered 8:47 AM Nov 16, down again by 8:57, still offline at 9:05 AM. Suspected new RAM."
+  },
+  {
+   "name": "Serv2 / OpenClaw gateway (VM 101)",
+   "state": "down",
+   "since": "~Nov 14",
+   "detail": "Down with host."
+  },
+  {
+   "name": "Home Assistant (VM 100)",
+   "state": "down",
+   "since": "~Nov 14",
+   "detail": "Down with host. Backups every 3 days."
+  },
+  {
+   "name": "Beside call scanner",
+   "state": "down",
+   "since": "Nov 2",
+   "detail": "Silent 14 days, unnoticed because watches were paused. Google counted 32 call taps Nov 2-13."
+  },
+  {
+   "name": "OpenClaw usage sensors (HA)",
+   "state": "down",
+   "since": "Nov 2",
+   "detail": "P15 task times out over SSH."
+  },
+  {
+   "name": "fixingfortmyers.com",
+   "state": "up",
+   "since": "",
+   "detail": "GSC homepage position 7.5 → 17.1; fix in PR #252 (merged), recheck early Dec."
+  },
+  {
+   "name": "rajindustries.fixingfortmyers.com",
+   "state": "up",
+   "since": "",
+   "detail": "GitHub Pages, HTTPS enforced."
+  }
+ ],
+ "top_fixes": [
+  {
+   "rank": 1,
+   "owner": "Lead Rbot",
+   "text": "Stabilize pve (boot on old RAM), restore Beside, add a no-model heartbeat alert.",
+   "status": "Approved by Raj 8:57 AM; waits on pve"
+  },
+  {
+   "rank": 2,
+   "owner": "Codex · Lead Mechanic reviews",
+   "text": "Finish the shop-email outbox for lead alerts, and have Tony triage the ~85-90 real leads sitting in Owner Desk Junk.",
+   "status": "In progress"
+  },
+  {
+   "rank": 3,
+   "owner": "Lead Rbot with Raj",
+   "text": "Replace the full-root, never-expiring Proxmox API token with a scoped, expiring one, and confirm the Rbot Claude session is not auto-accepting.",
+   "status": "Needs Raj"
+  }
+ ],
+ "waiting_on_raj": [
+  {
+   "text": "Fix pve hardware (try old RAM sticks)",
+   "bot": "Lead Rbot",
+   "done": false
+  },
+  {
+   "text": "Re-add the beside user's SSH key from the Proxmox console (open since Oct 30)",
+   "bot": "Lead Rbot",
+   "done": false
+  },
+  {
+   "text": "Approve heartbeat alert and P15 SSH change",
+   "bot": "Lead Rbot",
+   "done": true
+  },
+  {
+   "text": "Replace the root Proxmox API token with a scoped, expiring one",
+   "bot": "Lead Rbot",
+   "done": false
+  },
+  {
+   "text": "Tony: triage the ~85-90 real leads in Owner Desk Junk",
+   "bot": "Lead Mechanic",
+   "done": false
+  },
+  {
+   "text": "Run claude auth login on the P15 before Nov 20",
+   "bot": "Lead Mechanic",
+   "done": false
+  },
+  {
+   "text": "Check the Rbot Claude Code permission mode",
+   "bot": "Lead Mechanic",
+   "done": false
+  },
+  {
+   "text": "Decide on rewriting git history to scrub old addresses",
+   "bot": "Lead Mechanic",
+   "done": false
+  },
+  {
+   "text": "Approve retiring the P15G2 gateway (Nov 9 reply was cut off)",
+   "bot": "Openclaw-grokbox",
+   "done": false
+  },
+  {
+   "text": "Merge Gutters PRs #31-#38; get John's own consent for his live map",
+   "bot": "Lead Gutter",
+   "done": false
+  },
+  {
+   "text": "Review spottedin PR #73 and linkedin-dash PR #1",
+   "bot": "Maanster, LinkedIn Coach",
+   "done": false
+  },
+  {
+   "text": "Check the Oct 30 Facebook login alert; export ChatGPT history if still wanted",
+   "bot": "Email Manager, Chief of Staff",
+   "done": false
+  },
+  {
+   "text": "Say which routines to resume (all paused Nov 3 and Nov 11)",
+   "bot": "Chief of Staff",
+   "done": false
+  }
+ ],
+ "infra": {
+  "nodes": [
+   {
+    "id": "pve",
+    "label": "pve",
+    "kind": "Proxmox host",
+    "state": "down",
+    "x": 470,
+    "y": 260,
+    "address": "LAN 192.168.7.50:8006 · tailnet proxmox 100.94.108.108",
+    "hw": "Dell laptop, i5-3340M",
+    "detail": "Offline since about Nov 14. Answered 8:47 AM Nov 16, down by 8:57 AM, still fully offline at 9:05 AM. Suspected new RAM.",
+    "owner": "Lead Rbot"
+   },
+   {
+    "id": "vm100",
+    "label": "VM 100 · Home Assistant",
+    "kind": "VM (HA OS)",
+    "state": "down",
+    "x": 270,
+    "y": 430,
+    "address": "LAN 192.168.7.233 · tailnet 100.64.55.123",
+    "detail": "Down with host. Backups every 3 days. OpenClaw usage sensors unavailable since Nov 2.",
+    "owner": "HomeBot"
+   },
+   {
+    "id": "vm101",
+    "label": "VM 101 · Serv2-Linux",
+    "kind": "VM (OpenClaw gateway)",
+    "state": "down",
+    "x": 670,
+    "y": 430,
+    "address": "LAN 192.168.7.221 · serv2-linux.tail68bd87.ts.net",
+    "detail": "OpenClaw gateway on :18789 (loopback). Runs Beside capture, heartbeat and worker. Formerly named openclaw-gw / Bayone.",
+    "owner": "Lead Rbot"
+   },
+   {
+    "id": "beside",
+    "label": "Beside scanner",
+    "kind": "Service on VM 101",
+    "state": "down",
+    "x": 790,
+    "y": 565,
+    "address": "runs as user beside on Serv2",
+    "detail": "Down since Nov 2 — the biggest lead leak for fixingfortmyers.com. beside SSH key rejected since Oct 30. Google counted 32 call taps Nov 2-13.",
+    "owner": "Lead Rbot"
+   },
+   {
+    "id": "p15g2",
+    "label": "P15G2 (P15)",
+    "kind": "Windows laptop",
+    "state": "up",
+    "x": 200,
+    "y": 105,
+    "address": "LAN Wi-Fi",
+    "detail": "Runs Codex, ChatGPT, Claude Code (Rbot session), Bambu Studio and scheduled tasks. Also runs a 2nd OpenClaw gateway (retirement waits on Raj). Called P15 / P15G2 in different chats; treated as one machine here.",
+    "owner": "Lead Rbot"
+   },
+   {
+    "id": "box",
+    "label": "Grok Bot box",
+    "kind": "Shared Linux (cloud)",
+    "state": "up",
+    "x": 740,
+    "y": 105,
+    "address": "tailnet openclaw-grokbox-2 100.68.99.98",
+    "detail": "Userspace Tailscale via Miami relay; flaps. Watchdog paused Nov 11. Site PRs go out from here via gh.",
+    "owner": "Openclaw-grokbox"
+   },
+   {
+    "id": "ryzen",
+    "label": "Ryzen PC",
+    "kind": "Windows PC",
+    "state": "unknown",
+    "x": 100,
+    "y": 275,
+    "address": "tailnet node",
+    "detail": "Listed as an OpenClaw node; no recent evidence it is joined.",
+    "owner": "Openclaw-grokbox"
+   },
+   {
+    "id": "h2d",
+    "label": "Bambu H2D",
+    "kind": "3D printer",
+    "state": "up",
+    "x": 100,
+    "y": 560,
+    "address": "LAN 192.168.7.113 (LAN-only, dev mode)",
+    "detail": "Driven over MQTT from P15G2. Preheated 8:54 AM Nov 16.",
+    "owner": "3D Print"
+   },
+   {
+    "id": "cf",
+    "label": "Cloudflare Workers",
+    "kind": "Public edge",
+    "state": "up",
+    "x": 845,
+    "y": 265,
+    "address": "*.workers.dev",
+    "detail": "Public by design (gutter locator and site helpers).",
+    "owner": "Lead Gutter"
+   }
+  ],
+  "edges": [
+   [
+    "pve",
+    "vm100",
+    "hosts"
+   ],
+   [
+    "pve",
+    "vm101",
+    "hosts"
+   ],
+   [
+    "vm101",
+    "beside",
+    "runs"
+   ],
+   [
+    "vm100",
+    "p15g2",
+    "usage sensors (SSH, timing out)",
+    0.62
+   ],
+   [
+    "p15g2",
+    "vm101",
+    "2nd gateway (duplicate)",
+    0.28
+   ],
+   [
+    "box",
+    "vm101",
+    "tailnet / A2A (unverified)"
+   ],
+   [
+    "p15g2",
+    "h2d",
+    "MQTT"
+   ],
+   [
+    "ryzen",
+    "vm101",
+    "OpenClaw node?",
+    0.28
+   ],
+   [
+    "box",
+    "cf",
+    "deploys"
+   ]
+  ]
+ },
+ "bots": [
+  {
+   "name": "Lead Mechanic",
+   "area": "Websites (fixingfortmyers, rajindustries)",
+   "owner": "Raj Pallempati",
+   "last": "2026-11-16",
+   "state": "Active",
+   "note": "Also driving Proxmox recovery"
+  },
+  {
+   "name": "Lead Rbot",
+   "area": "OpenClaw, Serv2, Beside",
+   "owner": "Raj Pallempati",
+   "last": "2026-11-16",
+   "state": "Active",
+   "note": "Idle Nov 3-16 per Raj; serv2 watch paused"
+  },
+  {
+   "name": "HomeBot",
+   "area": "Home Assistant",
+   "owner": "Raj Pallempati",
+   "last": "2026-11-16",
+   "state": "Active",
+   "note": "Anker watch paused Nov 11"
+  },
+  {
+   "name": "3D Print",
+   "area": "H2D printer",
+   "owner": "Raj Pallempati",
+   "last": "2026-11-16",
+   "state": "Active",
+   "note": "Duct sensor housing, collar"
+  },
+  {
+   "name": "Lead Gutter",
+   "area": "Gutters / WisdomScreen",
+   "owner": "Raj Pallempati",
+   "last": "2026-11-16",
+   "state": "Active",
+   "note": "8 PRs open"
+  },
+  {
+   "name": "Chief of Staff",
+   "area": "Orchestration, routines",
+   "owner": "Raj Pallempati",
+   "last": "2026-11-11",
+   "state": "Active",
+   "note": "Paused all routines Nov 3 and Nov 11"
+  },
+  {
+   "name": "Lead Lease",
+   "area": "lease-finder, apartments",
+   "owner": "Raj Pallempati",
+   "last": "2026-11-11",
+   "state": "Paused",
+   "note": "Routine paused Nov 11"
+  },
+  {
+   "name": "Openclaw-grokbox",
+   "area": "Tailscale on box, OpenClaw",
+   "owner": "Raj Pallempati",
+   "last": "2026-11-11",
+   "state": "Paused",
+   "note": "Watchdog paused Nov 11"
+  },
+  {
+   "name": "Maanster",
+   "area": "spottedin, Manasa",
+   "owner": "Raj Pallempati",
+   "last": "2026-11-03",
+   "state": "Stalled",
+   "note": "Routines paused Nov 3"
+  },
+  {
+   "name": "LinkedIn Coach",
+   "area": "LinkedIn, linkedin-dash",
+   "owner": "Raj Pallempati",
+   "last": "2026-11-03",
+   "state": "Stalled",
+   "note": "PR #1 waiting on Raj"
+  },
+  {
+   "name": "Email Manager",
+   "area": "Gmail triage",
+   "owner": "Raj Pallempati",
+   "last": "2026-11-03",
+   "state": "Idle",
+   "note": "Idle per Nov 3 order"
+  },
+  {
+   "name": "Calendar Manager",
+   "area": "Google Calendar",
+   "owner": "Raj Pallempati",
+   "last": "2026-11-03",
+   "state": "Idle",
+   "note": "Only onboarding Oct 30"
+  },
+  {
+   "name": "VR",
+   "area": "WebXR engine teardown",
+   "owner": "Raj Pallempati",
+   "last": "2026-11-03",
+   "state": "Idle",
+   "note": "Raj stopped project Nov 2"
+  },
+  {
+   "name": "botOS",
+   "area": "Bot layout, gateway handoff",
+   "owner": "Raj Pallempati",
+   "last": "2026-10-30",
+   "state": "Idle",
+   "note": "Handed serv2 to Lead Rbot"
+  },
+  {
+   "name": "Writer",
+   "area": "Writing, site blog",
+   "owner": "Raj Pallempati",
+   "last": "2026-10-30",
+   "state": "Idle",
+   "note": "Blog PR #227"
+  },
+  {
+   "name": "Snippet Tuner",
+   "area": "Search snippets",
+   "owner": "Raj Pallempati",
+   "last": "2026-10-30",
+   "state": "Idle",
+   "note": "Flagged PR #191 conflict"
+  },
+  {
+   "name": "Podcast",
+   "area": "Audio episodes",
+   "owner": "Raj Pallempati",
+   "last": "2026-10-30",
+   "state": "Unused",
+   "note": "Never used after setup"
+  },
+  {
+   "name": "Bot Builder",
+   "area": "Bot setup",
+   "owner": "Raj Pallempati",
+   "last": "2026-10-26",
+   "state": "Idle",
+   "note": "Created Lead Rbot, Lead Lease"
+  },
+  {
+   "name": "Designer · fixingphotos",
+   "area": "Site photos, form",
+   "owner": "Raj Pallempati",
+   "last": "2026-10-21",
+   "state": "Idle",
+   "note": "PRs #113, #115, #116"
+  },
+  {
+   "name": "QanA",
+   "area": "Q&A",
+   "owner": "Raj Pallempati",
+   "last": "2026-10-21",
+   "state": "Idle",
+   "note": "Designed dryer damper"
+  },
+  {
+   "name": "A",
+   "area": "LinkedIn review, P15 ingest",
+   "owner": "Raj Pallempati",
+   "last": "2026-10-20",
+   "state": "Idle",
+   "note": "Flagged Proxmox root token"
+  }
+ ],
+ "projects": [
+  {
+   "name": "fixingfortmyers.com",
+   "repo": "Palle017/fixingfortmyers-site",
+   "owner": "Lead Mechanic",
+   "state": "Active",
+   "blocker": "Beside down; lead alerts never built (Codex outbox); 85-90 real leads in Junk; Zoho not connected",
+   "next": "Recheck homepage rank early Dec (frozen to Dec 7)"
+  },
+  {
+   "name": "Beside call scanner",
+   "repo": "Serv2 VM 101",
+   "owner": "Lead Rbot",
+   "state": "Down",
+   "blocker": "pve down; beside SSH key rejected since Oct 30",
+   "next": "Restore, then no-model heartbeat alert"
+  },
+  {
+   "name": "OpenClaw gateway + A2A link",
+   "repo": "Serv2 :18789",
+   "owner": "Lead Rbot / Openclaw-grokbox",
+   "state": "Down",
+   "blocker": "pve down; A2A prepared, never verified (Oct 26)",
+   "next": "Verify gateway after reboot"
+  },
+  {
+   "name": "Home Assistant",
+   "repo": "VM 100",
+   "owner": "HomeBot",
+   "state": "Down",
+   "blocker": "pve down; OpenClaw usage sensors dead since Nov 2",
+   "next": "One PR per dashboard fix in Palle017/Homeassistant; Raj merges"
+  },
+  {
+   "name": "3D printing",
+   "repo": "H2D printer",
+   "owner": "3D Print",
+   "state": "Active",
+   "blocker": "Left nozzle unload failed; no TPU for case",
+   "next": "Duct sensor sizes from Raj"
+  },
+  {
+   "name": "Gutters / WisdomScreen.pro",
+   "repo": "Palle017/Gutters",
+   "owner": "Lead Gutter",
+   "state": "Waiting on Raj",
+   "blocker": "PRs #31-#38 unmerged; Pages publish is manual",
+   "next": "Raj merges #31-#38"
+  },
+  {
+   "name": "Raj Industries site",
+   "repo": "Palle017/rajindustries-site",
+   "owner": "Lead Mechanic",
+   "state": "Active",
+   "blocker": "None seen",
+   "next": "PRs #6 (OpenClaw) and #7 (Home Assistant) open"
+  },
+  {
+   "name": "spottedin",
+   "repo": "ManasaPallempati/spottedin",
+   "owner": "Maanster",
+   "state": "Stalled",
+   "blocker": "PR #73 needs Raj review; #67, #69, #71 need Manasa",
+   "next": "Raj reviews #73"
+  },
+  {
+   "name": "lease-finder",
+   "repo": "Palle017/lease-finder",
+   "owner": "Lead Lease",
+   "state": "Paused",
+   "blocker": "Spec only, no CI",
+   "next": "CI task list PR if Raj wants"
+  },
+  {
+   "name": "linkedin-dash",
+   "repo": "Palle017/linkedin-dash",
+   "owner": "LinkedIn Coach",
+   "state": "Waiting on Raj",
+   "blocker": "PR #1 needs Raj OK on new bullets",
+   "next": "Raj reviews PR #1"
+  },
+  {
+   "name": "Career audit",
+   "repo": "P15 Codex / Claude",
+   "owner": "Chief of Staff",
+   "state": "Stalled",
+   "blocker": "Claude search stopped at step 2; ChatGPT unreadable",
+   "next": "Raj: ChatGPT export, or drop it"
+  },
+  {
+   "name": "VR engine teardown",
+   "repo": "None",
+   "owner": "VR",
+   "state": "Stopped",
+   "blocker": "None",
+   "next": "Resume only if asked"
+  }
+ ],
+ "issues": [
+  {
+   "issue": "pve host crash-looping; HA, Serv2, Beside all down",
+   "type": "Not moving",
+   "owner": "Lead Rbot",
+   "impact": "All home infra offline",
+   "last": "2026-11-16",
+   "status": "Open"
+  },
+  {
+   "issue": "Beside scanner down 14 days, unnoticed (watch paused Nov 3)",
+   "type": "Stall",
+   "owner": "Lead Rbot",
+   "impact": "Calls not captured; 32 call taps Nov 2-13",
+   "last": "2026-11-16",
+   "status": "Open"
+  },
+  {
+   "issue": "beside user's SSH key rejected on Serv2 since Oct 30",
+   "type": "Stall",
+   "owner": "Lead Rbot",
+   "impact": "No ingestion checks possible",
+   "last": "2026-11-03",
+   "status": "Open"
+  },
+  {
+   "issue": "OpenClaw usage sensors unavailable; P15 task SSH timeout",
+   "type": "Stall",
+   "owner": "Lead Rbot",
+   "impact": "No OpenClaw usage data",
+   "last": "2026-11-16",
+   "status": "Open"
+  },
+  {
+   "issue": "Grok Bot to OpenClaw A2A link never verified",
+   "type": "Stall",
+   "owner": "Lead Rbot",
+   "impact": "No bot-to-gateway sync",
+   "last": "2026-10-26",
+   "status": "Open"
+  },
+  {
+   "issue": "All monitoring paused (serv2 watch Nov 3, Tailscale watchdog Nov 11); routines also failed on exhausted usage",
+   "type": "Not moving",
+   "owner": "Lead Rbot",
+   "impact": "Outages go silent",
+   "last": "2026-11-11",
+   "status": "Open"
+  },
+  {
+   "issue": "Proxmox API token is full root with no expiry",
+   "type": "Security",
+   "owner": "Lead Rbot (needs Raj)",
+   "impact": "Full host takeover if leaked",
+   "last": "2026-11-16",
+   "status": "Open"
+  },
+  {
+   "issue": "Claude Code \"Rbot Bypass mode\" session; auto-accept mode was recommended",
+   "type": "Security",
+   "owner": "Lead Mechanic",
+   "impact": "Unclear whether prompts are bypassed on P15",
+   "last": "2026-11-16",
+   "status": "Open"
+  },
+  {
+   "issue": "Old street addresses remain in a public repo's git history",
+   "type": "Security",
+   "owner": "Lead Mechanic",
+   "impact": "A third party's address stays public",
+   "last": "2026-11-16",
+   "status": "Open"
+  },
+  {
+   "issue": "A third party's live location is public on a locator Worker; no consent on record",
+   "type": "Security",
+   "owner": "Lead Gutter",
+   "impact": "Privacy of a third party",
+   "last": "2026-11-16",
+   "status": "Open"
+  },
+  {
+   "issue": "Facebook login alert from an unfamiliar location; no follow-up seen",
+   "type": "Security",
+   "owner": "Email Manager",
+   "impact": "Account takeover risk",
+   "last": "2026-10-30",
+   "status": "Open"
+  },
+  {
+   "issue": "3D Print preheated on a relayed ask before Raj's direct OK (OK'd 1 min later)",
+   "type": "Security",
+   "owner": "3D Print",
+   "impact": "Low; own rule skipped",
+   "last": "2026-11-16",
+   "status": "Open"
+  },
+  {
+   "issue": "Two OpenClaw gateways (P15G2 + Serv2), plus backup on box",
+   "type": "Duplicate",
+   "owner": "Openclaw-grokbox",
+   "impact": "Split sessions and memory",
+   "last": "2026-11-09",
+   "status": "Open"
+  },
+  {
+   "issue": "Proxmox recovery run by Lead Mechanic, Claude Rbot, Claude.ai watch and Lead Rbot",
+   "type": "Duplicate",
+   "owner": "Lead Rbot",
+   "impact": "No single infra owner",
+   "last": "2026-11-16",
+   "status": "Open"
+  },
+  {
+   "issue": "Duct sensor design routed 3D Print → Lead Mechanic → Claude",
+   "type": "Duplicate",
+   "owner": "3D Print",
+   "impact": "Extra hops, token burn",
+   "last": "2026-11-16",
+   "status": "Open"
+  },
+  {
+   "issue": "LinkedIn work split across A, LinkedIn Coach, Chief of Staff routine",
+   "type": "Duplicate",
+   "owner": "LinkedIn Coach",
+   "impact": "Overlapping drafts",
+   "last": "2026-11-03",
+   "status": "Open"
+  },
+  {
+   "issue": "HomeBot reported nothing blocked on Proxmox at 8:36 AM while host was down",
+   "type": "Conflict",
+   "owner": "HomeBot",
+   "impact": "Stale status in handoffs",
+   "last": "2026-11-16",
+   "status": "Open"
+  },
+  {
+   "issue": "Maanster intro email: Nov 3 page said never sent; Maanster had sent one",
+   "type": "Conflict",
+   "owner": "Maanster",
+   "impact": "Stale blocker",
+   "last": "2026-11-03",
+   "status": "Open"
+  },
+  {
+   "issue": "Shared memory names the gateway VM \"Bayone\" (renamed Serv2-Linux)",
+   "type": "Stale fact",
+   "owner": "Lead Rbot",
+   "impact": "Wrong host name",
+   "last": "2026-10-23",
+   "status": "Open"
+  },
+  {
+   "issue": "Shared memory has 5 facts; missing HA, pve tailnet, printer, box tailnet, beside user",
+   "type": "Stale fact",
+   "owner": "Bot Builder",
+   "impact": "Bots rediscover infra",
+   "last": "2026-10-23",
+   "status": "Open"
+  },
+  {
+   "issue": "Lead email alerts never existed: forms post to Codex's private Cloud Intake; shop-email outbox unfinished. Zoho not connected",
+   "type": "Not moving",
+   "owner": "Codex (Lead Mechanic reviews)",
+   "impact": "0 alert emails ever; a site PR can't fix it",
+   "last": "2026-11-16",
+   "status": "Open"
+  },
+  {
+   "issue": "About 85-90 of 132 Owner Desk Junk cards look like real customers; nothing added since Nov 2",
+   "type": "Not moving",
+   "owner": "Tony triages; Lead Mechanic writing Owner Desk spec",
+   "impact": "Real leads sitting in Junk",
+   "last": "2026-11-16",
+   "status": "Open"
+  },
+  {
+   "issue": "Homepage GSC position 7.5 → 17.1; fix PR #252 merged",
+   "type": "Not moving",
+   "owner": "Lead Mechanic",
+   "impact": "Organic clicks 24 → 9",
+   "last": "2026-11-16",
+   "status": "Open"
+  },
+  {
+   "issue": "Cloud coding agents error before start; PRs via gh on box",
+   "type": "Not moving",
+   "owner": "Bot Builder",
+   "impact": "Slower PRs",
+   "last": "2026-11-16",
+   "status": "Open"
+  },
+  {
+   "issue": "Claude Code sign-in on P15 expires Nov 20-23",
+   "type": "Not moving",
+   "owner": "Lead Mechanic",
+   "impact": "Rbot session stops",
+   "last": "2026-11-16",
+   "status": "Open"
+  },
+  {
+   "issue": "Gutters PRs #31-#38 green, unmerged",
+   "type": "Not moving",
+   "owner": "Lead Gutter",
+   "impact": "Pages and locator not live",
+   "last": "2026-11-16",
+   "status": "Open"
+  },
+  {
+   "issue": "Box Tailscale relayed via Miami, shows itself offline, frequent flaps",
+   "type": "Not moving",
+   "owner": "Openclaw-grokbox",
+   "impact": "Flaky remote checks",
+   "last": "2026-11-11",
+   "status": "Open"
+  },
+  {
+   "issue": "spottedin: no agent work since Oct 30; PR #73 waits on Raj",
+   "type": "Stall",
+   "owner": "Maanster",
+   "impact": "Revenue-path PRs idle",
+   "last": "2026-11-03",
+   "status": "Open"
+  },
+  {
+   "issue": "linkedin-dash PR #1 waits on Raj",
+   "type": "Stall",
+   "owner": "LinkedIn Coach",
+   "impact": "Profile update idle",
+   "last": "2026-11-03",
+   "status": "Open"
+  },
+  {
+   "issue": "Career audit: Claude search stopped at step 2",
+   "type": "Stall",
+   "owner": "Chief of Staff",
+   "impact": "Audit partial",
+   "last": "2026-10-21",
+   "status": "Open"
+  },
+  {
+   "issue": "ChatGPT history unreadable (no export)",
+   "type": "Stall",
+   "owner": "Chief of Staff",
+   "impact": "Context gap",
+   "last": "2026-11-03",
+   "status": "Open"
+  },
+  {
+   "issue": "P15 cmd windows flashing from Codex tools helper",
+   "type": "Stall",
+   "owner": "Chief of Staff",
+   "impact": "Annoyance; orphan processes",
+   "last": "2026-11-03",
+   "status": "Open"
+  },
+  {
+   "issue": "WisdomScreen PR #23 merged; manual Pages publish unconfirmed",
+   "type": "Stall",
+   "owner": "Lead Gutter",
+   "impact": "Update may not be live",
+   "last": "2026-10-30",
+   "status": "Open"
+  },
+  {
+   "issue": "PR #191 wording merged without a verbatim Raj OK; live ~3 hours, replaced by #199",
+   "type": "Conflict",
+   "owner": "Lead Mechanic",
+   "impact": "Resolved; live text follows Tony's rules",
+   "last": "2026-11-16",
+   "status": "Resolved"
+  }
+ ],
+ "prs": [
+  {
+   "repo": "Palle017/fixingfortmyers-site",
+   "num": 252,
+   "title": "Restore the keyword homepage H1 and align Google-facing homepage titles",
+   "state": "MERGED",
+   "owner": "Lead Mechanic"
+  },
+  {
+   "repo": "Palle017/rajindustries-site",
+   "num": 5,
+   "title": "Shorten homepage copy by about a third",
+   "state": "MERGED",
+   "owner": "Lead Mechanic"
+  },
+  {
+   "repo": "Palle017/rajindustries-site",
+   "num": 6,
+   "title": "Add OpenClaw as flagship AI infrastructure",
+   "state": "OPEN",
+   "owner": "Lead Mechanic"
+  },
+  {
+   "repo": "Palle017/rajindustries-site",
+   "num": 7,
+   "title": "Feature Home Assistant in Work with a dashboard visual",
+   "state": "OPEN",
+   "owner": "Lead Mechanic"
+  },
+  {
+   "repo": "Palle017/Homeassistant",
+   "num": 24,
+   "title": "Remux camera clips with ffmpeg stream copy",
+   "state": "OPEN",
+   "owner": "HomeBot"
+  },
+  {
+   "repo": "Palle017/Homeassistant",
+   "num": 25,
+   "title": "Away mode: turn Continuous cleaning on/off instead of driving both vacuums",
+   "state": "OPEN",
+   "owner": "HomeBot"
+  },
+  {
+   "repo": "Palle017/linkedin-dash",
+   "num": 1,
+   "title": "Draft master LinkedIn update (2026-11)",
+   "state": "OPEN",
+   "owner": "LinkedIn Coach"
+  },
+  {
+   "repo": "ManasaPallempati/spottedin",
+   "num": 73,
+   "title": "Sync main into TEST2026.01",
+   "state": "OPEN",
+   "owner": "Maanster"
+  },
+  {
+   "repo": "Palle017/Gutters",
+   "num": 23,
+   "title": "Apply the approved coastal breeze custom screen door artwork",
+   "state": "MERGED",
+   "owner": "Lead Gutter"
+  },
+  {
+   "repo": "Palle017/Gutters",
+   "num": 31,
+   "title": "Screen types page: John's pick, Ultra Screen",
+   "state": "OPEN",
+   "owner": "Lead Gutter"
+  },
+  {
+   "repo": "Palle017/Gutters",
+   "num": 32,
+   "title": "Window screens page with 410 stainless screw practice",
+   "state": "OPEN",
+   "owner": "Lead Gutter"
+  },
+  {
+   "repo": "Palle017/Gutters",
+   "num": 33,
+   "title": "Pool cage & aluminum painting page (Tough Trim, any color)",
+   "state": "OPEN",
+   "owner": "Lead Gutter"
+  },
+  {
+   "repo": "Palle017/Gutters",
+   "num": 34,
+   "title": "Google review page + printable review QR cards",
+   "state": "OPEN",
+   "owner": "Lead Gutter"
+  },
+  {
+   "repo": "Palle017/Gutters",
+   "num": 35,
+   "title": "LocalBusiness JSON-LD + service area page",
+   "state": "OPEN",
+   "owner": "Lead Gutter"
+  },
+  {
+   "repo": "Palle017/Gutters",
+   "num": 36,
+   "title": "Trust strip on gutters, screens, rescreening and services pages",
+   "state": "OPEN",
+   "owner": "Lead Gutter"
+  },
+  {
+   "repo": "Palle017/Gutters",
+   "num": 37,
+   "title": "Why John page: import facts from John's listings",
+   "state": "OPEN",
+   "owner": "Lead Gutter"
+  },
+  {
+   "repo": "Palle017/Gutters",
+   "num": 38,
+   "title": "Easter egg: Where's my gutter guy? live radar",
+   "state": "OPEN",
+   "owner": "Lead Gutter"
+  }
+ ],
+ "prs_checked": "2026-11-16T09:24:00-05:00",
+ "home": {
+  "source": "Oct 30 dashboard backup (HA offline with the Proxmox host)",
+  "stats": [
+   {
+    "value": "10",
+    "label": "views"
+   },
+   {
+    "value": "357",
+    "label": "cards"
+   },
+   {
+    "value": "166",
+    "label": "unique entities"
+   },
+   {
+    "value": "360",
+    "label": "entity placements"
+   },
+   {
+    "value": "7×",
+    "label": "continuous-cleaning switch copies (3 names)"
+   },
+   {
+    "value": "21",
+    "label": "dead / unavailable entities"
+   }
+  ],
+  "findings": [
+   {
+    "title": "Away mode undoes continuous cleaning",
+    "text": "When you leave, Away starts both robots without turning continuous cleaning off, so it sends one robot home again. When you come back, Away docks them but leaves continuous cleaning on, so it restarts them about a minute later.",
+    "tone": "bad"
+   },
+   {
+    "title": "Per-robot buttons get undone",
+    "text": "While continuous cleaning is on, it overrides them within about a minute, and nothing on the dashboard warns you.",
+    "tone": "bad"
+   },
+   {
+    "title": "Switch can show ON while doing nothing",
+    "text": "Happens when a robot's battery reading is stale. The help text says any battery level works; the real rule is 80% plus a 10-minute returning grace period.",
+    "tone": "warn"
+   }
+  ],
+  "fixes": [
+   "Away mode turns continuous cleaning ON instead of starting both robots, and OFF on return",
+   "One Cleaning card on Home (switch, live status, both batteries, Start both, Dock both); remove the other copies and Quick controls",
+   "Correct the relay help text (80% rule + 10-min grace)",
+   "Hide or warn on per-robot commands while continuous cleaning is on",
+   "Consistent names: Wyze 1, Wyze 2, Continuous cleaning",
+   "All Controls view: explicit tap actions, or delete if redundant",
+   "Remove duplicate thermostat entities (each floor once)",
+   "Show each printer, weather and Codex sensor once; cut ~31 markdown blocks",
+   "Remove dead tiles (cool_to_68, Govee power switches, empty lcec refs)",
+   "Hand-off trace history 30 → ~200, alert if waiting >30 min"
+  ],
+  "layout": [
+   "Home",
+   "Cameras",
+   "Energy & Weather",
+   "Workshop",
+   "System"
+  ],
+  "pr_status": "HomeBot's cloud agent is opening one PR per fix in Palle017/Homeassistant; none merged without Raj. Fix 1 is up as PR #25 (opened 9:21 AM ET); the other 9 were not up yet at 9:24 AM ET.",
+  "pr_repo": "Palle017/Homeassistant"
+ },
+ "house": {
+  "units": "meters",
+  "floors": [
+   {
+    "id": "lower",
+    "sensors": [],
+    "name": "Lower floor",
+    "elevation": 0.0,
+    "model": "house/lower.glb",
+    "model_source": "RoomPlan.usdz",
+    "model_kinds": {
+     "window": 4,
+     "wall": 39,
+     "door": 9,
+     "floor": 1,
+     "object": 38
+    },
+    "model_extent_m": [
+     15.25,
+     3.97,
+     14.75
+    ],
+    "model_wall_height_m": 2.93,
+    "rooms": [
+     {
+      "id": "bathroom0",
+      "label": "Bathroom",
+      "source": "RoomPlan section",
+      "x": 8.693,
+      "z": -2.453
+     },
+     {
+      "id": "livingRoom0",
+      "label": "Living room",
+      "source": "RoomPlan section",
+      "x": 4.766,
+      "z": 6.371
+     },
+     {
+      "id": "unidentified0",
+      "label": "Unlabeled space",
+      "source": "RoomPlan section",
+      "x": 9.438,
+      "z": 0.553
+     },
+     {
+      "id": "unidentified1",
+      "label": "Unlabeled space",
+      "source": "RoomPlan section",
+      "x": 2.256,
+      "z": 1.859
+     }
+    ],
+    "objects_labeled": [
+     {
+      "label": "Sofa",
+      "id": "Sofa3",
+      "x": 4.197,
+      "z": -1.314,
+      "top": 0.873
+     },
+     {
+      "label": "Sofa",
+      "id": "Sofa2",
+      "x": 6.526,
+      "z": 6.362,
+      "top": 0.988
+     },
+     {
+      "label": "Sofa",
+      "id": "Sofa1",
+      "x": 4.198,
+      "z": 5.354,
+      "top": 0.896
+     },
+     {
+      "label": "Sofa",
+      "id": "Sofa0",
+      "x": 3.993,
+      "z": 7.171,
+      "top": 0.95
+     },
+     {
+      "label": "Bathtub",
+      "id": "Bathtub0",
+      "x": 8.744,
+      "z": -1.015,
+      "top": 0.659
+     },
+     {
+      "label": "Table",
+      "id": "Table4",
+      "x": -0.489,
+      "z": -4.779,
+      "top": 0.895
+     },
+     {
+      "label": "Table",
+      "id": "Table3",
+      "x": 0.36,
+      "z": 4.845,
+      "top": 0.844
+     },
+     {
+      "label": "Table",
+      "id": "Table2",
+      "x": 2.379,
+      "z": -2.895,
+      "top": 1.037
+     },
+     {
+      "label": "Table",
+      "id": "Table1",
+      "x": 6.435,
+      "z": 4.784,
+      "top": 0.617
+     },
+     {
+      "label": "Table",
+      "id": "Table0",
+      "x": 7.392,
+      "z": 4.199,
+      "top": 0.757
+     },
+     {
+      "label": "Bed",
+      "id": "Bed0",
+      "x": 11.421,
+      "z": -2.099,
+      "top": 0.771
+     },
+     {
+      "label": "Stove",
+      "id": "Stove0",
+      "x": -1.401,
+      "z": -1.086,
+      "top": 1.113
+     },
+     {
+      "label": "Oven",
+      "id": "Oven0",
+      "x": -1.401,
+      "z": -1.086,
+      "top": 1.013
+     },
+     {
+      "label": "Chair",
+      "id": "Chair7",
+      "x": 0.599,
+      "z": -5.031,
+      "top": 0.877
+     },
+     {
+      "label": "Chair",
+      "id": "Chair6",
+      "x": 0.817,
+      "z": 4.318,
+      "top": 0.675
+     },
+     {
+      "label": "Chair",
+      "id": "Chair5",
+      "x": 1.773,
+      "z": -0.602,
+      "top": 1.014
+     },
+     {
+      "label": "Chair",
+      "id": "Chair4",
+      "x": 0.317,
+      "z": 3.92,
+      "top": 0.675
+     },
+     {
+      "label": "Chair",
+      "id": "Chair3",
+      "x": 1.252,
+      "z": -0.874,
+      "top": 0.825
+     },
+     {
+      "label": "Chair",
+      "id": "Chair2",
+      "x": 0.018,
+      "z": -3.869,
+      "top": 0.927
+     },
+     {
+      "label": "Chair",
+      "id": "Chair1",
+      "x": -0.894,
+      "z": -3.646,
+      "top": 0.955
+     },
+     {
+      "label": "Chair",
+      "id": "Chair0",
+      "x": 0.864,
+      "z": 5.327,
+      "top": 0.675
+     },
+     {
+      "label": "Toilet",
+      "id": "Toilet0",
+      "x": 8.189,
+      "z": -2.016,
+      "top": 0.928
+     },
+     {
+      "label": "Refrigerator",
+      "id": "Refrigerator0",
+      "x": -1.208,
+      "z": 1.156,
+      "top": 1.875
+     },
+     {
+      "label": "Storage",
+      "id": "Storage13",
+      "x": 12.478,
+      "z": -3.388,
+      "top": 0.774
+     },
+     {
+      "label": "Storage",
+      "id": "Storage12",
+      "x": 0.068,
+      "z": 6.649,
+      "top": 0.85
+     },
+     {
+      "label": "Storage",
+      "id": "Storage11",
+      "x": 0.716,
+      "z": -0.878,
+      "top": 1.031
+     },
+     {
+      "label": "Storage",
+      "id": "Storage10",
+      "x": -1.37,
+      "z": -0.044,
+      "top": 1.013
+     },
+     {
+      "label": "Storage",
+      "id": "Storage9",
+      "x": 1.03,
+      "z": 2.248,
+      "top": 1.852
+     },
+     {
+      "label": "Storage",
+      "id": "Storage8",
+      "x": 7.933,
+      "z": -2.006,
+      "top": 1.921
+     },
+     {
+      "label": "Storage",
+      "id": "Storage7",
+      "x": -1.557,
+      "z": 0.019,
+      "top": 2.577
+     },
+     {
+      "label": "Storage",
+      "id": "Storage6",
+      "x": -1.49,
+      "z": -2.351,
+      "top": 1.013
+     },
+     {
+      "label": "Storage",
+      "id": "Storage5",
+      "x": -1.506,
+      "z": 1.168,
+      "top": 2.594
+     },
+     {
+      "label": "Storage",
+      "id": "Storage4",
+      "x": 8.063,
+      "z": -2.905,
+      "top": 1.022
+     },
+     {
+      "label": "Storage",
+      "id": "Storage3",
+      "x": 7.505,
+      "z": -1.021,
+      "top": 0.907
+     },
+     {
+      "label": "Storage",
+      "id": "Storage2",
+      "x": -1.653,
+      "z": -2.374,
+      "top": 2.541
+     },
+     {
+      "label": "Storage",
+      "id": "Storage1",
+      "x": -1.224,
+      "z": 2.162,
+      "top": 0.984
+     },
+     {
+      "label": "Storage",
+      "id": "Storage0",
+      "x": -1.603,
+      "z": -1.038,
+      "top": 2.579
+     },
+     {
+      "label": "Sink",
+      "id": "Sink0",
+      "x": 8.021,
+      "z": -2.923,
+      "top": 1.022
+     }
+    ],
+    "dxf": {
+     "source": "lower-FloorPlan.dxf",
+     "units": "meters",
+     "note": "DXF plane (x,y); model space is x=-dxf_x, z=dxf_y",
+     "layers": [
+      "doors",
+      "objects",
+      "openings",
+      "walls",
+      "windows"
+     ],
+     "counts": {
+      "walls": 39,
+      "doors": 9,
+      "windows": 4,
+      "openings": 5,
+      "objects": 39
+     },
+     "wall_height_m": 2.93,
+     "extent_m": [
+      14.64,
+      14.37
+     ],
+     "walls": [
+      {
+       "x": -5.159,
+       "y": 1.399,
+       "a": 0.052,
+       "l": 3.554,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -5.353,
+       "y": 4.357,
+       "a": 0.0404,
+       "l": 3.346,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -9.446,
+       "y": 1.258,
+       "a": 0.0274,
+       "l": 0.462,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -8.827,
+       "y": 1.275,
+       "a": 0.0274,
+       "l": 0.777,
+       "t": 0.06,
+       "z0": 2.16,
+       "z1": 2.925
+      },
+      {
+       "x": -7.686,
+       "y": 1.306,
+       "a": 0.0274,
+       "l": 1.505,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -11.776,
+       "y": 0.216,
+       "a": 0.0363,
+       "l": 1.982,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -2.758,
+       "y": 1.501,
+       "a": 0.0467,
+       "l": 1.251,
+       "t": 0.06,
+       "z0": 2.48,
+       "z1": 2.925
+      },
+      {
+       "x": -1.976,
+       "y": 1.538,
+       "a": 0.0467,
+       "l": 0.315,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -0.988,
+       "y": 1.584,
+       "a": 0.0467,
+       "l": 1.663,
+       "t": 0.06,
+       "z0": 2.14,
+       "z1": 2.925
+      },
+      {
+       "x": -0.423,
+       "y": 6.814,
+       "a": 0.0409,
+       "l": 3.675,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -0.334,
+       "y": 1.614,
+       "a": 0.0499,
+       "l": 0.355,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.16
+      },
+      {
+       "x": -9.653,
+       "y": -1.614,
+       "a": -1.5176,
+       "l": 1.992,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -9.578,
+       "y": -3.021,
+       "a": -1.5176,
+       "l": 0.826,
+       "t": 0.06,
+       "z0": 2.277,
+       "z1": 2.925
+      },
+      {
+       "x": -9.553,
+       "y": -3.492,
+       "a": -1.5176,
+       "l": 0.117,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -3.39,
+       "y": 1.74,
+       "a": 1.5571,
+       "l": 0.516,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -3.381,
+       "y": 2.394,
+       "a": 1.5571,
+       "l": 0.791,
+       "t": 0.06,
+       "z0": 2.208,
+       "z1": 2.925
+      },
+      {
+       "x": -3.372,
+       "y": 3.014,
+       "a": 1.5571,
+       "l": 0.449,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -7.104,
+       "y": 6.193,
+       "a": -1.524,
+       "l": 3.831,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -9.693,
+       "y": 1.608,
+       "a": -1.5533,
+       "l": 0.693,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -4.751,
+       "y": -3.327,
+       "a": 0.0431,
+       "l": 5.99,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 3.81
+      },
+      {
+       "x": -7.88,
+       "y": -0.116,
+       "a": -1.5166,
+       "l": 0.971,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 3.81
+      },
+      {
+       "x": -0.948,
+       "y": -6.057,
+       "a": 0.0519,
+       "l": 1.356,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": 0.309,
+       "y": -5.992,
+       "a": 0.0519,
+       "l": 1.161,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 1.043
+      },
+      {
+       "x": 0.309,
+       "y": -5.992,
+       "a": 0.0519,
+       "l": 1.161,
+       "t": 0.06,
+       "z0": 2.438,
+       "z1": 2.925
+      },
+      {
+       "x": 1.448,
+       "y": -5.933,
+       "a": 0.0519,
+       "l": 1.12,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -1.737,
+       "y": -3.512,
+       "a": -1.5313,
+       "l": 0.648,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -1.684,
+       "y": -4.855,
+       "a": -1.5313,
+       "l": 2.04,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 0.798
+      },
+      {
+       "x": -1.684,
+       "y": -4.855,
+       "a": -1.5313,
+       "l": 2.04,
+       "t": 0.06,
+       "z0": 2.571,
+       "z1": 2.925
+      },
+      {
+       "x": -1.639,
+       "y": -5.978,
+       "a": -1.5313,
+       "l": 0.209,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -10.818,
+       "y": 1.135,
+       "a": -1.5455,
+       "l": 0.147,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -10.806,
+       "y": 0.662,
+       "a": -1.5455,
+       "l": 0.8,
+       "t": 0.06,
+       "z0": 2.181,
+       "z1": 2.925
+      },
+      {
+       "x": -10.254,
+       "y": 1.235,
+       "a": 0.0291,
+       "l": 1.154,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -12.834,
+       "y": -2.163,
+       "a": -1.5309,
+       "l": 3.076,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -2.218,
+       "y": 3.368,
+       "a": 0.207,
+       "l": 0.129,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -6.979,
+       "y": 2.798,
+       "a": -1.5335,
+       "l": 2.964,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": 1.81,
+       "y": -1.65,
+       "a": -1.5268,
+       "l": 8.536,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -2.139,
+       "y": 2.977,
+       "a": -1.5485,
+       "l": 0.829,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -6.827,
+       "y": 8.132,
+       "a": 0.0423,
+       "l": 0.715,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -5.549,
+       "y": 8.186,
+       "a": 0.0423,
+       "l": 1.843,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 0.687
+      },
+      {
+       "x": -5.549,
+       "y": 8.186,
+       "a": 0.0423,
+       "l": 1.843,
+       "t": 0.06,
+       "z0": 2.805,
+       "z1": 2.925
+      },
+      {
+       "x": -4.054,
+       "y": 8.25,
+       "a": 0.0423,
+       "l": 1.149,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -3.031,
+       "y": 8.293,
+       "a": 0.0423,
+       "l": 0.9,
+       "t": 0.06,
+       "z0": 2.588,
+       "z1": 2.925
+      },
+      {
+       "x": -2.457,
+       "y": 8.317,
+       "a": 0.0423,
+       "l": 0.249,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": 0.291,
+       "y": 2.617,
+       "a": -0.0103,
+       "l": 1.08,
+       "t": 0.06,
+       "z0": 2.6,
+       "z1": 2.925
+      },
+      {
+       "x": 1.221,
+       "y": 2.607,
+       "a": -0.0103,
+       "l": 0.781,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -10.651,
+       "y": -0.619,
+       "a": 0.0027,
+       "l": 0.117,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -10.201,
+       "y": -0.617,
+       "a": 0.0027,
+       "l": 0.783,
+       "t": 0.06,
+       "z0": 2.126,
+       "z1": 2.925
+      },
+      {
+       "x": -8.837,
+       "y": -0.614,
+       "a": 0.0027,
+       "l": 1.946,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -4.701,
+       "y": 3.177,
+       "a": 0.0388,
+       "l": 2.646,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -2.295,
+       "y": 7.531,
+       "a": -1.5369,
+       "l": 1.605,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -7.804,
+       "y": -2.034,
+       "a": -1.5218,
+       "l": 2.867,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 3.81
+      },
+      {
+       "x": -12.511,
+       "y": -0.62,
+       "a": -0.0103,
+       "l": 0.788,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -11.591,
+       "y": -0.63,
+       "a": -0.0103,
+       "l": 1.053,
+       "t": 0.06,
+       "z0": 2.263,
+       "z1": 2.925
+      },
+      {
+       "x": -10.887,
+       "y": -0.637,
+       "a": -0.0103,
+       "l": 0.355,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -10.748,
+       "y": -0.183,
+       "a": -1.5076,
+       "l": 0.894,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -1.184,
+       "y": 2.588,
+       "a": 0.0158,
+       "l": 1.871,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -12.804,
+       "y": 0.989,
+       "a": -1.5366,
+       "l": 1.64,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -0.203,
+       "y": 2.112,
+       "a": -1.4587,
+       "l": 1.004,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -2.828,
+       "y": 3.292,
+       "a": 0.0791,
+       "l": 1.108,
+       "t": 0.06,
+       "z0": 2.48,
+       "z1": 2.925
+      },
+      {
+       "x": -9.441,
+       "y": 0.305,
+       "a": 0.0356,
+       "l": 0.63,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -8.751,
+       "y": 0.329,
+       "a": 0.0356,
+       "l": 0.75,
+       "t": 0.06,
+       "z0": 2.215,
+       "z1": 2.925
+      },
+      {
+       "x": -8.136,
+       "y": 0.351,
+       "a": 0.0356,
+       "l": 0.48,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -11.276,
+       "y": 1.881,
+       "a": 0.04,
+       "l": 3.136,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": 1.419,
+       "y": 6.579,
+       "a": -1.5197,
+       "l": 0.642,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": 1.464,
+       "y": 5.694,
+       "a": -1.5197,
+       "l": 1.13,
+       "t": 0.06,
+       "z0": 2.711,
+       "z1": 2.925
+      },
+      {
+       "x": 1.558,
+       "y": 3.871,
+       "a": -1.5197,
+       "l": 2.519,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -11.822,
+       "y": -3.661,
+       "a": 0.0504,
+       "l": 1.883,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -10.299,
+       "y": -3.585,
+       "a": 0.0504,
+       "l": 1.168,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 0.638
+      },
+      {
+       "x": -10.299,
+       "y": -3.585,
+       "a": 0.0504,
+       "l": 1.168,
+       "t": 0.06,
+       "z0": 2.694,
+       "z1": 2.925
+      },
+      {
+       "x": -9.488,
+       "y": -3.544,
+       "a": 0.0504,
+       "l": 0.454,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -8.845,
+       "y": -3.511,
+       "a": 0.0504,
+       "l": 0.833,
+       "t": 0.06,
+       "z0": 2.448,
+       "z1": 2.925
+      },
+      {
+       "x": -8.087,
+       "y": -3.473,
+       "a": 0.0504,
+       "l": 0.686,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      },
+      {
+       "x": -2.096,
+       "y": 2.049,
+       "a": -1.5438,
+       "l": 1.029,
+       "t": 0.06,
+       "z0": 0.0,
+       "z1": 2.925
+      }
+     ],
+     "openings": [
+      {
+       "kind": "door",
+       "x": -3.031,
+       "y": 8.3,
+       "a": 0.0686,
+       "l": 0.9,
+       "z0": 0.0,
+       "z1": 2.588
+      },
+      {
+       "kind": "door",
+       "x": -10.805,
+       "y": 0.662,
+       "a": -1.5494,
+       "l": 0.8,
+       "z0": 0.0,
+       "z1": 2.181
+      },
+      {
+       "kind": "door",
+       "x": -3.381,
+       "y": 2.394,
+       "a": -1.5479,
+       "l": 0.791,
+       "z0": 0.0,
+       "z1": 2.208
+      },
+      {
+       "kind": "door",
+       "x": -8.845,
+       "y": -3.517,
+       "a": 0.0704,
+       "l": 0.833,
+       "z0": 0.0,
+       "z1": 2.448
+      },
+      {
+       "kind": "door",
+       "x": -10.201,
+       "y": -0.624,
+       "a": 0.0352,
+       "l": 0.783,
+       "z0": 0.0,
+       "z1": 2.126
+      },
+      {
+       "kind": "door",
+       "x": -8.751,
+       "y": 0.33,
+       "a": 0.0197,
+       "l": 0.75,
+       "z0": 0.0,
+       "z1": 2.215
+      },
+      {
+       "kind": "door",
+       "x": -9.584,
+       "y": -3.021,
+       "a": -1.5486,
+       "l": 0.826,
+       "z0": 0.0,
+       "z1": 2.277
+      },
+      {
+       "kind": "door",
+       "x": 1.469,
+       "y": 5.694,
+       "a": -1.5421,
+       "l": 1.13,
+       "z0": 0.0,
+       "z1": 2.711
+      },
+      {
+       "kind": "door",
+       "x": -11.591,
+       "y": -0.628,
+       "a": 0.0178,
+       "l": 1.053,
+       "z0": 0.0,
+       "z1": 2.263
+      },
+      {
+       "kind": "window",
+       "x": 0.309,
+       "y": -5.993,
+       "a": 0.0636,
+       "l": 1.161,
+       "z0": 1.043,
+       "z1": 2.438
+      },
+      {
+       "kind": "window",
+       "x": -10.299,
+       "y": -3.585,
+       "a": 0.0293,
+       "l": 1.168,
+       "z0": 0.638,
+       "z1": 2.694
+      },
+      {
+       "kind": "window",
+       "x": -1.682,
+       "y": -4.855,
+       "a": -1.5342,
+       "l": 2.04,
+       "z0": 0.798,
+       "z1": 2.571
+      },
+      {
+       "kind": "window",
+       "x": -5.549,
+       "y": 8.183,
+       "a": 0.0355,
+       "l": 1.843,
+       "z0": 0.687,
+       "z1": 2.805
+      },
+      {
+       "kind": "opening",
+       "x": -0.987,
+       "y": 1.579,
+       "a": 0.0526,
+       "l": 1.663,
+       "z0": 0.0,
+       "z1": 2.14
+      },
+      {
+       "kind": "opening",
+       "x": -2.828,
+       "y": 3.292,
+       "a": 0.0791,
+       "l": 1.108,
+       "z0": 0.0,
+       "z1": 2.48
+      },
+      {
+       "kind": "opening",
+       "x": 0.291,
+       "y": 2.613,
+       "a": -0.0181,
+       "l": 1.08,
+       "z0": 0.0,
+       "z1": 2.6
+      },
+      {
+       "kind": "opening",
+       "x": -8.827,
+       "y": 1.279,
+       "a": 0.0459,
+       "l": 0.777,
+       "z0": 0.0,
+       "z1": 2.16
+      },
+      {
+       "kind": "opening",
+       "x": -2.758,
+       "y": 1.507,
+       "a": 0.0246,
+       "l": 1.251,
+       "z0": 0.0,
+       "z1": 2.48
+      }
+     ],
+     "objects": [
+      {
+       "x": -11.421,
+       "y": -2.099,
+       "a": 0.6908,
+       "l": 2.823,
+       "t": 2.711,
+       "z0": 0.0,
+       "z1": 0.771
+      },
+      {
+       "x": -1.03,
+       "y": 2.248,
+       "a": -0.1942,
+       "l": 1.691,
+       "t": 0.917,
+       "z0": 0.0,
+       "z1": 1.852
+      },
+      {
+       "x": -4.197,
+       "y": -1.314,
+       "a": -1.1585,
+       "l": 3.159,
+       "t": 2.111,
+       "z0": 0.0,
+       "z1": 0.873
+      },
+      {
+       "x": -7.933,
+       "y": -2.006,
+       "a": 1.2193,
+       "l": 0.669,
+       "t": 0.474,
+       "z0": 1.441,
+       "z1": 1.921
+      },
+      {
+       "x": 1.208,
+       "y": 1.156,
+       "a": -0.7143,
+       "l": 1.301,
+       "t": 1.299,
+       "z0": 0.0,
+       "z1": 1.874
+      },
+      {
+       "x": -8.744,
+       "y": -1.015,
+       "a": -0.4061,
+       "l": 2.008,
+       "t": 1.484,
+       "z0": 0.0,
+       "z1": 0.659
+      },
+      {
+       "x": 1.603,
+       "y": -1.038,
+       "a": 1.1862,
+       "l": 0.854,
+       "t": 0.649,
+       "z0": 1.934,
+       "z1": 2.578
+      },
+      {
+       "x": 1.653,
+       "y": -2.374,
+       "a": 1.4055,
+       "l": 1.814,
+       "t": 0.745,
+       "z0": 1.392,
+       "z1": 2.541
+      },
+      {
+       "x": 1.401,
+       "y": -1.086,
+       "a": 0.876,
+       "l": 0.994,
+       "t": 0.99,
+       "z0": 0.0,
+       "z1": 1.012
+      },
+      {
+       "x": -0.817,
+       "y": 4.318,
+       "a": -0.6775,
+       "l": 0.746,
+       "t": 0.741,
+       "z0": 0.0,
+       "z1": 0.954
+      },
+      {
+       "x": -7.505,
+       "y": -1.021,
+       "a": 1.055,
+       "l": 1.071,
+       "t": 0.962,
+       "z0": 0.0,
+       "z1": 0.907
+      },
+      {
+       "x": -2.379,
+       "y": -2.895,
+       "a": 0.5987,
+       "l": 1.226,
+       "t": 1.095,
+       "z0": 0.0,
+       "z1": 1.037
+      },
+      {
+       "x": -0.864,
+       "y": 5.327,
+       "a": -0.6775,
+       "l": 0.746,
+       "t": 0.741,
+       "z0": 0.0,
+       "z1": 0.954
+      },
+      {
+       "x": -6.435,
+       "y": 4.784,
+       "a": -0.7307,
+       "l": 1.062,
+       "t": 1.062,
+       "z0": 0.0,
+       "z1": 0.617
+      },
+      {
+       "x": -8.063,
+       "y": -2.905,
+       "a": 1.0024,
+       "l": 1.03,
+       "t": 0.968,
+       "z0": 0.0,
+       "z1": 1.022
+      },
+      {
+       "x": -1.252,
+       "y": -0.874,
+       "a": -0.7267,
+       "l": 0.827,
+       "t": 0.82,
+       "z0": 0.0,
+       "z1": 1.082
+      },
+      {
+       "x": -0.317,
+       "y": 3.92,
+       "a": 0.8933,
+       "l": 0.746,
+       "t": 0.741,
+       "z0": 0.0,
+       "z1": 0.954
+      },
+      {
+       "x": -8.189,
+       "y": -2.016,
+       "a": 0.6478,
+       "l": 0.819,
+       "t": 0.767,
+       "z0": 0.0,
+       "z1": 0.928
+      },
+      {
+       "x": 1.224,
+       "y": 2.162,
+       "a": 1.0016,
+       "l": 1.072,
+       "t": 1.011,
+       "z0": 0.0,
+       "z1": 0.983
+      },
+      {
+       "x": -3.993,
+       "y": 7.171,
+       "a": -0.2993,
+       "l": 1.395,
+       "t": 1.395,
+       "z0": 0.0,
+       "z1": 0.95
+      },
+      {
+       "x": -4.198,
+       "y": 5.354,
+       "a": -1.4046,
+       "l": 1.279,
+       "t": 1.278,
+       "z0": 0.0,
+       "z1": 0.896
+      },
+      {
+       "x": -0.716,
+       "y": -0.878,
+       "a": -1.1288,
+       "l": 2.901,
+       "t": 2.267,
+       "z0": 0.0,
+       "z1": 1.03
+      },
+      {
+       "x": 1.49,
+       "y": -2.351,
+       "a": 1.2445,
+       "l": 1.934,
+       "t": 1.312,
+       "z0": 0.0,
+       "z1": 1.012
+      },
+      {
+       "x": 0.489,
+       "y": -4.779,
+       "a": -0.6507,
+       "l": 1.703,
+       "t": 1.677,
+       "z0": 0.0,
+       "z1": 0.894
+      },
+      {
+       "x": 1.401,
+       "y": -1.086,
+       "a": 0.876,
+       "l": 0.994,
+       "t": 0.99,
+       "z0": 1.012,
+       "z1": 1.112
+      },
+      {
+       "x": 0.894,
+       "y": -3.646,
+       "a": -1.3473,
+       "l": 0.769,
+       "t": 0.768,
+       "z0": 0.0,
+       "z1": 0.954
+      },
+      {
+       "x": 1.37,
+       "y": -0.044,
+       "a": -1.0303,
+       "l": 1.537,
+       "t": 1.283,
+       "z0": 0.0,
+       "z1": 1.012
+      },
+      {
+       "x": 1.557,
+       "y": 0.019,
+       "a": 1.3549,
+       "l": 1.348,
+       "t": 0.675,
+       "z0": 1.419,
+       "z1": 2.577
+      },
+      {
+       "x": -8.021,
+       "y": -2.923,
+       "a": -0.7746,
+       "l": 0.656,
+       "t": 0.655,
+       "z0": 0.791,
+       "z1": 1.022
+      },
+      {
+       "x": -0.599,
+       "y": -5.031,
+       "a": -0.9969,
+       "l": 0.783,
+       "t": 0.777,
+       "z0": 0.0,
+       "z1": 0.876
+      },
+      {
+       "x": -7.392,
+       "y": 4.199,
+       "a": -1.1826,
+       "l": 2.11,
+       "t": 1.384,
+       "z0": 0.0,
+       "z1": 0.757
+      },
+      {
+       "x": 1.506,
+       "y": 1.168,
+       "a": -1.2182,
+       "l": 1.148,
+       "t": 0.66,
+       "z0": 1.869,
+       "z1": 2.594
+      },
+      {
+       "x": -0.068,
+       "y": 6.649,
+       "a": 0.2532,
+       "l": 1.77,
+       "t": 0.711,
+       "z0": 0.0,
+       "z1": 0.85
+      },
+      {
+       "x": -4.588,
+       "y": 3.71,
+       "a": 0.5187,
+       "l": 2.319,
+       "t": 1.879,
+       "z0": 0.0,
+       "z1": 1.699
+      },
+      {
+       "x": -12.478,
+       "y": -3.388,
+       "a": 0.8294,
+       "l": 0.844,
+       "t": 0.844,
+       "z0": 0.0,
+       "z1": 0.773
+      },
+      {
+       "x": -1.773,
+       "y": -0.602,
+       "a": -0.2909,
+       "l": 0.866,
+       "t": 0.866,
+       "z0": 0.0,
+       "z1": 1.014
+      },
+      {
+       "x": -6.526,
+       "y": 6.362,
+       "a": 1.1967,
+       "l": 2.896,
+       "t": 2.14,
+       "z0": 0.0,
+       "z1": 0.988
+      },
+      {
+       "x": -0.018,
+       "y": -3.869,
+       "a": 1.0962,
+       "l": 0.776,
+       "t": 0.775,
+       "z0": 0.0,
+       "z1": 0.926
+      },
+      {
+       "x": -0.36,
+       "y": 4.845,
+       "a": -1.0143,
+       "l": 2.314,
+       "t": 1.972,
+       "z0": 0.0,
+       "z1": 0.843
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

@@ -36,18 +36,26 @@ Follow inbox-service/README.md for the loopback backend on port8793.
 Local API mapping applies only on localhost/127.0.0.1.
 
 Run node --test site.test.mjs public-status.test.mjs project-assistant.test.mjs
-inbox-client.test.mjs inbox-service/backend.test.mjs as one command.
+inbox-client.test.mjs inbox-service/backend.test.mjs infra/tools/infra.test.mjs
+as one command.
 
 GitHub verification runs tests plus backend build/artifact validation.
 Existing gated tardbot and protected archive markup/controller remain
-separate; no private content is published.
+separate.
 
-## Portfolio and lab
+## Portfolio, lab, and Ops
 
 Perfect Timing uses a real public screenshot and request-flow copy.
-SPOTTED is labeled as a marketplace prototype. Home Assistant is personal;
-Manasa Globe remains protected. Automotive requests route to Perfect Timing.
+SPOTTED is labeled as a marketplace prototype. Home Assistant is a featured
+public project. Manasa Globe remains protected. Automotive requests route
+to Perfect Timing.
 
-The optional lab remains disconnected without an approved sanitized public
-summary. It polls only while expanded and visible, clears stale/failed values,
-and never contacts private infrastructure directly.
+The optional Lab telemetry panel on the homepage still reads only an approved
+same-origin summary. It polls only while expanded and visible, clears
+stale or failed values, and never calls Proxmox or Home Assistant APIs
+directly.
+
+The public Ops dashboard at /infra/ is a static snapshot. On Nov 16, 2026,
+Raj approved publishing it, including LAN IPs, tailnet names, host status,
+and the 3D house model. Keep tokens, keys, lead personal data, street
+addresses, and John's or Tony's location off the page.

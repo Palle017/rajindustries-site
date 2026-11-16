@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, statSync } from "node:fs";
 import { Script } from "node:vm";
 
 const html = readFileSync(new URL("./index.html", import.meta.url), "utf8");
@@ -27,7 +27,12 @@ test("all local script, stylesheet and image resources exist", () => {
   const references = [...html.matchAll(/(?:src|href)="([^"#]+)"/g)]
     .map(match => match[1]).filter(value => !/^(?:https?:|data:)/.test(value));
   for (const reference of references) {
-    assert.doesNotThrow(() => readFileSync(new URL(reference, import.meta.url)), reference);
+    const url = new URL(reference, import.meta.url);
+    if (reference.endsWith("/")) {
+      assert.ok(statSync(url).isDirectory(), reference);
+    } else {
+      assert.doesNotThrow(() => readFileSync(url), reference);
+    }
   }
 });
 

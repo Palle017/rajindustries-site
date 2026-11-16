@@ -1,5 +1,9 @@
-// The public page reads only an approved, same-origin summary. It never calls
-// Proxmox or Home Assistant directly. No summary feed is activated by this file.
+// The homepage Lab telemetry panel reads only an approved, same-origin summary.
+// It never calls Proxmox or Home Assistant APIs directly. No summary feed is
+// activated by this file.
+// The public Ops dashboard at /infra/ is a separate static snapshot. On
+// Nov 16, 2026, Raj approved publishing it, including LAN IPs, tailnet names,
+// host status, and the 3D house model.
 export const MAX_AGE_MS = 15 * 60 * 1000;
 export const POLL_MS = 60 * 1000;
 const REQUEST_TIMEOUT_MS = 10 * 1000;

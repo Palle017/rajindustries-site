@@ -157,15 +157,17 @@
 
     <section id="openclaw" aria-labelledby="openclaw-title">
       <div class="section-head"><div><h2 id="openclaw-title">OpenClaw</h2></div><p>Provider-agnostic AI infrastructure.</p></div>
-      <p class="openclaw-copy">An orchestrator routes each task to the right local or cloud model, then to agents and tools. Local compute runs on a Proxmox host. Frontier cloud models join the same path. The gateway began as openclaw-gw and now lives on Serv2-Linux. Companion nodes on Windows machines, Home Assistant, and other workshop tools share that lab.</p>
+      <p class="openclaw-copy">An orchestrator routes each task to the right local or cloud model, then to agents and tools. Local compute runs on a Proxmox host. Frontier cloud models join the same path. Raj built the gateway himself and runs it as the single hub on his own server. Companion nodes on Windows machines, Home Assistant, and other workshop tools share that lab.</p>
       <figure class="openclaw-diagram"><img src="assets/openclaw-infra.svg" alt="OpenClaw flow: orchestrator to router, then local models and cloud frontier models, then agents and tools" width="400" height="420" loading="lazy" decoding="async"><figcaption>Orchestrator, router, local and cloud models, then agents and tools.</figcaption></figure>
       <div class="openclaw-timeline">
         <h3>Built by Raj</h3>
         <ol>
           <li><time datetime="2026-10-18">Oct 18, 2026</time> First OpenClaw gateway.</li>
-          <li><time datetime="2026-10">Oct 2026</time> Moved to a Proxmox Ubuntu VM as openclaw-gw.</li>
-          <li><time datetime="2026-10-22">Oct 22–23, 2026</time> Renamed Serv2-Linux, the one live gateway.</li>
+          <li><time datetime="2026-10">Oct 2026</time> Moved to a Proxmox Ubuntu VM.</li>
+          <li><time datetime="2026-10-22">Oct 22–23, 2026</time> Consolidated into one live gateway on Proxmox.</li>
+          <li><time datetime="2026-10">Oct 2026</time> Companion nodes on Windows machines.</li>
           <li><time datetime="2026-10">Late Oct 2026</time> Home Assistant connected to OpenClaw.</li>
+          <li><time datetime="2026-10">Late Oct 2026</time> Multiple coding and ops agents coordinated by an orchestrator.</li>
         </ol>
       </div>
     </section>

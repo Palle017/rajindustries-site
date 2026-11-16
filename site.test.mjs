@@ -77,4 +77,5 @@ test("OpenClaw copy has no private network details, vendor names, or numeric cla
   assert.doesNotMatch(section, /ts\.net|:18789|:8006|:8123/i);
   assert.doesNotMatch(section, /OpenAI|Anthropic|Claude|GPT-|Llama|Ollama|Gemini|Mistral|xAI|Grok|Codex/i);
   assert.doesNotMatch(section, /GPU|benchmark|token/i);
+  assert.doesNotMatch(section, /openclaw-gw|serv2/i);
 });

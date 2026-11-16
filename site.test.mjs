@@ -66,6 +66,8 @@ test("OpenClaw is a flagship section with a local diagram and a Built by Raj tim
   assert.ok(html.indexOf('id="projects"') < html.indexOf('id="services"'));
   assert.match(html, /Provider-agnostic AI infrastructure/);
   assert.match(html, /<h3>Built by Raj<\/h3>/);
+  assert.match(html, /<time datetime="2026-01">Jan 2026<\/time> First OpenClaw gateway./);
+  assert.doesNotMatch(html, /2026-10-18|Oct 18, 2026/);
   assert.match(html, /src="assets\/openclaw-infra.svg"/);
   assert.match(html, /id="infrastructure"[\s\S]*OpenClaw/);
   assert.match(html, /href="#openclaw"/);

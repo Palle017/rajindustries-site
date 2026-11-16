@@ -158,6 +158,7 @@
     <section id="openclaw" aria-labelledby="openclaw-title">
       <div class="section-head"><div><h2 id="openclaw-title">OpenClaw</h2></div><p>Provider-agnostic AI infrastructure.</p></div>
       <p class="openclaw-copy">An orchestrator routes each task to the right local or cloud model, then to agents and tools. Local compute runs on a Proxmox host. Frontier cloud models join the same path. Raj built the gateway himself and runs it as the single hub on his own server. Companion nodes on Windows machines, Home Assistant, and other workshop tools share that lab.</p>
+      <div class="openclaw-board">
       <figure class="openclaw-diagram"><img src="assets/openclaw-infra.svg" alt="OpenClaw flow: orchestrator to router, then local models and cloud frontier models, then agents and tools" width="400" height="420" loading="lazy" decoding="async"><figcaption>Orchestrator, router, local and cloud models, then agents and tools.</figcaption></figure>
       <div class="openclaw-timeline">
         <h3>Built by Raj</h3>
@@ -169,6 +170,7 @@
           <li><time datetime="2026-10">Late Oct 2026</time> Home Assistant connected to OpenClaw.</li>
           <li><time datetime="2026-10">Late Oct 2026</time> Multiple coding and ops agents coordinated by an orchestrator.</li>
         </ol>
+      </div>
       </div>
     </section>
 
@@ -214,6 +216,12 @@
 
     <section id="infrastructure" aria-labelledby="infrastructure-title">
       <div class="section-head"><div><h2 id="infrastructure-title">Lab</h2></div><p>OpenClaw, local AI, Linux, Proxmox, and Home Assistant.</p></div>
+      <ul class="lab-stack">
+        <li>OpenClaw</li>
+        <li>Proxmox</li>
+        <li>Home Assistant</li>
+        <li>Linux</li>
+      </ul>
       <details class="lab-details" id="labDetails" hidden><summary>View public server status <span>Optional read-only summary</span></summary><div class="infra">
         <div class="feed" role="status" aria-live="polite"><span class="dot" id="feedDot" aria-hidden="true"></span><span id="feedState">Public telemetry not connected</span></div>
         <div class="metrics">

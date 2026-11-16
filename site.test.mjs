@@ -91,3 +91,15 @@ test("Home Assistant is a featured Work project with a local visual and source l
   assert.ok(!html.includes("13037 Second St"));
   assert.doesNotMatch(html, /North Fort Myers/i);
 });
+
+test("Lab shows a visible stack and OpenClaw uses a two-part board layout", () => {
+  const lab = html.match(/<section id="infrastructure"[^>]*>([\s\S]*?)<\/section>/)[1];
+  assert.match(lab, /class="lab-stack"/);
+  assert.match(lab, /<li>OpenClaw<\/li>/);
+  assert.match(lab, /<li>Proxmox<\/li>/);
+  assert.match(lab, /<li>Home Assistant<\/li>/);
+  assert.match(lab, /<li>Linux<\/li>/);
+  assert.match(html, /class="openclaw-board"/);
+  assert.match(html, /id="labDetails"/);
+  assert.equal((html.match(/data-project-assistant/g) || []).length, 3);
+});
